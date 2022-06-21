@@ -1,0 +1,18 @@
+﻿[
+  {
+    "Name": "Lifedrain",
+    "ManaCost": 0,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
+        "HealAmount": 15,
+        "Phase": 3
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "Damage": 10,
+        "Phase": 4
+      }
+    ]
+  }
+]
