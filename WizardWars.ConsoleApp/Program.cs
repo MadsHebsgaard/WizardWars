@@ -20,13 +20,23 @@ public static class Program
 		var wizard1 = new Wizard(firstPlayerName);
 		var wizard2 = new Wizard(secondPlayerName);
 
-		while (true)
+		while (wizard1.Health>=0 && wizard2.Health>=0)
 		{
 			var p1 = new SpellTarget(wizard1, spellsFromJson.First(), wizard2);
 			var p2 = new SpellTarget(wizard2, spellsFromJson.First(), wizard1);
 			var turn = new Turn(p1, p2);
-
-			// who won?
+		}
+		if (wizard1.Health>0)
+        {
+			Console.WriteLine(wizard1.Name + " killed " + wizard2.Name + " and won the Duel!");
+        }
+		else if (wizard2.Health>0)
+        {
+			Console.WriteLine(wizard2.Name + " murdered " + wizard1.Name + " and won the Duel!");
+		}
+		else
+        {
+			Console.WriteLine(wizard1.Name + " and " + wizard2.Name + " killed each other and the Duel is lost for both but their honors remain intact!");
 		}
 	}
 
@@ -47,6 +57,13 @@ public static class Program
 		return input;
 	}
 	
+
+
+
+
+
+
+
 	// private static void GenerateSampleSpellJson()
 	// {
 	// 	var spells = new List<Spell>
