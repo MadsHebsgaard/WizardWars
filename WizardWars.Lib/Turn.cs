@@ -19,6 +19,12 @@ public class Turn
 			{
 				FirstPlayerSpell.Spell.ApplyEffects(phase, FirstPlayerSpell.Target);
 			}
+
+			if (SecondPlayerSpell.Continue)
+			{
+				SecondPlayerSpell.Spell.ApplyEffects(phase, SecondPlayerSpell.Target);
+			}
+			if(FirstPlayerSpell.Caster.Health<=0 || SecondPlayerSpell.Caster.Health <= 0) { return; }
 		}
 	}
 }
