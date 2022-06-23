@@ -17,9 +17,10 @@ public class SpectreConsoleUserInterface : IUserInterface
 		table.AddColumn("Name");
 		table.AddColumn("Health");
 		table.AddColumn("Mana");
+		table.AddColumn("Knowledge");
 
-		table.AddRow(wizard1.Name, $"[red]{wizard1.Health}[/]", $"[blue]{wizard1.Mana}[/]");
-		table.AddRow(wizard2.Name, $"[red]{wizard2.Health}[/]", $"[blue]{wizard2.Mana}[/]");
+		table.AddRow(wizard1.Name, $"[red]{wizard1.Health}[/]", $"[blue]{wizard1.Mana}[/]", $"[green]{wizard1.Knowledge}[/]");
+		table.AddRow(wizard2.Name, $"[red]{wizard2.Health}[/]", $"[blue]{wizard2.Mana}[/]", $"[green]{wizard2.Knowledge}[/]");
 
 		AnsiConsole.Write(table);
 	}

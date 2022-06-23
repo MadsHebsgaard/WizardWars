@@ -1,7 +1,8 @@
 ﻿[
   {
     "Name": "Lifedrain",
-    "ManaCost": 5,
+    "ManaCost": 3,
+    "KnowledgeCost": 4,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LifestealEffect, WizardWars.Lib",
@@ -13,6 +14,7 @@
   {
     "Name": "Heal",
     "ManaCost": 5,
+    "KnowledgeCost": 4,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
@@ -24,6 +26,7 @@
   {
     "Name": "Fireball",
     "ManaCost": 5,
+    "KnowledgeCost": 5,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
@@ -39,6 +42,17 @@
       {
         "$type": "WizardWars.Lib.Effects.ManaEffect, WizardWars.Lib",
         "ManaAmount": 3,
+        "Phase": 1
+      }
+    ]
+  },
+  {
+    "Name": "Study",
+    "ManaCost": 0,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.KnowledgeEffect, WizardWars.Lib",
+        "KnowledgeAmount": 2,
         "Phase": 1
       }
     ]
