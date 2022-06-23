@@ -4,7 +4,7 @@ public class CounterEffect : Effect
 {
 	// TODO: needs work!
 	
-	public override void Apply(Wizard target, Wizard wizard)
+	public override void Apply(Wizard caster, Wizard target)
 	{
 		//target.continue = false;
 	}

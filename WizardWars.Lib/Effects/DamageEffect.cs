@@ -4,7 +4,7 @@ public class DamageEffect : Effect
 {
 	public int DamageAmount { get; set; }
 
-	public override void Apply(Wizard target, Wizard wizard)
+	public override void Apply(Wizard caster, Wizard target)
 	{
 		target.Health -= DamageAmount;
 	}
