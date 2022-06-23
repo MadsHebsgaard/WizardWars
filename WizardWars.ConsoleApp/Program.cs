@@ -12,12 +12,14 @@ public static class Program
 
 	public static void Main()
 	{
+		IUserInterface userInterface = new ConsoleUserInterface();
+		
 		//Spell setup
-		var spellsFromJson = ReadFromJson<IEnumerable<Spell>>("spells.json");
+		var spellsFromJson = ReadFromJson<IEnumerable<Spell>>("spells.json").ToList();
 
 		//Wizard setup
-		var firstPlayerName = GetInputString("Enter first player name: ");
-		var secondPlayerName = GetInputString("Enter second player name: ");
+		var firstPlayerName = userInterface.GetPromptedText("Enter first player name: ");
+		var secondPlayerName = userInterface.GetPromptedText("Enter second player name: ");
 		var wizard1 = new Wizard(firstPlayerName);
 		var wizard2 = new Wizard(secondPlayerName);
 
@@ -31,43 +33,39 @@ public static class Program
 
 			Console.WriteLine("Turn: " + turnNumber);
 			Console.WriteLine(" ------------------------------  ");
-			Stats(wizard1, wizard2);
+			userInterface.DisplayStats(wizard1, wizard2);
 
+			var player1Spell = userInterface.UserPicksSpell(wizard1, spellsFromJson);
+			var player1Target = userInterface.UserPicksTarget();
+			var p1Target = player1Target == Target.Self ? wizard1 : wizard2;
 
-			var firstPlayerSpellString = GetInputString("\nEnter your spell: ");
-			var player1TargetString = GetInputString("\nTarget 's'elf or 'e'nemie: ");
-			var p1target = player1TargetString == "s" ? wizard1 : wizard2;
-
-
-			var secondPlayerSpellString = GetInputString("Enter your spell: ");
-			var player2TargetString = GetInputString("\nTarget 's'elf or 'e'nemie: ");
-			var p2target = player2TargetString == "s" ? wizard2 : wizard1;
-
+			var player2Spell = userInterface.UserPicksSpell(wizard2, spellsFromJson);
+			var player2Target = userInterface.UserPicksTarget();
+			var p2Target = player2Target == Target.Self ? wizard2 : wizard1;
 
 			Console.WriteLine();
 
 			//Need to understand this!
-			var p1 = new SpellTarget(wizard1, spellsFromJson.First(x => x.Name.Equals(firstPlayerSpellString, StringComparison.OrdinalIgnoreCase)), p1target);
-			var p2 = new SpellTarget(wizard2, spellsFromJson.First(x => x.Name.Equals(secondPlayerSpellString, StringComparison.OrdinalIgnoreCase)), p2target);
+			var p1 = new SpellTarget(wizard1, player1Spell, p1Target);
+			var p2 = new SpellTarget(wizard2, player2Spell, p2Target);
 			var turn = new Turn(p1, p2);
 
 			turn.Execute();
-
-			//var turn = new Turn(SpellTarget(wizard1, spellsFromJson.First(), wizard2), SpellTarget(wizard2, spellsFromJson.First(), wizard1));
 
 			//Show events and status.
 			Console.WriteLine(wizard1.Name + " used " + spellsFromJson.First().Name + " at " + wizard2.Name);
 			Console.WriteLine(wizard2.Name + " used " + spellsFromJson.First().Name + " at " + wizard1.Name + "\n");
 
-			Stats(wizard1, wizard2);
-
+			userInterface.DisplayStats(wizard1, wizard2);
+			
 			Console.WriteLine(" ------------------------------ ");
+			
+			// TODO: show regen effects
 
 			wizard1.Health += wizard1.HealthRegen;
 			wizard2.Health += wizard1.HealthRegen;
 			wizard1.Mana += wizard1.ManaRegen;
 			wizard2.Mana += wizard1.ManaRegen;
-
 		}
 
 		//Text after duel is over:
@@ -96,30 +94,6 @@ public static class Program
 	{
 		return JsonConvert.DeserializeObject<T>(File.ReadAllText(filename), _jsonSerializerSettings);
 	}
-
-	private static string GetInputString(string prompt)
-	{
-		string? input;
-		do
-		{
-			Console.Write(prompt);
-			input = Console.ReadLine();
-		} while (string.IsNullOrWhiteSpace(input));
-
-		return input;
-	}
-
-
-	public static void Stats(Wizard wizard1, Wizard wizard2)
-	{
-		int s;
-		s = Math.Max(wizard1.Name.Length, wizard2.Name.Length);
-		
-		Console.WriteLine(wizard1.Name.PadRight(s) + ": Hp = " + wizard1.Health + "  Mana = " + wizard1.Mana);
-		Console.WriteLine(wizard2.Name.PadRight(s) + ": Hp = " + wizard2.Health + "  Mana = " + wizard2.Mana);
-	}
-
-
 
 	// private static void GenerateSampleSpellJson()
 	// {

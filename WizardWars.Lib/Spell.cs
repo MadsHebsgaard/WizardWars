@@ -7,7 +7,7 @@ public class Spell
 	public string Name { get; set; }
 	public int ManaCost { get; set; }
 
-	public List<Effect> Effects { get; set; }
+	public List<Effect> Effects { get; set; } = new();
 
 	public void ApplyEffects(SpellPhase phase, Wizard target)
 	{
