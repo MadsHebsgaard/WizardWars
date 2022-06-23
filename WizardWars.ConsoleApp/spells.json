@@ -1,21 +1,38 @@
 ﻿[
   {
     "Name": "Lifedrain",
-    "ManaCost": 0,
+    "ManaCost": 5,
     "Effects": [
       {
-        "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
-        "HealAmount": 10,
-        "Phase": 4
-      },
-      {
-        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "$type": "WizardWars.Lib.Effects.LifestealEffect, WizardWars.Lib",
         "DamageAmount": 10,
         "Phase": 3
       }
     ]
   },
   {
-    "Name": "Heal"
+    "Name": "Heal",
+    "ManaCost": 5,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
+        "HealAmount": 30,
+        "Phase": 3
+      }
+    ]
+  },
+  {
+    "Name": "Fireball",
+    "ManaCost": 5,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "DamageAmount": 35,
+        "Phase": 4
+      }
+    ]
+  },
+  {
+    "Name": "Nothing"
   }
 ]
