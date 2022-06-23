@@ -42,4 +42,9 @@ public class SpectreConsoleUserInterface : IUserInterface
 			.UseConverter(x => x.ToString())
 			.AddChoices(Enum.GetValues<Target>()));
 	}
+
+	public void DisplaySpellCastInformation(SpellTarget spellTarget)
+	{
+		Console.WriteLine(spellTarget.Caster.Name + " used " + spellTarget.Spell.Name + " at " + spellTarget.Target.Name);
+	}
 }
