@@ -5,7 +5,7 @@
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LifestealEffect, WizardWars.Lib",
-        "DamageAmount": 10,
+        "LifestealAmount": 10,
         "Phase": 3
       }
     ]
