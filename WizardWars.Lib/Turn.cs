@@ -13,7 +13,7 @@ public class Turn
 
 	public void Execute()
 	{
-		foreach (var phase in Enum.GetValues<SpellPhase>())
+		foreach (var phase in Enum.GetValues<SpellPhase>().Skip(1))
 		{
 			if (FirstPlayerSpell.Continue)  //Continue is a bool that I think should be true untill told otherwise
 			{

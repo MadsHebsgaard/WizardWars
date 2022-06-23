@@ -2,6 +2,7 @@
 
 public enum SpellPhase
 {
+	Zero,
 	One,
 	Two,
 	Three,
