@@ -28,7 +28,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 	{
 		var spell = AnsiConsole.Prompt(
 			new SelectionPrompt<Spell>()
-				.Title("Select your spell!")
+				.Title(wizard.Name+", select your spell!")
 				.UseConverter(x => x.Name)
 				.AddChoices(spells));
 
