@@ -44,7 +44,10 @@ public static class Program
 			Console.WriteLine("Learn spells now:");
 			var p1NewSpell = userInterface.UserPicksSpell(wizard1, p1UknownSpells.Where(x => x.KnowledgeCost <= wizard1.Knowledge).ToList());
 			var p2NewSpell = userInterface.UserPicksSpell(wizard2, p2UknownSpells.Where(x => x.KnowledgeCost <= wizard2.Knowledge).ToList());
-			
+
+			//Add p1NewSpell to p1SpellList and remove it from p1UknownSpells
+			//The same for wizard2
+
 			wizard1.Knowledge -= p1NewSpell.KnowledgeCost;
 			wizard2.Knowledge -= p2NewSpell.KnowledgeCost;
 
