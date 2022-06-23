@@ -6,11 +6,11 @@
       {
         "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
         "HealAmount": 10,
-        "Phase": 3
+        "Phase": 4
       },
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
-        "Damage": 10,
+        "DamageAmount": 10,
         "Phase": 3
       }
     ]
