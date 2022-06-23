@@ -33,14 +33,25 @@ public static class Program
 			Console.WriteLine(" ------------------------------  ");
 			Stats(wizard1, wizard2);
 
+
 			var firstPlayerSpellString = GetInputString("\nEnter your spell: ");
+			var player1TargetString = GetInputString("\nTarget 's'elf or 'e'nemie: ");
+			var p1target = player1TargetString == "s" ? wizard1 : wizard2;
+
+
 			var secondPlayerSpellString = GetInputString("Enter your spell: ");
+			var player2TargetString = GetInputString("\nTarget 's'elf or 'e'nemie: ");
+			var p2target = player2TargetString == "s" ? wizard2 : wizard1;
+
+
 			Console.WriteLine();
 
 			//Need to understand this!
-			var p1 = new SpellTarget(wizard1, spellsFromJson.First(), wizard2);
-			var p2 = new SpellTarget(wizard2, spellsFromJson.First(), wizard1);
+			var p1 = new SpellTarget(wizard1, spellsFromJson.First(x => x.Name.Equals(firstPlayerSpellString, StringComparison.OrdinalIgnoreCase)), p1target);
+			var p2 = new SpellTarget(wizard2, spellsFromJson.First(x => x.Name.Equals(secondPlayerSpellString, StringComparison.OrdinalIgnoreCase)), p2target);
 			var turn = new Turn(p1, p2);
+
+			turn.Execute();
 
 			//var turn = new Turn(SpellTarget(wizard1, spellsFromJson.First(), wizard2), SpellTarget(wizard2, spellsFromJson.First(), wizard1));
 
@@ -49,7 +60,6 @@ public static class Program
 			Console.WriteLine(wizard2.Name + " used " + spellsFromJson.First().Name + " at " + wizard1.Name + "\n");
 
 			Stats(wizard1, wizard2);
-
 
 			Console.WriteLine(" ------------------------------ ");
 
