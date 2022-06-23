@@ -12,7 +12,7 @@ public static class Program
 
 	public static void Main()
 	{
-		IUserInterface userInterface = new ConsoleUserInterface();
+		IUserInterface userInterface = new SpectreConsoleUserInterface();
 		
 		//Spell setup
 		var spellsFromJson = ReadFromJson<IEnumerable<Spell>>("spells.json").ToList();
@@ -22,7 +22,7 @@ public static class Program
 		var secondPlayerName = userInterface.GetPromptedText("Enter second player name: ");
 		var wizard1 = new Wizard(firstPlayerName);
 		var wizard2 = new Wizard(secondPlayerName);
-
+		
 		//Duel setup
 		Console.WriteLine("\n ------------------------------  ");
 		int maxTurns = 100;
