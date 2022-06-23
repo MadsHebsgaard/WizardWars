@@ -3,5 +3,5 @@
 public abstract class Effect
 {
 	public SpellPhase Phase { get; set; }
-	public abstract void Apply(Wizard target);
+	public abstract void Apply(Wizard caster, Wizard target);
 }

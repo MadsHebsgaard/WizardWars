@@ -4,7 +4,7 @@ public class ManaRegenEffect : Effect
 {
 	public int ManaRegen { get; set; }
 
-	public override void Apply(Wizard target)
+	public override void Apply(Wizard target, Wizard wizard)
 	{
 		target.ManaRegen += ManaRegen;
 	}
