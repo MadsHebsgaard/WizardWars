@@ -15,7 +15,7 @@ public class Turn
 	{
 		foreach (var phase in Enum.GetValues<SpellPhase>())
 		{
-			if (FirstPlayerSpell.Continue)
+			if (FirstPlayerSpell.Continue)  //Continue is a bool that I think should be true untill told otherwise
 			{
 				FirstPlayerSpell.Spell.ApplyEffects(phase, FirstPlayerSpell.Target);
 			}

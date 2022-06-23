@@ -2,10 +2,10 @@
 
 public class DamageEffect : Effect
 {
-	public int Damage { get; set; }
+	public int DamageAmount { get; set; }
 
 	public override void Apply(Wizard target)
 	{
-		target.Health -= Damage;
+		target.Health -= DamageAmount;
 	}
 }
