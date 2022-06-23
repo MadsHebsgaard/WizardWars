@@ -35,21 +35,27 @@ public static class Program
 			Console.WriteLine(" ------------------------------  ");
 			userInterface.DisplayStats(wizard1, wizard2);
 
-			var player1Spell = userInterface.UserPicksSpell(wizard1, spellsFromJson);
+			var player1Spell = userInterface.UserPicksSpell(wizard1, spellsFromJson.Where(x => x.ManaCost <= wizard1.Mana).ToList());
+
 			var player1Target = userInterface.UserPicksTarget();
 			var p1Target = player1Target == Target.Self ? wizard1 : wizard2;
+			var p1 = new SpellTarget(wizard1, player1Spell, p1Target);
 
-			var player2Spell = userInterface.UserPicksSpell(wizard2, spellsFromJson);
+			var player2Spell = userInterface.UserPicksSpell(wizard2, spellsFromJson.Where(x => x.ManaCost <= wizard2.Mana).ToList());
 			var player2Target = userInterface.UserPicksTarget();
 			var p2Target = player2Target == Target.Self ? wizard2 : wizard1;
+			var p2 = new SpellTarget(wizard2, player2Spell, p2Target);
+
 
 			Console.WriteLine();
-
-			var p1 = new SpellTarget(wizard1, player1Spell, p1Target);
-			var p2 = new SpellTarget(wizard2, player2Spell, p2Target);
 			var turn = new Turn(p1, p2);
-
 			turn.Execute();
+
+			wizard1.Mana -= player1Spell.ManaCost;
+			wizard2.Mana -= player2Spell.ManaCost;
+			//if (player1Spell.ManaCost <= wizard1.Mana)
+
+
 
 			//Show events and status.
 			Console.WriteLine(wizard1.Name + " used " + spellsFromJson.First().Name + " at " + wizard2.Name);

@@ -18,20 +18,19 @@ public class SpectreConsoleUserInterface : IUserInterface
 		table.AddColumn("Health");
 		table.AddColumn("Mana");
 
-		table.AddRow(wizard1.Name, $"[red]{wizard1.Health}[/]", wizard1.Mana.ToString());
-		table.AddRow(wizard2.Name, $"[red]{wizard2.Health}[/]", wizard2.Mana.ToString());
+		table.AddRow(wizard1.Name, $"[red]{wizard1.Health}[/]", $"[blue]{wizard1.Mana}[/]");
+		table.AddRow(wizard2.Name, $"[red]{wizard2.Health}[/]", $"[blue]{wizard2.Mana}[/]");
 
 		AnsiConsole.Write(table);
 	}
 
 	public Spell UserPicksSpell(Wizard wizard, List<Spell> spells)
 	{
-		var spell = AnsiConsole.Prompt(
-			new SelectionPrompt<Spell>()
-				.Title(wizard.Name+", select your spell!")
-				.UseConverter(x => x.Name)
-				.AddChoices(spells));
-
+			var spell = AnsiConsole.Prompt(
+				new SelectionPrompt<Spell>()
+					.Title(wizard.Name + ", select your spell!")
+					.UseConverter(x => x.Name)
+					.AddChoices(spells));
 		return spell;
 	}
 
