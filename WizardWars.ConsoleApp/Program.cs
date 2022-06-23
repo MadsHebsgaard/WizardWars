@@ -45,7 +45,6 @@ public static class Program
 
 			Console.WriteLine();
 
-			//Need to understand this!
 			var p1 = new SpellTarget(wizard1, player1Spell, p1Target);
 			var p2 = new SpellTarget(wizard2, player2Spell, p2Target);
 			var turn = new Turn(p1, p2);
@@ -53,10 +52,10 @@ public static class Program
 			turn.Execute();
 
 			//Show events and status.
-			userInterface.DisplaySpellCastInformation(p1);
-			userInterface.DisplaySpellCastInformation(p2);
+			Console.WriteLine(wizard1.Name + " used " + spellsFromJson.First().Name + " at " + wizard2.Name);
+			Console.WriteLine(wizard2.Name + " used " + spellsFromJson.First().Name + " at " + wizard1.Name + "\n");
 
-			userInterface.DisplayStats(wizard1, wizard2);
+			//userInterface.DisplayStats(wizard1, wizard2);
 			
 			Console.WriteLine(" ------------------------------ ");
 			
