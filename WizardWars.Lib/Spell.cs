@@ -6,7 +6,7 @@ public class Spell
 {
 	public string Name { get; set; }
 	public int ManaCost { get; set; }
-	public int KnowledgeCost { get; set; }
+	public int IQRequired { get; set; }
 
 	public List<Effect> Effects { get; set; } = new();
 

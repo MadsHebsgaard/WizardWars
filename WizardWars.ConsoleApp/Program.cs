@@ -23,13 +23,6 @@ public static class Program
 		var wizard1 = new Wizard(firstPlayerName);
 		var wizard2 = new Wizard(secondPlayerName);
 
-		//Initial Spell:
-		var p1SpellList = spellsFromJson.Where(x => x.Name == "Meditate" || x.Name == "Nothing" || x.Name == "Study").ToList();
-		var p2SpellList = p1SpellList;
-
-		var p1UknownSpells = spellsFromJson.Where(x => x.Name != "Meditate" && x.Name != "Study").ToList();
-		var p2UknownSpells = p1UknownSpells;
-
 		//var p2Spells = userInterface.UserPicksSpell(wizard2, spellsFromJson.Where(x => x.Name == "Meditate").ToList());
 
 		//Duel setup
@@ -41,19 +34,9 @@ public static class Program
 		{
 			turnNumber++;
 
-			Console.WriteLine("Learn spells now:");
-			var p1NewSpell = userInterface.UserPicksSpell(wizard1, p1UknownSpells.Where(x => x.KnowledgeCost <= wizard1.Knowledge).ToList());
-			var p2NewSpell = userInterface.UserPicksSpell(wizard2, p2UknownSpells.Where(x => x.KnowledgeCost <= wizard2.Knowledge).ToList());
-
-			//Add p1NewSpell to p1SpellList and remove it from p1UknownSpells
-			//The same for wizard2
-
-			wizard1.Knowledge -= p1NewSpell.KnowledgeCost;
-			wizard2.Knowledge -= p2NewSpell.KnowledgeCost;
-
-
-			//p1SpellList = p1SpellList.Add(p1NewSpell);
-
+			//Known spells
+			var p1SpellList = spellsFromJson.Where(x => x.IQRequired <= wizard1.IQ).ToList();
+			var p2SpellList = spellsFromJson.Where(x => x.IQRequired <= wizard2.IQ).ToList();
 
 			Console.WriteLine("Turn: " + turnNumber);
 			Console.WriteLine(" ------------------------------  ");
@@ -92,8 +75,8 @@ public static class Program
 			wizard2.Health += wizard1.HealthRegen;
 			wizard1.Mana += wizard1.ManaRegen;
 			wizard2.Mana += wizard1.ManaRegen;
-			wizard1.Knowledge++;
-			wizard1.Knowledge++;
+			wizard1.IQ += wizard1.IQRegen;
+			wizard2.IQ += wizard2.IQRegen;
 		}
 
 		//Text after duel is over:

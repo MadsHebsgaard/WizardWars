@@ -1,11 +1,11 @@
 ﻿namespace WizardWars.Lib.Effects;
 
-public class KnowledgeEffect : Effect
+public class IQEffect : Effect
 {
-	public int KnowledgeAmount { get; set; }
+	public int IQAmount { get; set; }
 
 	public override void Apply(Wizard caster, Wizard target)
 	{
-		target.Knowledge += KnowledgeAmount;
+		target.IQ += IQAmount;
 	}
 }

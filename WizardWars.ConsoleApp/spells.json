@@ -2,7 +2,7 @@
   {
     "Name": "Lifedrain",
     "ManaCost": 3,
-    "KnowledgeCost": 4,
+    "IQRequired": 130,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LifestealEffect, WizardWars.Lib",
@@ -13,8 +13,8 @@
   },
   {
     "Name": "Heal",
-    "ManaCost": 5,
-    "KnowledgeCost": 4,
+    "ManaCost": 3,
+    "IQRequired": 120,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
@@ -25,19 +25,18 @@
   },
   {
     "Name": "Fireball",
-    "ManaCost": 5,
-    "KnowledgeCost": 5,
+    "ManaCost": 4,
+    "IQRequired": 180,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
-        "DamageAmount": 35,
+        "DamageAmount": 40,
         "Phase": 4
       }
     ]
   },
   {
     "Name": "Meditate",
-    "ManaCost": 0,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.ManaEffect, WizardWars.Lib",
@@ -48,17 +47,15 @@
   },
   {
     "Name": "Study",
-    "ManaCost": 0,
     "Effects": [
       {
-        "$type": "WizardWars.Lib.Effects.KnowledgeEffect, WizardWars.Lib",
-        "KnowledgeAmount": 2,
+        "$type": "WizardWars.Lib.Effects.IQEffect, WizardWars.Lib",
+        "IQAmount": 5,
         "Phase": 1
       }
     ]
   },
   {
-    "Name": "Nothing",
-    "ManaCost": 0
+    "Name": "Nothing"
   }
 ]
