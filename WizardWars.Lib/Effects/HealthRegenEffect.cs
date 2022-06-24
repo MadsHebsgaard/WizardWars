@@ -2,10 +2,10 @@
 
 public class HealthRegenEffect : Effect
 {
-	public int HealthRegen { get; set; }
+	public int HealthRegenAmount { get; set; }
 
 	public override void Apply(Wizard caster, Wizard target)
 	{
-		target.HealthRegen += HealthRegen;
+		target.HealthRegen += HealthRegenAmount;
 	}
 }

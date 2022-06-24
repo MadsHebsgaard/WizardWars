@@ -1,12 +1,12 @@
 ﻿namespace WizardWars.Lib.Effects;
 
-public class LifestealEffect : Effect
+public class LifeStealEffect : Effect
 {
-	public int LifestealAmount { get; set; }
+	public int LifeStealAmount { get; set; }
 
 	public override void Apply(Wizard caster, Wizard target)
 	{
-		target.Health -= LifestealAmount;
-		caster.Health += LifestealAmount;
+		target.Health -= LifeStealAmount;
+		caster.Health += LifeStealAmount;
 	}
 }
