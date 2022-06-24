@@ -43,14 +43,12 @@ public static class Program
 			userInterface.DisplayStats(wizard1, wizard2);
 
 			var p1Spell = userInterface.UserPicksSpell(wizard1, p1SpellList.Where(x => x.ManaCost <= wizard1.Mana).ToList());
-			var p2Spell = userInterface.UserPicksTarget();
-			var p1Target = p2Spell == Target.Self ? wizard1 : wizard2;
+			var p1Target = userInterface.UserPicksTarget() == Target.Self ? wizard1 : wizard2;
 			var p1 = new SpellTarget(wizard1, p1Spell, p1Target);
 
-			var player2Spell = userInterface.UserPicksSpell(wizard2, p2SpellList.Where(x => x.ManaCost <= wizard2.Mana).ToList());
-			var player2Target = userInterface.UserPicksTarget();
-			var p2Target = player2Target == Target.Self ? wizard2 : wizard1;
-			var p2 = new SpellTarget(wizard2, player2Spell, p2Target);
+			var p2Spell = userInterface.UserPicksSpell(wizard2, p2SpellList.Where(x => x.ManaCost <= wizard2.Mana).ToList());
+			var p2Target = userInterface.UserPicksTarget() == Target.Self ? wizard2 : wizard1;
+			var p2 = new SpellTarget(wizard2, p2Spell, p2Target);
 
 
 			Console.WriteLine();
@@ -58,12 +56,12 @@ public static class Program
 			turn.Execute();
 
 			wizard1.Mana -= p1Spell.ManaCost;
-			wizard2.Mana -= player2Spell.ManaCost;
+			wizard2.Mana -= p2Spell.ManaCost;
 
 
-			//Show events and status.
-			Console.WriteLine(wizard1.Name + " used " + p1SpellList.First().Name + " at " + wizard2.Name);
-			Console.WriteLine(wizard2.Name + " used " + p2SpellList.First().Name + " at " + wizard1.Name + "\n");
+			//Show events
+			Console.WriteLine(wizard1.Name + " used " + p1Spell.Name + " at " + p1Target.Name);
+			Console.WriteLine(wizard2.Name + " used " + p2Spell.Name + " at " + p2Target.Name + "\n");
 
 			//userInterface.DisplayStats(wizard1, wizard2);
 			
