@@ -58,7 +58,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 		else { Console.WriteLine("Dual over! Ran out of max turns of " + maxTurns);	}
 	}
 
-	public void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog)
+	public void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog) //X used y on x -> X used y on himself
 	{
 		foreach (var message in turnEventLog)
 		{

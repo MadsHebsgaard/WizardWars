@@ -1,7 +1,7 @@
 ﻿[
   {
     "Name": "Counterspell",
-    "ManaCost": 4,
+    "ManaCost": 3,
     "IQRequired": 140,
     "Effects": [
       {
@@ -12,12 +12,12 @@
   },
   {
     "Name": "Lifedrain",
-    "ManaCost": 3,
+    "ManaCost": 4,
     "IQRequired": 130,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LifeStealEffect, WizardWars.Lib",
-        "LifeStealAmount": 10,
+        "LifeStealAmount": 15,
         "Phase": 3
       }
     ]
@@ -35,7 +35,7 @@
   },
   {
     "Name": "Heal",
-    "ManaCost": 3,
+    "ManaCost": 4,
     "IQRequired": 115,
     "Effects": [
       {
@@ -47,7 +47,7 @@
   },
   {
     "Name": "Fireball",
-    "ManaCost": 4,
+    "ManaCost": 5,
     "IQRequired": 180,
     "Effects": [
       {
@@ -64,7 +64,7 @@
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
-        "DamageAmount": 5,
+        "DamageAmount": 10,
         "Phase": 1
       }
     ]
