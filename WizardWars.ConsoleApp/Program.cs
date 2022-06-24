@@ -60,12 +60,10 @@ public static class Program
 
 
 			//Show events
-			Console.WriteLine(wizard1.Name + " used " + p1Spell.Name + " at " + p1Target.Name);
-			Console.WriteLine(wizard2.Name + " used " + p2Spell.Name + " at " + p2Target.Name + "\n");
+			userInterface.DisplaySpellCastInformation(p1);
+			userInterface.DisplaySpellCastInformation(p2);
 
-			//userInterface.DisplayStats(wizard1, wizard2);
-			
-			Console.WriteLine(" ------------------------------ ");
+			Console.WriteLine("\n ------------------------------ ");
 			
 			// TODO: show regen effects
 
