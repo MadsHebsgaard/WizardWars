@@ -4,8 +4,8 @@ public class HealthRegenEffect : Effect
 {
 	public int HealthRegenAmount { get; set; }
 
-	public override void Apply(Wizard caster, Wizard target)
+	public override void Apply(SpellTarget playerSpell)
 	{
-		target.HealthRegen += HealthRegenAmount;
+		playerSpell.Target.HealthRegen += HealthRegenAmount;
 	}
 }

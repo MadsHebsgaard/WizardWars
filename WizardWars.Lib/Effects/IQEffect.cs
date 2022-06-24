@@ -4,8 +4,8 @@ public class IQEffect : Effect
 {
 	public int IQAmount { get; set; }
 
-	public override void Apply(Wizard caster, Wizard target)
+	public override void Apply(SpellTarget playerSpell)
 	{
-		target.IQ += IQAmount;
+		playerSpell.Target.IQ += IQAmount;
 	}
 }

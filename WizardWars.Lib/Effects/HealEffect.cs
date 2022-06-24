@@ -4,8 +4,8 @@ public class HealEffect : Effect
 {
 	public int HealAmount { get; set; }
 
-	public override void Apply(Wizard caster, Wizard target)
+	public override void Apply(SpellTarget playerSpell)
 	{
-		target.Health += HealAmount;
+		playerSpell.Target.Health += HealAmount;
 	}
 }

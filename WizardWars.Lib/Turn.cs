@@ -15,14 +15,14 @@ public class Turn
 	{
 		foreach (var phase in Enum.GetValues<SpellPhase>().Skip(1))
 		{
-			if (FirstPlayerSpell.Continue) //Continue is a bool that I think should be true untill told otherwise
+			if (SecondPlayerSpell.Continue) //Continue is a bool that I think should be true untill told otherwise
 			{
-				FirstPlayerSpell.Spell.ApplyEffects(phase, FirstPlayerSpell.Caster, FirstPlayerSpell.Target);
+				FirstPlayerSpell.Spell.ApplyEffects(phase, FirstPlayerSpell);
 			}
 
-			if (SecondPlayerSpell.Continue)
+			if (FirstPlayerSpell.Continue)
 			{
-				SecondPlayerSpell.Spell.ApplyEffects(phase, SecondPlayerSpell.Caster, SecondPlayerSpell.Target);
+				SecondPlayerSpell.Spell.ApplyEffects(phase, SecondPlayerSpell);
 			}
 
 			if (FirstPlayerSpell.Caster.Health <= 0 || SecondPlayerSpell.Caster.Health <= 0)

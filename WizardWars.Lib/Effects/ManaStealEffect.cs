@@ -4,9 +4,9 @@ public class ManaStealEffect : Effect
 {
 	public int ManaSteal { get; set; }
 
-	public override void Apply(Wizard caster, Wizard target)
+	public override void Apply(SpellTarget playerSpell)
 	{
-		caster.Mana += ManaSteal;
-		target.Mana -= ManaSteal;
+		playerSpell.Caster.Mana += ManaSteal;
+		playerSpell.Target.Mana -= ManaSteal;
 	}
 }

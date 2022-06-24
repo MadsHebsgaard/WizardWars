@@ -5,8 +5,8 @@ public class DamageEffect : Effect
 	public int DamageAmount { get; set; }
 
 
-	public override void Apply(Wizard caster, Wizard target)
+	public override void Apply(SpellTarget playerSpell)
 	{
-		target.Health -= DamageAmount;
+		playerSpell.Target.Health -= DamageAmount;
 	}
 }

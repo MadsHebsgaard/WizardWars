@@ -1,5 +1,16 @@
 ﻿[
   {
+    "Name": "Counterspell",
+    "ManaCost": 4,
+    "IQRequired": 140,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.CounterEffect, WizardWars.Lib",
+        "Phase": 1
+      }
+    ]
+  },
+  {
     "Name": "Lifedrain",
     "ManaCost": 3,
     "IQRequired": 130,

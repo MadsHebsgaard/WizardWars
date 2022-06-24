@@ -4,9 +4,9 @@ public class LifeStealEffect : Effect
 {
 	public int LifeStealAmount { get; set; }
 
-	public override void Apply(Wizard caster, Wizard target)
+	public override void Apply(SpellTarget playerSpell)
 	{
-		target.Health -= LifeStealAmount;
-		caster.Health += LifeStealAmount;
+		playerSpell.Target.Health -= LifeStealAmount;
+		playerSpell.Caster.Health += LifeStealAmount;
 	}
 }

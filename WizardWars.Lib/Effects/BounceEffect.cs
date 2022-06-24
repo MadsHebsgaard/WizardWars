@@ -3,8 +3,8 @@
 public class BounceEffect : Effect
 {
 	
-	public override void Apply(Wizard caster, Wizard target)
+	public override void Apply(SpellTarget playerSpell)
 	{
-		//target.target == caster ? target.target = target;		//TODO needs target.target as information
+		//playerSpell.Target.target == caster ? target.target = target;		//TODO needs target.target as information
 	}
 }

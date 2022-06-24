@@ -4,8 +4,8 @@ public class ManaGainEffect : Effect
 {
 	public int ManaGainAmount { get; set; }
 
-	public override void Apply(Wizard caster, Wizard target)
+	public override void Apply(SpellTarget playerSpell)
 	{
-		target.Mana += ManaGainAmount;
+		playerSpell.Target.Mana += ManaGainAmount;
 	}
 }
