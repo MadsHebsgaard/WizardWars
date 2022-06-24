@@ -4,7 +4,7 @@ namespace WizardWars.Lib;
 
 public class Spell
 {
-	public string Name { get; set; }
+	public string Name { get; set; } //TODO nullable
 	public int ManaCost { get; set; }
 	public int IQRequired { get; set; }
 

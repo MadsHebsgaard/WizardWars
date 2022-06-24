@@ -5,8 +5,8 @@
     "IQRequired": 130,
     "Effects": [
       {
-        "$type": "WizardWars.Lib.Effects.LifestealEffect, WizardWars.Lib",
-        "LifestealAmount": 10,
+        "$type": "WizardWars.Lib.Effects.LifeStealEffect, WizardWars.Lib",
+        "LifeStealAmount": 10,
         "Phase": 3
       }
     ]
@@ -74,8 +74,8 @@
     "Name": "Meditate",
     "Effects": [
       {
-        "$type": "WizardWars.Lib.Effects.ManaEffect, WizardWars.Lib",
-        "ManaAmount": 3,
+        "$type": "WizardWars.Lib.Effects.ManaGainEffect, WizardWars.Lib",
+        "ManaGainAmount": 3,
         "Phase": 1
       }
     ]

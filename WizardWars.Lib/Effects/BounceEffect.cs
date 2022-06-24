@@ -5,6 +5,6 @@ public class BounceEffect : Effect
 	
 	public override void Apply(Wizard caster, Wizard target)
 	{
-		target = caster; //TODO doesn't work
+		//target.target == caster ? target.target = target;		//TODO needs target.target as information
 	}
 }

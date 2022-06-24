@@ -101,6 +101,6 @@ public static class Program
 
 	private static T ReadFromJson<T>(string filename)
 	{
-		return JsonConvert.DeserializeObject<T>(File.ReadAllText(filename), _jsonSerializerSettings);
+		return JsonConvert.DeserializeObject<T>(File.ReadAllText(filename), _jsonSerializerSettings); //"Possible null reference return"
 	}
 }
