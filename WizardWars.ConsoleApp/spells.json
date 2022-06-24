@@ -12,9 +12,20 @@
     ]
   },
   {
+    "Name": "Bounce",
+    "ManaCost": 4,
+    "IQRequired": 120,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.BounceEffect, WizardWars.Lib",
+        "Phase": 1
+      }
+    ]
+  },
+  {
     "Name": "Heal",
     "ManaCost": 3,
-    "IQRequired": 120,
+    "IQRequired": 115,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
@@ -36,6 +47,30 @@
     ]
   },
   {
+    "Name": "Punch",
+    "ManaCost": 0,
+    "IQRequired": 100,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "DamageAmount": 5,
+        "Phase": 1
+      }
+    ]
+  },
+  {
+    "Name": "Steal Mana",
+    "IQRequired": 140,
+    "ManaCost": 5,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.ManaStealEffect, WizardWars.Lib",
+        "ManaSteal": 5,
+        "Phase": 1
+      }
+    ]
+  },
+  {
     "Name": "Meditate",
     "Effects": [
       {
@@ -50,7 +85,7 @@
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.IQEffect, WizardWars.Lib",
-        "IQAmount": 5,
+        "IQAmount": 10,
         "Phase": 1
       }
     ]
