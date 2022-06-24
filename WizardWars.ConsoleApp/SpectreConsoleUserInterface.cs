@@ -76,6 +76,9 @@ public class SpectreConsoleUserInterface : IUserInterface
 				case CounterEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/] counters [purple]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
 					break;
+				case ManaGainEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [purple]{spellEvent.SpellName}[/] replenishes [yellow]{spellEvent.Target}[/] mana to [purple]{spellEvent.Target}[/]");
+					break;
 			}
 		}
 	}
