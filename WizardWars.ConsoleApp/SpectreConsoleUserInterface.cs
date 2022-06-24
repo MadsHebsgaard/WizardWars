@@ -57,4 +57,26 @@ public class SpectreConsoleUserInterface : IUserInterface
 		}
 		else { Console.WriteLine("Dual over! Ran out of max turns of " + maxTurns);	}
 	}
+
+	public void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog)
+	{
+		foreach (var message in turnEventLog)
+		{
+			switch (message)
+			{
+				case SpellCastLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/] casts [yellow]{spellEvent.SpellName}[/] on [purple]{spellEvent.Target}[/].");
+					break;
+				case DamageEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount}[/] damage to [purple]{spellEvent.Target}[/].");
+					break;
+				case HealEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [purple]{spellEvent.Target}[/] for [green]{spellEvent.Amount}[/].");
+					break;
+				case CounterEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/] counters [purple]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
+					break;
+			}
+		}
+	}
 }

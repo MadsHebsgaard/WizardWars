@@ -48,8 +48,8 @@ public static class Program
 			//Create, execute and show turn
 			var turn = new Turn(p1, p2);
 			turn.Execute();
-			userInterface.DisplaySpellCastInformation(p1);
-			userInterface.DisplaySpellCastInformation(p2);
+
+			userInterface.DisplayEventLog(turn.EventLog);
 
 			// TODO: add these to seperate "Regen" function (wizard1, wizard2, spell1, spell2)
 			wizard1.Health += wizard1.HealthRegen;

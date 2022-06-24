@@ -10,11 +10,11 @@ public class Spell
 
 	public List<Effect> Effects { get; set; } = new();
 
-	public void ApplyEffects(SpellPhase phase,SpellTarget playerSpell)
+	public void ApplyEffects(SpellPhase phase, SpellTarget playerSpell, Turn turn)
 	{
 		foreach (var effect in Effects.Where(x => x.Phase == phase))
 		{
-			effect.Apply(playerSpell);
+			effect.Apply(playerSpell, turn);
 		}
 	}
 }
