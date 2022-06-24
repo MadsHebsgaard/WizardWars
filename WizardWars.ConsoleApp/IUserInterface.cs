@@ -9,4 +9,5 @@ public interface IUserInterface
 	Spell UserPicksSpell(Wizard wizard, List<Spell> spells);
 	Target UserPicksTarget();
 	void DisplaySpellCastInformation(SpellTarget p1);
+	void DisplayWinText(Wizard wizard1, Wizard wizard2, int turnNumber, int maxTurns);
 }

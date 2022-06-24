@@ -47,4 +47,14 @@ public class SpectreConsoleUserInterface : IUserInterface
 	{
 		Console.WriteLine(spellTarget.Caster.Name + " used " + spellTarget.Spell.Name + " at " + spellTarget.Target.Name);
 	}
+	public void DisplayWinText(Wizard wizard1, Wizard wizard2, int turnNumber, int maxTurns)
+	{
+		if (turnNumber != maxTurns)
+		{
+			if (wizard1.Health > 0)	{ Console.WriteLine(wizard1.Name + " killed " + wizard2.Name + " and won the Duel!"); }
+			else if (wizard2.Health > 0) { Console.WriteLine(wizard2.Name + " murdered " + wizard1.Name + " and won the Duel!"); }
+			else { Console.WriteLine(wizard1.Name + " and " + wizard2.Name + " killed each other and the Duel is lost for both but their honors remain intact!"); }
+		}
+		else { Console.WriteLine("Dual over! Ran out of max turns of " + maxTurns);	}
+	}
 }
