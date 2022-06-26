@@ -8,5 +8,11 @@ public class LifeStealEffect : Effect
 	{
 		playerSpell.Target.Health -= LifeStealAmount;
 		playerSpell.Caster.Health += LifeStealAmount;
+
+		turn.AddLogMessage(new LifeStealEventLogMessage(
+			playerSpell.Caster.Name,
+			playerSpell.Target.Name,
+			playerSpell.Spell.Name,
+			LifeStealAmount));
 	}
 }
