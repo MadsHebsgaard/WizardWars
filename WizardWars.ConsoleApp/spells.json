@@ -2,7 +2,7 @@
   {
     "Name": "Counterspell",
     "ManaCost": 3,
-    "IQRequired": 140,
+    "LVLRequired": 140,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.CounterEffect, WizardWars.Lib",
@@ -13,7 +13,7 @@
   {
     "Name": "Lifedrain",
     "ManaCost": 4,
-    "IQRequired": 130,
+    "LVLRequired": 130,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LifeStealEffect, WizardWars.Lib",
@@ -25,7 +25,7 @@
   {
     "Name": "Bounce",
     "ManaCost": 4,
-    "IQRequired": 120,
+    "LVLRequired": 120,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.BounceEffect, WizardWars.Lib",
@@ -36,7 +36,7 @@
   {
     "Name": "Heal",
     "ManaCost": 4,
-    "IQRequired": 115,
+    "LVLRequired": 115,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
@@ -48,7 +48,7 @@
   {
     "Name": "Fireball",
     "ManaCost": 5,
-    "IQRequired": 180,
+    "LVLRequired": 180,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
@@ -60,7 +60,7 @@
   {
     "Name": "Punch",
     "ManaCost": 0,
-    "IQRequired": 100,
+    "LVLRequired": 100,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
@@ -71,12 +71,12 @@
   },
   {
     "Name": "Steal Mana",
-    "IQRequired": 140,
+    "LVLRequired": 140,
     "ManaCost": 5,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.ManaStealEffect, WizardWars.Lib",
-        "ManaSteal": 5,
+        "ManaStealAmount": 5,
         "Phase": 1
       }
     ]
@@ -95,8 +95,8 @@
     "Name": "Study",
     "Effects": [
       {
-        "$type": "WizardWars.Lib.Effects.IQEffect, WizardWars.Lib",
-        "IQAmount": 10,
+        "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",
+        "LVLAmount": 10,
         "Phase": 1
       }
     ]

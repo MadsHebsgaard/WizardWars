@@ -1,11 +1,11 @@
 ﻿namespace WizardWars.Lib.Effects;
 
-public class IQEffect : Effect
+public class LVLEffect : Effect
 {
-	public int IQAmount { get; set; }
+	public int LVLAmount { get; set; }
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		playerSpell.Target.IQ += IQAmount;
+		playerSpell.Target.LVL += LVLAmount;
 	}
 }

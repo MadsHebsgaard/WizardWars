@@ -30,8 +30,8 @@ public static class Program
 		{	turnNumber++;
 
 			//Known spells
-			var p1SpellList = spellsFromJson.Where(x => x.IQRequired <= wizard1.IQ).ToList();
-			var p2SpellList = spellsFromJson.Where(x => x.IQRequired <= wizard2.IQ).ToList();
+			var p1SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard1.LVL).ToList();
+			var p2SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
 
 			//Stats before casting spells
 			Console.WriteLine($"\n -------------------------------\n  	    Turn: {turnNumber}\n -------------------------------  ");
@@ -56,8 +56,8 @@ public static class Program
 			wizard2.Health += wizard1.HealthRegen;
 			wizard1.Mana += wizard1.ManaRegen- p1Spell.ManaCost;
 			wizard2.Mana += wizard1.ManaRegen- p2Spell.ManaCost;
-			wizard1.IQ += wizard1.IQRegen;
-			wizard2.IQ += wizard2.IQRegen;
+			wizard1.LVL += wizard1.LVLRegen;
+			wizard2.LVL += wizard2.LVLRegen;
 		}
 		userInterface.DisplayWinText(wizard1, wizard2, turnNumber, maxTurns);
 	}

@@ -17,10 +17,10 @@ public class SpectreConsoleUserInterface : IUserInterface
 		table.AddColumn("Name");
 		table.AddColumn("Health");
 		table.AddColumn("Mana");
-		table.AddColumn("IQ");
+		table.AddColumn("LVL");
 
-		table.AddRow(wizard1.Name, $"[red]{wizard1.Health}[/]", $"[blue]{wizard1.Mana}[/]", $"[green]{wizard1.IQ}[/]");
-		table.AddRow(wizard2.Name, $"[red]{wizard2.Health}[/]", $"[blue]{wizard2.Mana}[/]", $"[green]{wizard2.IQ}[/]");
+		table.AddRow(wizard1.Name, $"[red]{wizard1.Health}[/]", $"[blue]{wizard1.Mana}[/]", $"[green]{wizard1.LVL}[/]");
+		table.AddRow(wizard2.Name, $"[red]{wizard2.Health}[/]", $"[blue]{wizard2.Mana}[/]", $"[green]{wizard2.LVL}[/]");
 
 		AnsiConsole.Write(table);
 	}
@@ -68,16 +68,22 @@ public class SpectreConsoleUserInterface : IUserInterface
 					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/] casts [yellow]{spellEvent.SpellName}[/] on [purple]{spellEvent.Target}[/].");
 					break;
 				case DamageEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount}[/] damage to [purple]{spellEvent.Target}[/].");
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to [purple]{spellEvent.Target}[/].");
 					break;
 				case HealEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [purple]{spellEvent.Target}[/] for [green]{spellEvent.Amount}[/].");
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to [purple]{spellEvent.Target}[/].");
 					break;
 				case CounterEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/] counters [purple]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
 					break;
 				case ManaGainEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [purple]{spellEvent.SpellName}[/] replenishes [yellow]{spellEvent.Target}[/] mana to [purple]{spellEvent.Target}[/]");
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [purple]{spellEvent.SpellName}[/] replenishes [yellow]{spellEvent.Target} mana[/] to [purple]{spellEvent.Target}[/]");
+					break;
+				case LifeStealEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [green]{spellEvent.Amount} health[/] from [purple]{spellEvent.Target}[/].");
+					break;
+				case ManaStealEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [blue]{spellEvent.Amount} mana[/] from [purple]{spellEvent.Target}[/].");
 					break;
 			}
 		}
