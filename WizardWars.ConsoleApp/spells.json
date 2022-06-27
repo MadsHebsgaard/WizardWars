@@ -161,12 +161,12 @@
       {
         "$type": "WizardWars.Lib.Effects.RemoveManaEffect, WizardWars.Lib",
         "RemoveManaAmount": 40,
-        "Phase": 1
+        "Phase": 5
       },
       {
         "$type": "WizardWars.Lib.Effects.SelfRestoreManaEffect, WizardWars.Lib",
         "RestoreManaAmount": 40,
-        "Phase": 1
+        "Phase": 5
       }
     ]
   },
@@ -177,7 +177,7 @@
       {
         "$type": "WizardWars.Lib.Effects.SelfRestoreManaEffect, WizardWars.Lib",
         "LVLRequired": 1,
-        "RestoreManaAmount": 30,
+        "RestoreManaAmount": 40,
         "Phase": 1
       }
     ]

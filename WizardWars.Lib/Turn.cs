@@ -28,16 +28,11 @@ public class Turn
 
 		foreach (var phase in Enum.GetValues<SpellPhase>().Skip(1))
 		{
-			if (SecondPlayerSpell.Continue) // Continue is a bool that I think should be true until told otherwise
-			{
+			if(FirstPlayerSpell.Continue && SecondPlayerSpell.Continue)
+            {
 				FirstPlayerSpell.Spell.ApplyEffects(phase, FirstPlayerSpell, this);
-			}
-
-			if (FirstPlayerSpell.Continue)
-			{
 				SecondPlayerSpell.Spell.ApplyEffects(phase, SecondPlayerSpell, this);
 			}
-
 			if (FirstPlayerSpell.Caster.Health <= 0 || SecondPlayerSpell.Caster.Health <= 0)
 			{
 				return;

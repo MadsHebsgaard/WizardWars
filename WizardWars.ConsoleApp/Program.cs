@@ -16,52 +16,61 @@ public static class Program
 		IUserInterface userInterface = new SpectreConsoleUserInterface();
 		var spellsFromJson = ReadFromJson<IEnumerable<Spell>>("spells.json").ToList();
 
+		userInterface.DisplayWizardWars();
+
 		//Wizard setup
-		var firstPlayerName = userInterface.GetPromptedText("Enter first player name : ");
-		var secondPlayerName = userInterface.GetPromptedText("Enter second player name: ");
-		var wizard1 = new Wizard(firstPlayerName);
-		var wizard2 = new Wizard(secondPlayerName);
+		userInterface.EnterPlayer("first player");
+		var firstPlayerName = userInterface.GetPromptedText(" : ");
+		userInterface.EnterPlayer("second player");
+		var secondPlayerName = userInterface.GetPromptedText(": ");
+		Wizard wizard1 = new Wizard(firstPlayerName);
+		Wizard wizard2 = new Wizard(secondPlayerName);
 
-		//Test Enviroment
-		TestEnviroment(wizard1, wizard2);
+		while (true)
+        {
+			ResetWizard(wizard1);
+			ResetWizard(wizard2);
 
-		//Duel setup
-		Console.WriteLine();
-		int turnNumber = 0, maxTurns = 100;
+			//Test Enviroment
+			TestEnviroment(wizard1, wizard2);
 
-		while (wizard1.Health >= 0 && wizard2.Health >= 0 && turnNumber < maxTurns)
-		{	turnNumber++;
+			//Duel setup
+			Console.WriteLine();
+			int turnNumber = 0, maxTurns = 100;
 
-			//Known spells
-			var p1SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard1.LVL).ToList();
-			var p2SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
+			while (wizard1.Health > 0 && wizard2.Health > 0 && turnNumber < maxTurns)
+			{	turnNumber++;
+
+				//Known spells
+				var p1SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard1.LVL).ToList();
+				var p2SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
+
+				userInterface.DisplayTurnNumber(turnNumber);
+				userInterface.DisplayStatsGraph(wizard1, wizard2);  //Graph Form
+				//userInterface.DisplayStats(wizard1, wizard2);		//Matrix Form
 
 
-			userInterface.DisplayTurnNumber(turnNumber);
-			userInterface.DisplayStatsGraph(wizard1, wizard2);  //Graph Form
-			//userInterface.DisplayStats(wizard1, wizard2);		//Matrix Form
+				//player 1 and 2 moves.
+				var p1Spell = userInterface.UserPicksSpell(wizard1, p1SpellList.Where(x => x.ManaCost <= wizard1.Mana).ToList());
+				var p1Target = GetTarget(p1Spell, userInterface, wizard1, wizard2);
+				var p1 = new SpellTarget(wizard1, p1Spell, p1Target);
 
+				var p2Spell = userInterface.UserPicksSpell(wizard2, p2SpellList.Where(x => x.ManaCost <= wizard2.Mana).ToList());
+				var p2Target = GetTarget(p2Spell, userInterface, wizard2, wizard1);
+				var p2 = new SpellTarget(wizard2, p2Spell, p2Target);
 
-			//player 1 and 2 moves.
-			var p1Spell = userInterface.UserPicksSpell(wizard1, p1SpellList.Where(x => x.ManaCost <= wizard1.Mana).ToList());
-			var p1Target = GetTarget(p1Spell, userInterface, wizard1, wizard2);
-			var p1 = new SpellTarget(wizard1, p1Spell, p1Target);
+				//Create, execute and show turn
+				var turn = new Turn(p1, p2);
+				turn.Execute();
 
-			var p2Spell = userInterface.UserPicksSpell(wizard2, p2SpellList.Where(x => x.ManaCost <= wizard2.Mana).ToList());
-			var p2Target = GetTarget(p2Spell, userInterface, wizard2, wizard1);
-			var p2 = new SpellTarget(wizard2, p2Spell, p2Target);
-
-			//Create, execute and show turn
-			var turn = new Turn(p1, p2);
-			turn.Execute();
-
-			userInterface.DisplayEventLog(turn.EventLog);
-			UpdateStats(wizard1, wizard2, p1Spell.ManaCost, p2Spell.ManaCost);
+				userInterface.DisplayEventLog(turn.EventLog);
+				UpdateStats(wizard1, wizard2, p1Spell.ManaCost, p2Spell.ManaCost);
+			}
+			userInterface.DisplayWinText(wizard1, wizard2, turnNumber, maxTurns);
 		}
-		userInterface.DisplayWinText(wizard1, wizard2, turnNumber, maxTurns);
 	}
 
-    private static void UpdateStats(Wizard wizard1, Wizard wizard2, int ManaCost1, int ManaCost2)
+	private static void UpdateStats(Wizard wizard1, Wizard wizard2, int ManaCost1, int ManaCost2)
     {
 		wizard1.Health = wizard1.Health + wizard1.HealthRegen > 100 ? 100 : wizard1.Health + wizard1.HealthRegen;
 		wizard2.Health = wizard2.Health + wizard2.HealthRegen > 100 ? 100 : wizard2.Health + wizard2.HealthRegen;
@@ -82,8 +91,8 @@ public static class Program
 
 	private static void TestEnviroment(Wizard wizard1, Wizard wizard2)
 	{
-		wizard1.LVL = wizard1.Name == "test1" ? 10 : 1;
-		wizard2.LVL = wizard2.Name == "test2" ? 10 : 1;
+		wizard1.LVL = wizard1.Name == "t1" ? 10 : 1;
+		wizard2.LVL = wizard2.Name == "t2" ? 10 : 1;
 	}
 
 	public static Wizard GetTarget(Spell spell, IUserInterface userInterface, Wizard self, Wizard enemy)
@@ -94,5 +103,12 @@ public static class Program
 			TargetType.SelfOnly => self,
 			TargetType.EnemyOnly => enemy
 		};
+	}
+
+	public static void ResetWizard(Wizard wizard)
+    {
+		wizard.Health = 100;
+		wizard.Mana = 100;
+		wizard.LVL = 1;
 	}
 }
