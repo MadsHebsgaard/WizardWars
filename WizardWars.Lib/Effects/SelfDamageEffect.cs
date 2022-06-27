@@ -2,16 +2,15 @@
 
 public class SelfDamageEffect : Effect
 {
-	public int SelfDamageAmount { get; set; }
+	public int DamageAmount { get; set; }
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		playerSpell.Caster.Health -= SelfDamageAmount;
+		playerSpell.Caster.Health -= DamageAmount;
 
 		turn.AddLogMessage(new SelfDamageEventLogMessage(
 			playerSpell.Caster.Name,
-			playerSpell.Target.Name,
 			playerSpell.Spell.Name,
-			SelfDamageAmount));
+			DamageAmount));
 	}
 }

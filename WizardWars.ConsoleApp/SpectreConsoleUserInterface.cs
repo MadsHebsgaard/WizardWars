@@ -76,7 +76,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/] counters [purple]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
 					break;
 				case ManaGainEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [purple]{spellEvent.SpellName}[/] replenishes [yellow]{spellEvent.Target} mana[/] to [purple]{spellEvent.Target}[/]");
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to [purple]{spellEvent.Target}[/]");
 					break;
 				case LifeStealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [green]{spellEvent.Amount} health[/] from [purple]{spellEvent.Target}[/].");
@@ -87,8 +87,23 @@ public class SpectreConsoleUserInterface : IUserInterface
 				case SelfDamageEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to himself.");
 					break;
+				case SelfHealEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to himself.");
+					break;
 				case AreaHealEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals everyone for [green]{spellEvent.Amount} health[/].");
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to everyone.");
+					break;
+				case RemoveManaEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [purple]{spellEvent.SpellName}[/] removes [blue]{spellEvent.Amount} mana[/] to [purple]{spellEvent.Target}[/]");
+					break;
+				case SelfRestoreManaEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [purple]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to himself");
+					break;
+				case LVLEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] gives [purple]{spellEvent.Amount} LVL[/] to [purple]{spellEvent.Target}[/]");
+					break;
+				case SelfLVLEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] gives [purple]{spellEvent.Amount} LVL[/] to himself");
 					break;
 			}
 		}

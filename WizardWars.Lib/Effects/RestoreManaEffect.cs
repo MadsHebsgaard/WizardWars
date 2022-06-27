@@ -1,17 +1,17 @@
 ﻿namespace WizardWars.Lib.Effects;
 
-public class ManaGainEffect : Effect
+public class ManaGaiqnEffect : Effect
 {
-	public int ManaGainAmount { get; set; }
+	public int RestoreManaAmount { get; set; }
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		playerSpell.Target.Mana += ManaGainAmount;
+		playerSpell.Target.Mana += RestoreManaAmount;
 
 		turn.AddLogMessage(new ManaGainEventLogMessage(
 			playerSpell.Caster.Name,
 			playerSpell.Target.Name,
 			playerSpell.Spell.Name,
-			ManaGainAmount));
+			RestoreManaAmount));
 	}
 }

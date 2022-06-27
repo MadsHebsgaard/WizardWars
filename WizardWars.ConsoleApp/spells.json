@@ -16,12 +16,29 @@
     "LVLRequired": 5,
     "Effects": [
       {
+        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "DamageAmount": 20,
+        "Phase": 3
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.SelfHealEffect, WizardWars.Lib",
+        "HealAmount": 20,
+        "Phase": 3
+      }
+    ]
+  },
+  /*{
+    "Name": "Lifedrain lifesteal",
+    "ManaCost": 45,
+    "LVLRequired": 5,
+    "Effects": [
+      {
         "$type": "WizardWars.Lib.Effects.LifeStealEffect, WizardWars.Lib",
         "LifeStealAmount": 20,
         "Phase": 3
       }
     ]
-  }, /*
+  }, 
   {
     "Name": "Bounce",
     "LVLRequired": 4,
@@ -52,7 +69,7 @@
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.AreaHealEffect, WizardWars.Lib",
-        "AreaHealAmount": 60,
+        "HealAmount": 60,
         "Phase": 4
       }
     ]
@@ -105,7 +122,7 @@
       },
       {
         "$type": "WizardWars.Lib.Effects.SelfDamageEffect, WizardWars.Lib",
-        "SelfDamageAmount": 45,
+        "DamageAmount": 45,
         "Phase": 3
       }
     ]
@@ -122,7 +139,7 @@
       }
     ]
   },
-  {
+  /*{
     "Name": "Steal Mana",
     "LVLRequired": 4,
     "ManaCost": 50,
@@ -133,20 +150,37 @@
         "Phase": 1
       }
     ]
-  },
+  },*/
   {
-    "Name": "Meditate",
+    "Name": "Steal Mana",
+    "LVLRequired": 4,
+    "ManaCost": 50,
     "Effects": [
       {
-        "$type": "WizardWars.Lib.Effects.ManaGainEffect, WizardWars.Lib",
-        "LVLRequired": 1,
-        "ManaGainAmount": 30,
+        "$type": "WizardWars.Lib.Effects.RemoveManaEffect, WizardWars.Lib",
+        "RemoveManaAmount": 40,
+        "Phase": 1
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.SelfRestoreManaEffect, WizardWars.Lib",
+        "RestoreManaAmount": 40,
         "Phase": 1
       }
     ]
   },
   {
-    "Name": "Power up",
+    "Name": "Meditate",
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.SelfRestoreManaEffect, WizardWars.Lib",
+        "LVLRequired": 1,
+        "RestoreManaAmount": 30,
+        "Phase": 1
+      }
+    ]
+  },
+  {
+    "Name": "LVL up",
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",

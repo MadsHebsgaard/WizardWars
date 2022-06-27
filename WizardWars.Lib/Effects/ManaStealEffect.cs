@@ -10,9 +10,9 @@ public class ManaStealEffect : Effect
 		playerSpell.Target.Mana -= ManaStealAmount;
 
 		turn.AddLogMessage(new ManaStealEventLogMessage(
-	playerSpell.Caster.Name,
-	playerSpell.Target.Name,
-	playerSpell.Spell.Name,
-	ManaStealAmount));
+			playerSpell.Caster.Name,
+			playerSpell.Target.Name,
+			playerSpell.Spell.Name,
+			ManaStealAmount));
 	}
 }
