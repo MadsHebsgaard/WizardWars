@@ -5,10 +5,10 @@ public class Wizard
 	public string Name { get; }
 	public int Health { get; set; } = 100;
 	public int Mana { get; set; } = 100; //3, testing
-	public int LVL { get; set; } = 200; //100, testing
+	public double LVL { get; set; } = 1; //1, testing
 	public int HealthRegen { get; set; } = 0;
-	public int ManaRegen { get; set; } = 0; //2-3, testing
-	public int LVLRegen { get; set; } = 0;
+	public int ManaRegen { get; set; } = 25; //2-3, testing
+	public double LVLRegen { get; set; } = 0;
 
 
 

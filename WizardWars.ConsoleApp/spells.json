@@ -2,7 +2,7 @@
   {
     "Name": "Counterspell",
     "LVLRequired": 3,
-    "ManaCost": 3,
+    "ManaCost": 35,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.CounterEffect, WizardWars.Lib",
@@ -12,31 +12,31 @@
   },
   {
     "Name": "Lifedrain",
-    "ManaCost": 5,
-    "LVLRequired": 130,
+    "ManaCost": 45,
+    "LVLRequired": 5,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LifeStealEffect, WizardWars.Lib",
-        "LifeStealAmount": 15,
+        "LifeStealAmount": 20,
         "Phase": 3
       }
     ]
-  },
+  }, /*
   {
     "Name": "Bounce",
     "LVLRequired": 4,
-    "ManaCost": 4,
+    "ManaCost": 40,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.BounceEffect, WizardWars.Lib",
         "Phase": 1
       }
     ]
-  },
+  },*/
   {
     "Name": "Heal",
-    "LVLRequired": 3,
-    "ManaCost": 4,
+    "LVLRequired": 4,
+    "ManaCost": 40,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
@@ -46,20 +46,32 @@
     ]
   },
   {
+    "Name": "Circle of Healing",
+    "LVLRequired": 7,
+    "ManaCost": 50,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.AreaHealEffect, WizardWars.Lib",
+        "AreaHealAmount": 60,
+        "Phase": 4
+      }
+    ]
+  },
+  {
     "Name": "Fireball",
     "LVLRequired": 6,
-    "ManaCost": 5,
+    "ManaCost": 50,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
-        "DamageAmount": 40,
+        "DamageAmount": 50,
         "Phase": 4
       }
     ]
   },
   {
     "Name": "Punch",
-    "LVLRequired": 2,
+    "LVLRequired": 1,
     "ManaCost": 0,
     "Effects": [
       {
@@ -70,13 +82,54 @@
     ]
   },
   {
+    "Name": "Kick",
+    "LVLRequired": 2,
+    "ManaCost": 20,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "DamageAmount": 20,
+        "Phase": 2
+      }
+    ]
+  },
+  {
+    "Name": "Healthblast",
+    "LVLRequired": 5,
+    "ManaCost": 0,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "DamageAmount": 35,
+        "Phase": 3
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.SelfDamageEffect, WizardWars.Lib",
+        "SelfDamageAmount": 45,
+        "Phase": 3
+      }
+    ]
+  },
+  {
+    "Name": "Fireblast",
+    "LVLRequired": 4,
+    "ManaCost": 45,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "DamageAmount": 35,
+        "Phase": 3
+      }
+    ]
+  },
+  {
     "Name": "Steal Mana",
     "LVLRequired": 4,
-    "ManaCost": 5,
+    "ManaCost": 50,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.ManaStealEffect, WizardWars.Lib",
-        "ManaStealAmount": 5,
+        "ManaStealAmount": 40,
         "Phase": 1
       }
     ]
@@ -87,18 +140,18 @@
       {
         "$type": "WizardWars.Lib.Effects.ManaGainEffect, WizardWars.Lib",
         "LVLRequired": 1,
-        "ManaGainAmount": 3,
+        "ManaGainAmount": 30,
         "Phase": 1
       }
     ]
   },
   {
-    "Name": "Study",
+    "Name": "Power up",
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",
         "LVLRequired": 1,
-        "LVLAmount": 10,
+        "LVLAmount": 1,
         "Phase": 1
       }
     ]

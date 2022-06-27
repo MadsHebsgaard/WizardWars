@@ -17,3 +17,10 @@ public record ManaGainEventLogMessage(string Source, string Target, string Spell
 public record LifeStealEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
 
 public record ManaStealEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
+
+public record SelfDamageEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
+
+public record AreaHealEventLogMessage(string Source, string SpellName, int Amount) : IEventLogMessage;
+
+
+
