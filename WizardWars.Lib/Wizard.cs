@@ -16,4 +16,17 @@ public class Wizard
 	{
 		Name = name;
 	}
+
+	/*
+	public Wizard GetTarget(Spell spell, IUserInterface userInterface, Wizard self, Wizard enemy)
+	{
+		return spell.TargetType switch
+		{
+			TargetType.Select => userInterface.UserPicksTarget() == Target.Self ? self : enemy,
+			TargetType.SelfOnly => self,
+			TargetType.EnemyOnly => enemy
+		};
+	}
+	*/
+
 }
