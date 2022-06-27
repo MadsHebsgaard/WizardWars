@@ -78,8 +78,8 @@ public static class Program
 		wizard2.Mana = wizard2.Mana + wizard2.ManaRegen - ManaCost2 > 100 ? 100 : wizard2.Mana + wizard2.ManaRegen - ManaCost2;
 		wizard1.Mana = wizard1.Mana < 0 ? 0 : wizard1.Mana;
 		wizard2.Mana = wizard2.Mana < 0 ? 0 : wizard2.Mana;
-		wizard1.LVLRegen = wizard1.LVL < 10 ? 1 / Math.Floor(wizard1.LVL) : 0;
-		wizard2.LVLRegen = wizard2.LVL < 10 ? 1 / Math.Floor(wizard2.LVL) : 0;
+		wizard1.LVLRegen = wizard1.LVL < 10 ? 1 / Math.Floor(wizard1.LVL + 1) + 0.1 : 0; //TODO: LVL 3.99
+		wizard2.LVLRegen = wizard2.LVL < 10 ? 1 / Math.Floor(wizard2.LVL + 1) + 0.1 : 0;
 		wizard1.LVL = wizard1.LVL + wizard1.LVLRegen > 10 ? 10 : Math.Round(wizard1.LVL + wizard1.LVLRegen, 2);
 		wizard2.LVL = wizard2.LVL + wizard2.LVLRegen > 10 ? 10 : Math.Round(wizard2.LVL + wizard2.LVLRegen, 2);
 	}
