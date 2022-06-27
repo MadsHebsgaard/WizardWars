@@ -17,10 +17,13 @@ public static class Program
 		var spellsFromJson = ReadFromJson<IEnumerable<Spell>>("spells.json").ToList();
 
 		//Wizard setup
-		var firstPlayerName = userInterface.GetPromptedText("Enter first player name: ");
+		var firstPlayerName = userInterface.GetPromptedText("Enter first player name : ");
 		var secondPlayerName = userInterface.GetPromptedText("Enter second player name: ");
 		var wizard1 = new Wizard(firstPlayerName);
 		var wizard2 = new Wizard(secondPlayerName);
+
+		//Test Enviroment
+		TestEnviroment(wizard1, wizard2);
 
 		//Duel setup
 		Console.WriteLine();
@@ -33,9 +36,11 @@ public static class Program
 			var p1SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard1.LVL).ToList();
 			var p2SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
 
-			//Stats before casting spells
-			Console.WriteLine($"\n -------------------------------\n  	    Turn: {turnNumber}\n -------------------------------  ");
-			userInterface.DisplayStats(wizard1, wizard2);
+			userInterface.DisplayTurnNumber(turnNumber);
+
+			//userInterface.DisplayStats(wizard1, wizard2);		//Matrix Form
+			userInterface.DisplayStatsGraph(wizard1, wizard2);	//Graph Form
+
 
 			//player 1 and 2 moves.
 			var p1Spell = userInterface.UserPicksSpell(wizard1, p1SpellList.Where(x => x.ManaCost <= wizard1.Mana).ToList());
@@ -50,19 +55,32 @@ public static class Program
 			turn.Execute();
 
 			userInterface.DisplayEventLog(turn.EventLog);
-
-			// TODO: add these to seperate "Regen" function (wizard1, wizard2, spell1, spell2)
-			wizard1.Health += wizard1.HealthRegen;
-			wizard2.Health += wizard1.HealthRegen;
-			wizard1.Mana += wizard1.ManaRegen- p1Spell.ManaCost;
-			wizard2.Mana += wizard1.ManaRegen- p2Spell.ManaCost;
-			wizard1.LVL += wizard1.LVLRegen;
-			wizard2.LVL += wizard2.LVLRegen;
+			UpdateStats(wizard1, wizard2, p1Spell.ManaCost, p2Spell.ManaCost);
 		}
 		userInterface.DisplayWinText(wizard1, wizard2, turnNumber, maxTurns);
 	}
-	private static T ReadFromJson<T>(string filename)
+
+    private static void UpdateStats(Wizard wizard1, Wizard wizard2, int ManaCost1, int ManaCost2)
+    {
+		wizard1.Health = wizard1.Health + wizard1.HealthRegen > 100 ? 100 : wizard1.Health + wizard1.HealthRegen;
+		wizard2.Health = wizard2.Health + wizard2.HealthRegen > 100 ? 100 : wizard2.Health + wizard2.HealthRegen;
+		wizard1.Mana = wizard1.Mana + wizard1.ManaRegen - ManaCost1 > 100 ? 100 : wizard1.Mana + wizard1.ManaRegen - ManaCost1;
+		wizard2.Mana = wizard2.Mana + wizard2.ManaRegen - ManaCost2 > 100 ? 100 : wizard2.Mana + wizard2.ManaRegen - ManaCost2;
+		wizard1.LVLRegen = wizard1.LVL < 10 ? 1 / Math.Floor(wizard1.LVL) : 0;
+		wizard2.LVLRegen = wizard2.LVL < 10 ? 1 / Math.Floor(wizard2.LVL) : 0;
+		wizard1.LVL = wizard1.LVL + wizard1.LVLRegen > 10 ? 10 : Math.Round(wizard1.LVL + wizard1.LVLRegen, 2);
+		wizard2.LVL = wizard2.LVL + wizard2.LVLRegen > 10 ? 10 : Math.Round(wizard2.LVL + wizard2.LVLRegen, 2);
+	}
+
+    private static T ReadFromJson<T>(string filename)
 	{
 		return JsonConvert.DeserializeObject<T>(File.ReadAllText(filename), _jsonSerializerSettings); //"Possible null reference return"
+	}
+
+
+	private static void TestEnviroment(Wizard wizard1, Wizard wizard2)
+	{
+		wizard1.LVL = wizard1.Name == "test1" ? 10 : 1;
+		wizard2.LVL = wizard2.Name == "test2" ? 10 : 1;
 	}
 }
