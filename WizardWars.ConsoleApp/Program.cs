@@ -44,10 +44,11 @@ public static class Program
 
 			//player 1 and 2 moves.
 			var p1Spell = userInterface.UserPicksSpell(wizard1, p1SpellList.Where(x => x.ManaCost <= wizard1.Mana).ToList());
-			var p1Target = userInterface.UserPicksTarget() == Target.Self ? wizard1 : wizard2;
+			var p1Target = p1Spell.TargetType == TargetType.Select ? (userInterface.UserPicksTarget() == Target.Self ? wizard1 : wizard2) : (p1Spell.TargetType == TargetType.SelfOnly ? wizard1 : wizard2);
 			var p1 = new SpellTarget(wizard1, p1Spell, p1Target);
 			var p2Spell = userInterface.UserPicksSpell(wizard2, p2SpellList.Where(x => x.ManaCost <= wizard2.Mana).ToList());
-			var p2Target = userInterface.UserPicksTarget() == Target.Self ? wizard2 : wizard1;
+			var p2Target = p2Spell.TargetType == TargetType.Select ? (userInterface.UserPicksTarget() == Target.Self ? wizard2 : wizard1) : (p2Spell.TargetType == TargetType.SelfOnly ? wizard2 : wizard1);
+			//var p2Target = userInterface.UserPicksTarget() == Target.Self ? wizard2 : wizard1;
 			var p2 = new SpellTarget(wizard2, p2Spell, p2Target);
 
 			//Create, execute and show turn

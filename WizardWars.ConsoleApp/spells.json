@@ -1,6 +1,7 @@
 ﻿[
   {
     "Name": "Counterspell",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 3,
     "ManaCost": 35,
     "Effects": [
@@ -64,6 +65,7 @@
   },
   {
     "Name": "Circle of Healing",
+    "TargetType": "SelfOnly",
     "LVLRequired": 7,
     "ManaCost": 50,
     "Effects": [
@@ -170,6 +172,7 @@
   },
   {
     "Name": "Meditate",
+    "TargetType": "SelfOnly",
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.SelfRestoreManaEffect, WizardWars.Lib",
@@ -181,6 +184,7 @@
   },
   {
     "Name": "LVL up",
+    "TargetType": "SelfOnly",
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",

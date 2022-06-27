@@ -36,6 +36,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 
 	public Target UserPicksTarget()
 	{
+	
 		return AnsiConsole.Prompt(new SelectionPrompt<Target>()
 			.Title("Who do you want to target?")
 			.UseConverter(x => x.ToString())

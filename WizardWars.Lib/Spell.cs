@@ -7,6 +7,7 @@ public class Spell
 	public string Name { get; set; } //TODO nullable
 	public int ManaCost { get; set; }
 	public int LVLRequired { get; set; }
+	public TargetType TargetType { get; set; }
 
 	public List<Effect> Effects { get; set; } = new();
 
