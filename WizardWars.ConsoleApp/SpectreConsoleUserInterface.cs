@@ -1,6 +1,5 @@
 ﻿using WizardWars.Lib;
 using Spectre.Console;
-
 namespace WizardWars.ConsoleApp;
 
 public class SpectreConsoleUserInterface : IUserInterface
@@ -29,7 +28,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 	{
 			var spell = AnsiConsole.Prompt(
 				new SelectionPrompt<Spell>()
-					.Title(wizard.Name + ", select your spell!")
+					.Title($" {wizard.Name}, select your spell!")
 					.UseConverter(x => x.Name)
 					.AddChoices(spells));
 		return spell;
@@ -85,7 +84,49 @@ public class SpectreConsoleUserInterface : IUserInterface
 				case ManaStealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [blue]{spellEvent.Amount} mana[/] from [purple]{spellEvent.Target}[/].");
 					break;
+				case SelfDamageEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to himself.");
+					break;
+				case AreaHealEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals everyone for [green]{spellEvent.Amount} health[/].");
+					break;
 			}
 		}
 	}
+	public void DisplayStatsGraph(Wizard wizard1, Wizard wizard2)
+	{
+		int x = Math.Max(wizard1.Name.Length, wizard2.Name.Length);
+
+
+		AnsiConsole.Write(new BarChart()
+		.Width(60)
+		.Label($"[green bold underline] Wizard Stats[/]")
+		.CenterLabel()
+		.AddItem("", 100, Color.Black)
+		.AddItem($" {wizard1.Name.PadRight(x)} health", wizard1.Health, Color.Green)
+		.AddItem($" {wizard1.Name.PadRight(x)}   Mana", wizard1.Mana, Color.Blue));
+
+		AnsiConsole.Write(new BarChart()
+		.Width(59)
+		.AddItem($" {wizard1.Name.PadRight(x)}    LVL", wizard1.LVL, Color.Purple)
+		.AddItem("", 10, Color.Black));
+
+
+		AnsiConsole.Write(new BarChart()
+		.Width(60)
+		.AddItem("", 100, Color.Black)
+		.AddItem($" {wizard2.Name.PadRight(x)} health", wizard2.Health, Color.Green)
+		.AddItem($" {wizard2.Name.PadRight(x)}   Mana", wizard2.Mana, Color.Blue));
+
+		AnsiConsole.Write(new BarChart()
+		.Width(59)
+		.AddItem($" {wizard2.Name.PadRight(x)}    LVL", wizard2.LVL, Color.Purple)
+		.AddItem("", 10, Color.Black));
+	}
+	public void DisplayTurnNumber(int turnNumber)
+    {
+		AnsiConsole.MarkupLine($"\n [darkorange]--------------------------------------------------------------\n	[bold]Turn: {turnNumber}[/]\n --------------------------------------------------------------[/]  ");
+
+	}
+
 }

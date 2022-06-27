@@ -11,4 +11,8 @@ public interface IUserInterface
 	void DisplaySpellCastInformation(SpellTarget p1);
 	void DisplayWinText(Wizard wizard1, Wizard wizard2, int turnNumber, int maxTurns);
 	void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog);
+	void DisplayStatsGraph(Wizard wizard1, Wizard wizard2);
+	public void DisplayTurnNumber(int turnNumber);
+
+
 }
