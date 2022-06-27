@@ -4,11 +4,11 @@ namespace WizardWars.Lib;
 
 public class Spell
 {
-	public string Name { get; set; } //TODO nullable
+	public string Name { get; set; } = "Nothing"; //TODO nullable
 	public int ManaCost { get; set; }
 	public int LVLRequired { get; set; }
+	public SpellPhase TriggerPhase { get; set; } = SpellPhase.One;
 	public TargetType TargetType { get; set; }
-
 	public List<Effect> Effects { get; set; } = new();
 
 	public void ApplyEffects(SpellPhase phase, SpellTarget playerSpell, Turn turn)
@@ -18,4 +18,7 @@ public class Spell
 			effect.Apply(playerSpell, turn);
 		}
 	}
+
+	static Spell() { }
+
 }

@@ -7,13 +7,25 @@ public class CounterEffect : Effect
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
 		playerSpell.Continue = false;
-		
+
+
+
 		// TODO: rework trickery
 		var enemySpellCast = playerSpell == turn.FirstPlayerSpell ? turn.SecondPlayerSpell : turn.FirstPlayerSpell;
-		
-		turn.AddLogMessage(new CounterEventLogMessage(
-			playerSpell.Caster.Name,
-			playerSpell.Target.Name,
-			enemySpellCast.Spell.Name));
+
+		if (enemySpellCast.Spell.TriggerPhase != SpellPhase.One)
+		{
+			turn.AddLogMessage(new CounterEventLogMessage(
+				playerSpell.Caster.Name,
+				playerSpell.Target.Name,
+				enemySpellCast.Spell.Name));
+		}
+		else
+        {
+			turn.AddLogMessage(new FailCounterEventLogMessage(
+				playerSpell.Caster.Name,
+				playerSpell.Target.Name,
+				enemySpellCast.Spell.Name));
+		}
 	}
 }

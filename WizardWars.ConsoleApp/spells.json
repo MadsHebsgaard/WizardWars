@@ -15,6 +15,7 @@
     "Name": "Lifedrain",
     "ManaCost": 45,
     "LVLRequired": 5,
+    "TriggerPhase": 3,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
@@ -55,6 +56,7 @@
     "Name": "Heal",
     "LVLRequired": 4,
     "ManaCost": 40,
+    "TriggerPhase": 3,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
@@ -68,6 +70,7 @@
     "TargetType": "SelfOnly",
     "LVLRequired": 7,
     "ManaCost": 50,
+    "TriggerPhase": 4,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.AreaHealEffect, WizardWars.Lib",
@@ -80,6 +83,7 @@
     "Name": "Fireball",
     "LVLRequired": 6,
     "ManaCost": 50,
+    "TriggerPhase": 4,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
@@ -104,6 +108,7 @@
     "Name": "Kick",
     "LVLRequired": 2,
     "ManaCost": 20,
+    "TriggerPhase": 2,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
@@ -116,6 +121,7 @@
     "Name": "Healthblast",
     "LVLRequired": 5,
     "ManaCost": 0,
+    "TriggerPhase": 3,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
@@ -133,6 +139,7 @@
     "Name": "Fireblast",
     "LVLRequired": 4,
     "ManaCost": 45,
+    "TriggerPhase": 3,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
@@ -157,6 +164,7 @@
     "Name": "Steal Mana",
     "LVLRequired": 4,
     "ManaCost": 50,
+    "TriggerPhase": 5,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.RemoveManaEffect, WizardWars.Lib",

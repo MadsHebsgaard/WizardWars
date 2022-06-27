@@ -10,7 +10,9 @@ public record DamageEventLogMessage(string Source, string Target, string SpellNa
 
 public record HealEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
 
-public record CounterEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;    //TODO: Counter doesnt counter stuff on same phase, but the message says so! //TODO: wizard1 counters own counterspell if both uses it.
+public record CounterEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
+
+public record FailCounterEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
 
 public record ManaGainEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
 

@@ -2,8 +2,8 @@
 
 public class Turn
 {
-	public SpellTarget FirstPlayerSpell { get; }
-	public SpellTarget SecondPlayerSpell { get; }
+	public SpellTarget FirstPlayerSpell { get; set;  }
+	public SpellTarget SecondPlayerSpell { get; set; }
 
 	public Turn(SpellTarget firstPlayerSpell, SpellTarget secondPlayerSpell)
 	{
@@ -28,15 +28,30 @@ public class Turn
 
 		foreach (var phase in Enum.GetValues<SpellPhase>().Skip(1))
 		{
-			if(FirstPlayerSpell.Continue && SecondPlayerSpell.Continue)
-            {
-				FirstPlayerSpell.Spell.ApplyEffects(phase, FirstPlayerSpell, this);
-				SecondPlayerSpell.Spell.ApplyEffects(phase, SecondPlayerSpell, this);
+			//CounterPlayerSpell(FirstPlayerSpell, SecondPlayerSpell); //TODO: This function
+			if (!SecondPlayerSpell.Continue)
+			{
+				FirstPlayerSpell = new SpellTarget(FirstPlayerSpell.Caster, new Spell(), FirstPlayerSpell.Target);
 			}
+			if (!FirstPlayerSpell.Continue)
+			{
+				SecondPlayerSpell = new SpellTarget(SecondPlayerSpell.Caster, new Spell(), SecondPlayerSpell.Target);
+			}
+
+			FirstPlayerSpell.Spell.ApplyEffects(phase, FirstPlayerSpell, this);
+			SecondPlayerSpell.Spell.ApplyEffects(phase, SecondPlayerSpell, this);
+		
 			if (FirstPlayerSpell.Caster.Health <= 0 || SecondPlayerSpell.Caster.Health <= 0)
 			{
 				return;
 			}
 		}
 	}
+
+	/*
+	public void CounterPlayerSpell(SpellTarget FirstPlayerSpell, SpellTarget SecondPlayerSpell)
+    {
+
+	}
+	*/
 }
