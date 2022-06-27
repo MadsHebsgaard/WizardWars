@@ -36,19 +36,19 @@ public static class Program
 			var p1SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard1.LVL).ToList();
 			var p2SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
 
-			userInterface.DisplayTurnNumber(turnNumber);
 
+			userInterface.DisplayTurnNumber(turnNumber);
+			userInterface.DisplayStatsGraph(wizard1, wizard2);  //Graph Form
 			//userInterface.DisplayStats(wizard1, wizard2);		//Matrix Form
-			userInterface.DisplayStatsGraph(wizard1, wizard2);	//Graph Form
 
 
 			//player 1 and 2 moves.
 			var p1Spell = userInterface.UserPicksSpell(wizard1, p1SpellList.Where(x => x.ManaCost <= wizard1.Mana).ToList());
-			var p1Target = p1Spell.TargetType == TargetType.Select ? (userInterface.UserPicksTarget() == Target.Self ? wizard1 : wizard2) : (p1Spell.TargetType == TargetType.SelfOnly ? wizard1 : wizard2);
+			var p1Target = GetTarget(p1Spell, userInterface, wizard1, wizard2);
 			var p1 = new SpellTarget(wizard1, p1Spell, p1Target);
+
 			var p2Spell = userInterface.UserPicksSpell(wizard2, p2SpellList.Where(x => x.ManaCost <= wizard2.Mana).ToList());
-			var p2Target = p2Spell.TargetType == TargetType.Select ? (userInterface.UserPicksTarget() == Target.Self ? wizard2 : wizard1) : (p2Spell.TargetType == TargetType.SelfOnly ? wizard2 : wizard1);
-			//var p2Target = userInterface.UserPicksTarget() == Target.Self ? wizard2 : wizard1;
+			var p2Target = GetTarget(p2Spell, userInterface, wizard2, wizard1);
 			var p2 = new SpellTarget(wizard2, p2Spell, p2Target);
 
 			//Create, execute and show turn
@@ -80,10 +80,19 @@ public static class Program
 		return JsonConvert.DeserializeObject<T>(File.ReadAllText(filename), _jsonSerializerSettings); //"Possible null reference return"
 	}
 
-
 	private static void TestEnviroment(Wizard wizard1, Wizard wizard2)
 	{
 		wizard1.LVL = wizard1.Name == "test1" ? 10 : 1;
 		wizard2.LVL = wizard2.Name == "test2" ? 10 : 1;
+	}
+
+	public static Wizard GetTarget(Spell spell, IUserInterface userInterface, Wizard self, Wizard enemy)
+	{
+		return spell.TargetType switch
+		{
+			TargetType.Select => userInterface.UserPicksTarget() == Target.Self ? self : enemy,
+			TargetType.SelfOnly => self,
+			TargetType.EnemyOnly => enemy
+		};
 	}
 }
