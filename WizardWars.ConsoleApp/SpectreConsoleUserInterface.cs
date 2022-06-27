@@ -4,6 +4,21 @@ namespace WizardWars.ConsoleApp;
 
 public class SpectreConsoleUserInterface : IUserInterface
 {
+
+	public void DisplayWizardWars()
+	{
+		AnsiConsole.Write(
+
+		new FigletText("WizardWars")
+			.LeftAligned()
+			.Color(Color.Purple_2));
+	}
+
+	public void EnterPlayer(string player)
+	{
+		AnsiConsole.Markup($"Enter [bold purple_2]{player}[/] name");
+	}
+
 	public string GetPromptedText(string prompt)
 	{
 		return AnsiConsole.Ask<string>(prompt);
@@ -28,9 +43,14 @@ public class SpectreConsoleUserInterface : IUserInterface
 	{
 			var spell = AnsiConsole.Prompt(
 				new SelectionPrompt<Spell>()
-					.Title($" {wizard.Name}, select your spell!")
+					.Title($" [bold purple_2]{wizard.Name}[/], select your [yellow]spell[/]!")
 					.UseConverter(x => x.Name)
-					.AddChoices(spells));
+					.AddChoices(spells)
+					.MoreChoicesText("[silver](Move up and down to reveal more [yellow]spells[/])[/]")
+					.PageSize(15)
+					//.HighlightStyle(Style().Foreground(Color.Fuchsia))
+					);
+
 		return spell;
 	}
 
@@ -43,19 +63,27 @@ public class SpectreConsoleUserInterface : IUserInterface
 			.AddChoices(Enum.GetValues<Target>()));
 	}
 
-	public void DisplaySpellCastInformation(SpellTarget spellTarget)
-	{
-		Console.WriteLine(spellTarget.Caster.Name + " used " + spellTarget.Spell.Name + " at " + spellTarget.Target.Name);
-	}
 	public void DisplayWinText(Wizard wizard1, Wizard wizard2, int turnNumber, int maxTurns)
 	{
 		if (turnNumber != maxTurns)
 		{
-			if (wizard1.Health > 0)	{ Console.WriteLine(wizard1.Name + " killed " + wizard2.Name + " and won the Duel!"); }
-			else if (wizard2.Health > 0) { Console.WriteLine(wizard2.Name + " murdered " + wizard1.Name + " and won the Duel!"); }
-			else { Console.WriteLine(wizard1.Name + " and " + wizard2.Name + " killed each other and the Duel is lost for both but their honors remain intact!"); }
+			if (wizard1.Health > 0) { Console.WriteLine($"[bold purple_2]{wizard1.Name}[/] killed [bold purple_2]{wizard2.Name}[/] and won the Duel!"); wizard1.WinCount++; }
+			else if (wizard2.Health > 0) { Console.WriteLine($"[bold purple_2]{wizard2.Name}[/] murdered [bold purple_2]{wizard1.Name}[/] and won the Duel!"); wizard2.WinCount++; }
+			else { Console.WriteLine($"[bold purple_2]{wizard1.Name}[/] and [bold purple_2]{wizard2.Name}[/] killed each other and the Duel is lost for both but their honors remain intact!"); }
 		}
-		else { Console.WriteLine("Dual over! Ran out of max turns of " + maxTurns);	}
+		else { Console.WriteLine("Dual over! Ran out of max turns of " + maxTurns); }
+
+		Console.WriteLine();
+
+		AnsiConsole.MarkupLine($"\n [violet]***********************************************************\n			[bold purple_2]{wizard2.Name}[/] [yellow]{wizard1.WinCount} - {wizard1.WinCount}[/] [bold purple_2]{wizard2.Name}[/]\n ***********************************************************[/]  ");
+
+
+		/*
+		if (wizard1.WinCount > wizard2.WinCount) { AnsiConsole.MarkupLine($"[yellow]{wizard1.WinCount}[/] - [yellow]{wizard2.WinCount}[/] to [purple_2]{wizard1.Name}[/]"); }
+		else if (wizard1.WinCount < wizard2.WinCount) { AnsiConsole.MarkupLine($"[yellow]{wizard2.WinCount}[/] - [yellow]{wizard1.WinCount}[/] to [purple_2]{wizard2.Name}[/]"); }
+		else { AnsiConsole.MarkupLine($"[purple_2]{wizard1.Name}[/] and [purple_2]{wizard1.Name}[/] are tied: [yellow]{wizard1.WinCount}[/] - [yellow]{wizard2.WinCount}[/]"); }
+		*/
+
 	}
 
 	public void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog) //X used y on x -> X used y on himself
@@ -65,46 +93,46 @@ public class SpectreConsoleUserInterface : IUserInterface
 			switch (message)
 			{
 				case SpellCastLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/] casts [yellow]{spellEvent.SpellName}[/] on [purple]{spellEvent.Target}[/].");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/] casts [yellow]{spellEvent.SpellName}[/] on [purple_2]{spellEvent.Target}[/].");
 					break;
 				case DamageEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to [purple]{spellEvent.Target}[/].");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to [purple_2]{spellEvent.Target}[/].");
 					break;
 				case HealEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to [purple]{spellEvent.Target}[/].");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to [purple_2]{spellEvent.Target}[/].");
 					break;
 				case CounterEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/] counters [purple]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/] counters [purple_2]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
 					break;
 				case ManaGainEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to [purple]{spellEvent.Target}[/]");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to [purple_2]{spellEvent.Target}[/]");
 					break;
 				case LifeStealEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [green]{spellEvent.Amount} health[/] from [purple]{spellEvent.Target}[/].");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [green]{spellEvent.Amount} health[/] from [purple_2]{spellEvent.Target}[/].");
 					break;
 				case ManaStealEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [blue]{spellEvent.Amount} mana[/] from [purple]{spellEvent.Target}[/].");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [blue]{spellEvent.Amount} mana[/] from [purple_2]{spellEvent.Target}[/].");
 					break;
 				case SelfDamageEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to himself.");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to himself.");
 					break;
 				case SelfHealEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to himself.");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to himself.");
 					break;
 				case AreaHealEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to everyone.");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to everyone.");
 					break;
 				case RemoveManaEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [purple]{spellEvent.SpellName}[/] removes [blue]{spellEvent.Amount} mana[/] to [purple]{spellEvent.Target}[/]");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [purple_2]{spellEvent.SpellName}[/] removes [blue]{spellEvent.Amount} mana[/] to [purple_2]{spellEvent.Target}[/]");
 					break;
 				case SelfRestoreManaEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [purple]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to himself");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [purple_2]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to himself");
 					break;
 				case LVLEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] gives [purple]{spellEvent.Amount} LVL[/] to [purple]{spellEvent.Target}[/]");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] gives [purple_2]{spellEvent.Amount} LVL[/] to [purple_2]{spellEvent.Target}[/]");
 					break;
 				case SelfLVLEventLogMessage spellEvent:
-					AnsiConsole.MarkupLine($"[purple]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] gives [purple]{spellEvent.Amount} LVL[/] to himself");
+					AnsiConsole.MarkupLine($"[purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] gives [purple_2]{spellEvent.Amount} LVL[/] to himself");
 					break;
 			}
 		}
@@ -119,29 +147,29 @@ public class SpectreConsoleUserInterface : IUserInterface
 		.Label($"[green bold underline] Wizard Stats[/]")
 		.CenterLabel()
 		.AddItem("", 100, Color.Black)
-		.AddItem($" {wizard1.Name.PadRight(x)} health", wizard1.Health, Color.Green)
-		.AddItem($" {wizard1.Name.PadRight(x)}   Mana", wizard1.Mana, Color.Blue));
+		.AddItem($" [bold purple_2]{wizard1.Name.PadRight(x)}[/] [green]health[/]", wizard1.Health, Color.Green)
+		.AddItem($" [bold purple_2]{wizard1.Name.PadRight(x)}[/]   [blue]Mana[/]", wizard1.Mana, Color.Blue));
 
 		AnsiConsole.Write(new BarChart()
 		.Width(59)
-		.AddItem($" {wizard1.Name.PadRight(x)}    LVL", wizard1.LVL, Color.Purple)
+		.AddItem($" [bold purple_2]{wizard1.Name.PadRight(x)}[/]    [purple_2]LVL[/]", wizard1.LVL, Color.Purple)
 		.AddItem("", 10, Color.Black));
 
 
 		AnsiConsole.Write(new BarChart()
 		.Width(60)
 		.AddItem("", 100, Color.Black)
-		.AddItem($" {wizard2.Name.PadRight(x)} health", wizard2.Health, Color.Green)
-		.AddItem($" {wizard2.Name.PadRight(x)}   Mana", wizard2.Mana, Color.Blue));
+		.AddItem($" [bold purple_2]{wizard2.Name.PadRight(x)}[/] [green]health[/]", wizard2.Health, Color.Green)
+		.AddItem($" [bold purple_2]{wizard2.Name.PadRight(x)}[/]   [blue]Mana[/]", wizard2.Mana, Color.Blue));
 
 		AnsiConsole.Write(new BarChart()
 		.Width(59)
-		.AddItem($" {wizard2.Name.PadRight(x)}    LVL", wizard2.LVL, Color.Purple)
+		.AddItem($" [bold purple_2]{wizard2.Name.PadRight(x)}[/]    [purple_2]LVL[/]", wizard2.LVL, Color.Purple)
 		.AddItem("", 10, Color.Black));
 	}
 	public void DisplayTurnNumber(int turnNumber)
     {
-		AnsiConsole.MarkupLine($"\n [darkorange]--------------------------------------------------------------\n	[bold]Turn: {turnNumber}[/]\n --------------------------------------------------------------[/]  ");
+		AnsiConsole.MarkupLine($"\n [darkorange]------------------------------------------------------\n	[bold]Turn: {turnNumber}[/]\n ------------------------------------------------------[/]  ");
 
 	}
 
