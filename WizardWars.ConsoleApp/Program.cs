@@ -66,6 +66,8 @@ public static class Program
 		wizard2.Health = wizard2.Health + wizard2.HealthRegen > 100 ? 100 : wizard2.Health + wizard2.HealthRegen;
 		wizard1.Mana = wizard1.Mana + wizard1.ManaRegen - ManaCost1 > 100 ? 100 : wizard1.Mana + wizard1.ManaRegen - ManaCost1;
 		wizard2.Mana = wizard2.Mana + wizard2.ManaRegen - ManaCost2 > 100 ? 100 : wizard2.Mana + wizard2.ManaRegen - ManaCost2;
+		wizard1.Mana = wizard1.Mana < 0 ? 0 : wizard1.Mana;
+		wizard2.Mana = wizard2.Mana < 0 ? 0 : wizard2.Mana;
 		wizard1.LVLRegen = wizard1.LVL < 10 ? 1 / Math.Floor(wizard1.LVL) : 0;
 		wizard2.LVLRegen = wizard2.LVL < 10 ? 1 / Math.Floor(wizard2.LVL) : 0;
 		wizard1.LVL = wizard1.LVL + wizard1.LVLRegen > 10 ? 10 : Math.Round(wizard1.LVL + wizard1.LVLRegen, 2);
