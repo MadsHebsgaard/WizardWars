@@ -1,6 +1,16 @@
 ﻿namespace WizardWars.Lib;
 
-public record SpellTarget(Wizard Caster, Spell Spell, Wizard Target)
+public class SpellTarget
 {
-	public bool Continue { get; set; } = true;  //Befor it was true until set to false. (" ... continue {get; set;} = false;")
+	public Wizard Caster { get; set; }
+    public Spell Spell { get; set; }
+    public Wizard Target { get; set; }
+    public bool Continue { get; set; } = true;
+
+    public SpellTarget(Wizard caster, Spell spell, Wizard target)
+    {
+        Caster = caster;
+        Spell = spell;
+        Target = target;
+    }
 }
