@@ -14,6 +14,10 @@ public record CounterEventLogMessage(string Source, string Target, string SpellN
 
 public record FailCounterEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
 
+public record RedirectEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
+
+public record FailRedirectEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
+
 public record ManaGainEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
 
 public record LifeStealEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
