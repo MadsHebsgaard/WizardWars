@@ -15,24 +15,16 @@ public static class Program
 		//UI and Spell setup
 		IUserInterface userInterface = new SpectreConsoleUserInterface();
 		var spellsFromJson = ReadFromJson<IEnumerable<Spell>>("spells.json").ToList();
-
 		userInterface.DisplayWizardWars();
 
-		//Wizard setup
-		userInterface.EnterPlayer("first player");
-		var firstPlayerName = userInterface.GetPromptedText(" : ");
-		userInterface.EnterPlayer("second player");
-		var secondPlayerName = userInterface.GetPromptedText(": ");
-		Wizard wizard1 = new Wizard(firstPlayerName);
-		Wizard wizard2 = new Wizard(secondPlayerName);
+
+		Wizard wizard1 = GetWizard("First Player ", userInterface);
+		Wizard wizard2 = GetWizard("Second Player", userInterface);
 
 		while (true)
         {
 			ResetWizard(wizard1);
 			ResetWizard(wizard2);
-
-			//Test Enviroment
-			TestEnviroment(wizard1, wizard2);
 
 			//Duel setup
 			Console.WriteLine();
@@ -100,10 +92,9 @@ public static class Program
 		return JsonConvert.DeserializeObject<T>(File.ReadAllText(filename), _jsonSerializerSettings); //"Possible null reference return"
 	}
 
-	private static void TestEnviroment(Wizard wizard1, Wizard wizard2)
+	private static void TestEnviroment(Wizard wizard1)
 	{
-		wizard1.LVL = wizard1.Name == "t1" ? 10 : 1;
-		wizard2.LVL = wizard2.Name == "t2" ? 10 : 1;
+		wizard1.LVL = wizard1.Name == "t1"|| wizard1.Name == "t2" ? 10 : 1;
 	}
 
 	public static Wizard GetTarget(Spell spell, IUserInterface userInterface, Wizard self, Wizard enemy)
@@ -120,6 +111,13 @@ public static class Program
     {
 		wizard.Health = 100;
 		wizard.Mana = 100;
-		wizard.LVL = 1;
+		TestEnviroment(wizard);
+	}
+
+	public static Wizard GetWizard(string PlayerNumber, IUserInterface userInterface)
+    {
+		userInterface.EnterPlayer(PlayerNumber);
+		var PlayerName = userInterface.GetPromptedText(": ");
+		return new Wizard(PlayerName);
 	}
 }
