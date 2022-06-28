@@ -21,12 +21,11 @@ public class RedirectEffect : Effect
         {
             if (enemySpellCast.Target == enemySpellCast.Caster) 
             {
-                Console.WriteLine("enemySpellCast.Target == enemySpellCast.Caster");
                 enemySpellCast.Target = playerSpell.Caster; 
             }
             else 
             { 
-                enemySpellCast.Target = playerSpell.Caster; 
+                enemySpellCast.Target = enemySpellCast.Caster;
             }
 
             turn.AddLogMessage(new RedirectEventLogMessage(
