@@ -12,6 +12,20 @@
     ]
   },
   {
+    "Name": "Disallow",
+    "TargetType": "EnemyOnly",
+    "LVLRequired": 5,
+    "ManaCost": 35,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.CounterEffect, WizardWars.Lib",
+        "HealAmount": 15,
+        "RestoreManaAmount": 20,
+        "Phase": 3
+      }
+    ]
+  },
+  {
     "Name": "Lifedrain",
     "TargetType": "EnemyOnly",
     "ManaCost": 40,

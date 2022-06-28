@@ -9,6 +9,7 @@ public class Spell
 	public int HealthCost { get; set; }
 	public int LVLRequired { get; set; }
 	public SpellPhase TriggerPhase { get; set; } = SpellPhase.One;
+	public SpellPhase StopPhase { get; set; } = SpellPhase.Five;
 	public TargetType TargetType { get; set; }
 
 	public List<Effect> Effects { get; set; } = new();
@@ -20,7 +21,5 @@ public class Spell
 			effect.Apply(playerSpell, turn);
 		}
 	}
-
-	static Spell() { }
-
+	public readonly static Spell Nothing = new Spell();
 }
