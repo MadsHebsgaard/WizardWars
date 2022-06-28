@@ -89,11 +89,8 @@ public class SpectreConsoleUserInterface : IUserInterface
 			Console.WriteLine(" Dual over! Ran out of max turns of " + maxTurns);
 		}
 
-		Console.WriteLine(wizard1.WinCount + ":" + wizard1.WinCount);
-
 		AnsiConsole.MarkupLine($"\n [violet]***********************************************************[/]");
-		AnsiConsole.MarkupLine(
-			$" [bold purple_2]{wizard1.Name}[/] [yellow]{wizard1.WinCount} - {wizard2.WinCount}[/] [bold purple_2]{wizard2.Name}[/]");
+		AnsiConsole.MarkupLine($"			[bold purple_2]{wizard1.Name}[/] [yellow]{wizard1.WinCount} - {wizard2.WinCount}[/] [bold purple_2]{wizard2.Name}[/]");
 		AnsiConsole.MarkupLine($" [violet]***********************************************************[/]  ");
 
 
@@ -212,8 +209,9 @@ public class SpectreConsoleUserInterface : IUserInterface
 
 		AnsiConsole.Write(new BarChart()
 			.Width(60)
-			.Label($"[green bold underline]Wizard Stats[/]\n")
+			.WithMaxValue(100)
 			.CenterLabel()
+			.Label($"[green bold underline]Wizard Stats[/]\n")
 			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(x)}[/] [green]Health[/]", wizard1.Health, Color.Green)
 			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(x)}[/]   [blue]Mana[/]", wizard1.Mana, Color.Blue));
 
@@ -225,6 +223,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 		Console.WriteLine();
 		AnsiConsole.Write(new BarChart()
 			.Width(60)
+			.WithMaxValue(100)
 			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(x)}[/] [green]Health[/]", wizard2.Health, Color.Green)
 			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(x)}[/]   [blue]Mana[/]", wizard2.Mana, Color.Blue));
 
