@@ -4,7 +4,7 @@ public interface IEventLogMessage
 {
 }
 
-public record SpellCastLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
+public record SpellCastLogMessage (string Source, string Target, string SpellName, int ManaCost, int HealthCost) : IEventLogMessage;
 
 public record DamageEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
 

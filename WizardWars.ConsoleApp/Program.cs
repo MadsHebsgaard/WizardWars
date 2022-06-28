@@ -64,18 +64,23 @@ public static class Program
 				turn.Execute();
 
 				userInterface.DisplayEventLog(turn.EventLog);
-				UpdateStats(wizard1, wizard2, p1Spell.ManaCost, p2Spell.ManaCost);
+				UpdateStats(wizard1, wizard2, p1Spell.ManaCost, p2Spell.ManaCost, p1Spell.HealthCost, p2Spell.HealthCost);
 			}
 			userInterface.DisplayWinText(wizard1, wizard2, turnNumber, maxTurns);
 		}
 	}
 
-	private static void UpdateStats(Wizard wizard1, Wizard wizard2, int ManaCost1, int ManaCost2)
+	private static void UpdateStats(Wizard wizard1, Wizard wizard2, int ManaCost1, int ManaCost2, int HealthCost1, int HealthCost2)
     {
-		wizard1.Health = wizard1.Health + wizard1.HealthRegen > 100 ? 100 : wizard1.Health + wizard1.HealthRegen;
-		wizard2.Health = wizard2.Health + wizard2.HealthRegen > 100 ? 100 : wizard2.Health + wizard2.HealthRegen;
-		wizard1.Mana = wizard1.Mana + wizard1.ManaRegen - ManaCost1 > 100 ? 100 : wizard1.Mana + wizard1.ManaRegen - ManaCost1;
-		wizard2.Mana = wizard2.Mana + wizard2.ManaRegen - ManaCost2 > 100 ? 100 : wizard2.Mana + wizard2.ManaRegen - ManaCost2;
+		wizard1.Health += wizard1.HealthRegen - HealthCost1;
+		wizard2.Health += wizard2.HealthRegen - HealthCost2;
+		wizard1.Mana += wizard1.ManaRegen - ManaCost1;
+		wizard2.Mana += wizard2.ManaRegen - ManaCost2;
+		wizard1.Health = wizard1.Health > 100 ? 100 : wizard1.Health;
+		wizard2.Health = wizard2.Health > 100 ? 100 : wizard2.Health;
+		wizard1.Mana = wizard1.Mana > 100 ? 100 : wizard1.Mana;
+		wizard2.Mana = wizard2.Mana > 100 ? 100 : wizard2.Mana;
+
 		wizard1.Mana = wizard1.Mana < 0 ? 0 : wizard1.Mana;
 		wizard2.Mana = wizard2.Mana < 0 ? 0 : wizard2.Mana;
 		wizard1.LVLRegen = wizard1.LVL < 10 ? 1 / Math.Floor(wizard1.LVL + 1) + 0.1 : 0; //TODO: LVL 3.99

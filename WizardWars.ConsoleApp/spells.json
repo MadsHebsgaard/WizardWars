@@ -41,7 +41,6 @@
       }
     ]
   },
-  "*/",
   {
     "Name": "Heal",
     "TargetType": "SelfOnly",
@@ -140,17 +139,12 @@
     "Name": "Healthblast", //"HealthCost": 45
     "TargetType": "EnemyOnly",
     "LVLRequired": 5,
-    "ManaCost": 0,
+    "HealthCost": 45,
     "TriggerPhase": 3,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
         "DamageAmount": 35,
-        "Phase": 3
-      },
-      {
-        "$type": "WizardWars.Lib.Effects.SelfDamageEffect, WizardWars.Lib",
-        "DamageAmount": 45,
         "Phase": 3
       }
     ]
