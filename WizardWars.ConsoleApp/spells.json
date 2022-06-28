@@ -26,6 +26,17 @@
     ]
   },
   {
+    "Name": "Redirect",
+    "LVLRequired": 5,
+    "ManaCost": 35,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.RedirectEffect, WizardWars.Lib",
+        "Phase": 1
+      }
+    ]
+  },
+  {
     "Name": "Lifedrain",
     "TargetType": "EnemyOnly",
     "ManaCost": 40,
@@ -139,7 +150,7 @@
       },
       {
         "$type": "WizardWars.Lib.Effects.SelfHealEffect, WizardWars.Lib",
-        "HealAmount": 5,
+        "HealAmount": 10,
         "Phase": 3
       },
       {

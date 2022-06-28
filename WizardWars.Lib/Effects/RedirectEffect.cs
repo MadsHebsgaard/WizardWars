@@ -13,18 +13,25 @@ public class RedirectEffect : Effect
         {
             turn.AddLogMessage(new FailRedirectEventLogMessage(
             playerSpell.Caster.Name,
-            playerSpell.Target.Name,
+            enemySpellCast.Caster.Name,
             enemySpellCast.Spell.Name));
             return;
         }
         if (playerSpell.Target == enemySpellCast.Target)
         {
-            if (enemySpellCast.Target == enemySpellCast.Caster) { enemySpellCast.Target = playerSpell.Caster; }
-            else { enemySpellCast.Target = playerSpell.Caster; }
+            if (enemySpellCast.Target == enemySpellCast.Caster) 
+            {
+                Console.WriteLine("enemySpellCast.Target == enemySpellCast.Caster");
+                enemySpellCast.Target = playerSpell.Caster; 
+            }
+            else 
+            { 
+                enemySpellCast.Target = playerSpell.Caster; 
+            }
 
             turn.AddLogMessage(new RedirectEventLogMessage(
                 playerSpell.Caster.Name,
-                playerSpell.Target.Name,
+                enemySpellCast.Caster.Name,
                 enemySpellCast.Spell.Name));
         }
     }
