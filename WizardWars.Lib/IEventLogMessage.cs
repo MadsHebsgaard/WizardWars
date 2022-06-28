@@ -18,6 +18,8 @@ public record RedirectEventLogMessage(string Source, string Target, string Spell
 
 public record FailRedirectEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
 
+public record ResistanceEventLogMessage(string Source, string Target, string SpellName, double Amount) : IEventLogMessage;
+
 public record ManaGainEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
 
 public record LifeStealEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;

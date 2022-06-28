@@ -126,7 +126,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 					}
 					else
 					{
-						Console.WriteLine("for free.\n");
+						Console.WriteLine("for free.");
 					}
 				}
 					break;
@@ -146,19 +146,18 @@ public class SpectreConsoleUserInterface : IUserInterface
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/] fails to counter [purple_2]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
 					break;
-
-
 				case RedirectEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/] redirects [purple_2]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
 					break;
-
 				case FailRedirectEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/] fails to redirect [purple_2]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
 					break;
-
-
+				case ResistanceEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine(
+						$" [purple_2]{spellEvent.Source}[/] blocks [red]{spellEvent.Amount} damage[/] from [purple_2]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
+					break;
 				case ManaGainEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to [purple_2]{spellEvent.Target}[/]");

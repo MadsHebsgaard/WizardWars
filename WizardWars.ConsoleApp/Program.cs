@@ -47,8 +47,8 @@ public static class Program
 
 				userInterface.DisplayTurnNumber(turnNumber);
 				userInterface.DisplayStatsGraph(wizard1, wizard2);  //Graph Form
-				//userInterface.DisplayStats(wizard1, wizard2);		//Matrix Form
-
+				//userInterface.DisplayStats(wizard1, wizard2);		//TODO: Remove this
+				Console.WriteLine();
 
 				//player 1 and 2 moves.
 				var p1Spell = userInterface.UserPicksSpell(wizard1, p1SpellList.Where(x => x.ManaCost <= wizard1.Mana).ToList());
@@ -72,6 +72,8 @@ public static class Program
 
 	private static void UpdateStats(Wizard wizard1, Wizard wizard2, int ManaCost1, int ManaCost2, int HealthCost1, int HealthCost2)
     {
+		wizard1.Resistance = 0;
+		wizard2.Resistance = 0;
 		wizard1.Health += wizard1.HealthRegen - HealthCost1;
 		wizard2.Health += wizard2.HealthRegen - HealthCost2;
 		wizard1.Mana += wizard1.ManaRegen - ManaCost1;
@@ -87,9 +89,13 @@ public static class Program
 		wizard2.LVLRegen = wizard2.LVL < 10 ? 1 / Math.Floor(wizard2.LVL + 1) + 0.1 : 0;
 		wizard1.LVL = wizard1.LVL + wizard1.LVLRegen > 10 ? 10 : Math.Round(wizard1.LVL + wizard1.LVLRegen, 2);
 		wizard2.LVL = wizard2.LVL + wizard2.LVLRegen > 10 ? 10 : Math.Round(wizard2.LVL + wizard2.LVLRegen, 2);
+
+		//Never very unlucky with levels
+		wizard1.LVL = wizard1.LVL % 1 > 0.95 ? Math.Ceiling(wizard1.LVL) : wizard1.LVL;
+		wizard2.LVL = wizard2.LVL % 1 < 0.05 ? Math.Ceiling(wizard2.LVL) : wizard2.LVL;
 	}
 
-    private static T ReadFromJson<T>(string filename)
+	private static T ReadFromJson<T>(string filename)
 	{
 		return JsonConvert.DeserializeObject<T>(File.ReadAllText(filename), _jsonSerializerSettings); //"Possible null reference return"
 	}

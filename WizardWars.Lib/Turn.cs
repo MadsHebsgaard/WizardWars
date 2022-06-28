@@ -2,7 +2,7 @@
 
 public class Turn
 {
-	public SpellTarget FirstPlayerSpell { get; set;  }
+	public SpellTarget FirstPlayerSpell { get; set; }
 	public SpellTarget SecondPlayerSpell { get; set; }
 
 	public Turn(SpellTarget firstPlayerSpell, SpellTarget secondPlayerSpell)
@@ -38,18 +38,11 @@ public class Turn
 
 			FirstPlayerSpell.Spell.ApplyEffects(phase, FirstPlayerSpell, this);
 			SecondPlayerSpell.Spell.ApplyEffects(phase, SecondPlayerSpell, this);
-		
+
 			if (FirstPlayerSpell.Caster.Health <= 0 || SecondPlayerSpell.Caster.Health <= 0)
 			{
 				return;
 			}
 		}
 	}
-
-	/*
-	public void CounterPlayerSpell(SpellTarget FirstPlayerSpell, SpellTarget SecondPlayerSpell)
-    {
-
-	}
-	*/
 }

@@ -37,6 +37,17 @@
     ]
   },
   {
+    "Name": "Block",
+    "TargetType": "SelfOnly",
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.ResistanceEffect, WizardWars.Lib",
+        "ResistanceAmount": 0.5,
+        "Phase": 1
+      }
+    ]
+  },
+  {
     "Name": "Lifedrain",
     "TargetType": "EnemyOnly",
     "ManaCost": 40,
