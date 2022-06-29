@@ -26,6 +26,9 @@ public static class Program
 			ResetWizard(wizard1);
 			ResetWizard(wizard2);
 
+			var Spellbook1 = userInterface.GetPromptedSpells(wizard1.Name, spellsFromJson);
+			var Spellbook2 = userInterface.GetPromptedSpells(wizard2.Name, spellsFromJson);
+
 			//Duel setup
 			Console.WriteLine();
 			int turnNumber = 0, maxTurns = 100;
@@ -34,8 +37,8 @@ public static class Program
 			{	turnNumber++;
 
 				//Known spells
-				var p1SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard1.LVL).ToList();
-				var p2SpellList = spellsFromJson.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
+				var p1SpellList = Spellbook1.Where(x => x.LVLRequired <= wizard1.LVL).ToList();
+				var p2SpellList = Spellbook2.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
 
 				userInterface.DisplayTurnNumber(turnNumber);
 				userInterface.DisplayStatsGraph(wizard1, wizard2);  //Graph Form

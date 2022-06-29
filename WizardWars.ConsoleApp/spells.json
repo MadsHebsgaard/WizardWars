@@ -67,17 +67,6 @@
     ]
   },
   {
-    "Name": "Bounce",
-    "LVLRequired": 4,
-    "ManaCost": 40,
-    "Effects": [
-      {
-        "$type": "WizardWars.Lib.Effects.BounceEffect, WizardWars.Lib",
-        "Phase": 1
-      }
-    ]
-  },
-  {
     "Name": "Heal",
     "TargetType": "SelfOnly",
     "LVLRequired": 3,
@@ -172,7 +161,7 @@
     ]
   },
   {
-    "Name": "Healthblast", //"HealthCost": 45
+    "Name": "Healthblast",
     "TargetType": "EnemyOnly",
     "LVLRequired": 5,
     "HealthCost": 45,

@@ -38,6 +38,33 @@ public class SpectreConsoleUserInterface : IUserInterface
 		AnsiConsole.Write(table);
 	}
 
+	/*public static List UserPicksSpellbook(IUserInterface userInterface)
+	{
+		return new List(Spellbook);
+	} */
+
+
+	
+	public List<Spell> GetPromptedSpells(string Name, List<Spell> spells)
+	{
+
+			var Spellbook = AnsiConsole.Prompt(
+			new MultiSelectionPrompt<Spell>()
+			.Title($"[purple_2]{Name}[/], pick your [yellow]spells[/]?")
+			.PageSize(30)
+			//.AddChoiceGroup(spells.Where(x => x.Category == "Agressive"))
+			//.AddChoiceGroup(spells.Where(x => x.Category == "Survivability"))
+			.UseConverter(x => x.Name)
+			.MoreChoicesText("[grey](Move up and down to reveal more [yellow]spells[/])[/]")
+			.InstructionsText("[grey](Press [blue]<space>[/] to toggle a [yellow]spells[/], " + "[green]<enter>[/] to accept)[/]")
+			.AddChoices(spells/*.Where(x => x.ManaCost == 0))*/)); 
+
+		return Spellbook;
+	}
+	
+
+		
+
 	public Spell UserPicksSpell(Wizard wizard, List<Spell> spells)
 	{
 		var spell = AnsiConsole.Prompt(
