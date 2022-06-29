@@ -2,6 +2,7 @@
   {
     "Name": "Counterspell",
     "TargetType": "EnemyOnly",
+    "SpellType": "Defensive",
     "LVLRequired": 3,
     "ManaCost": 35,
     "Effects": [
@@ -14,6 +15,7 @@
   {
     "Name": "Disallow",
     "TargetType": "EnemyOnly",
+    "SpellType": "Defensive",
     "LVLRequired": 5,
     "ManaCost": 35,
     "Effects": [
@@ -27,6 +29,7 @@
   },
   {
     "Name": "Redirect",
+    "SpellType": "Defensive",
     "LVLRequired": 5,
     "ManaCost": 35,
     "Effects": [
@@ -38,6 +41,7 @@
   },
   {
     "Name": "Block",
+    "SpellType": "Defensive",
     "TargetType": "SelfOnly",
     "Effects": [
       {
@@ -50,6 +54,7 @@
   {
     "Name": "Lifedrain",
     "TargetType": "EnemyOnly",
+    "SpellType": "Miscellaneous",
     "ManaCost": 40,
     "LVLRequired": 5,
     "TriggerPhase": 3,
@@ -68,6 +73,7 @@
   },
   {
     "Name": "Heal",
+    "SpellType": "Defensive",
     "TargetType": "SelfOnly",
     "LVLRequired": 3,
     "ManaCost": 40,
@@ -82,6 +88,7 @@
   },
   {
     "Name": "Circle of Healing",
+    "SpellType": "Defensive",
     "TargetType": "SelfOnly",
     "LVLRequired": 7,
     "ManaCost": 50,
@@ -97,6 +104,7 @@
   {
     "Name": "Fireball",
     "TargetType": "EnemyOnly",
+    "SpellType": "Agressive",
     "LVLRequired": 6,
     "ManaCost": 50,
     "TriggerPhase": 4,
@@ -111,6 +119,7 @@
   {
     "Name": "Punch",
     "TargetType": "EnemyOnly",
+    "SpellType": "Agressive",
     "LVLRequired": 1,
     "ManaCost": 0,
     "Effects": [
@@ -124,6 +133,8 @@
   {
     "Name": "Kick",
     "TargetType": "EnemyOnly",
+    "SpellType": "Agressive",
+
     "LVLRequired": 2,
     "ManaCost": 15,
     "TriggerPhase": 2,
@@ -138,7 +149,7 @@
   {
     "Name": "Bite",
     "TargetType": "EnemyOnly",
-    "SpellType": "Physical",
+    "SpellType": "Agressive",
     "ManaCost": 30,
     "LVLRequired": 2,
     "TriggerPhase": 4,
@@ -163,6 +174,7 @@
   {
     "Name": "Healthblast",
     "TargetType": "EnemyOnly",
+    "SpellType": "Agressive",
     "LVLRequired": 5,
     "HealthCost": 45,
     "TriggerPhase": 3,
@@ -177,6 +189,7 @@
   {
     "Name": "Fireblast",
     "TargetType": "EnemyOnly",
+    "SpellType": "Agressive",
     "LVLRequired": 4,
     "ManaCost": 40,
     "TriggerPhase": 3,
@@ -191,6 +204,7 @@
   {
     "Name": "Steal Mana",
     "TargetType": "EnemyOnly",
+    "SpellType": "Resource_management",
     "LVLRequired": 5,
     "ManaCost": 50,
     "TriggerPhase": 5,
@@ -210,6 +224,7 @@
   {
     "Name": "Meditate",
     "TargetType": "SelfOnly",
+    "SpellType": "Resource_management",
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.SelfRestoreManaEffect, WizardWars.Lib",
@@ -222,6 +237,7 @@
   {
     "Name": "LVL up",
     "TargetType": "SelfOnly",
+    "SpellType": "Miscellaneous",
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",
