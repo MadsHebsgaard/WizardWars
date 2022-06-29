@@ -47,23 +47,19 @@ public class SpectreConsoleUserInterface : IUserInterface
 	
 	public List<Spell> GetPromptedSpells(string Name, List<Spell> spells)
 	{
-
-			var Spellbook = AnsiConsole.Prompt(
-			new MultiSelectionPrompt<Spell>()
-			.Title($"[purple_2]{Name}[/], pick your [yellow]spells[/]?")
-			.PageSize(30)
-			//.AddChoiceGroup(spells.Where(x => x.Category == "Agressive"))
-			//.AddChoiceGroup(spells.Where(x => x.Category == "Survivability"))
-			.UseConverter(x => x.Name)
-			.MoreChoicesText("[grey](Move up and down to reveal more [yellow]spells[/])[/]")
-			.InstructionsText("[grey](Press [blue]<space>[/] to toggle a [yellow]spells[/], " + "[green]<enter>[/] to accept)[/]")
-			.AddChoices(spells/*.Where(x => x.ManaCost == 0))*/)); 
-
+		var Spellbook = AnsiConsole.Prompt(
+		new MultiSelectionPrompt<Spell>()
+		.Title($"[purple_2]{Name}[/], pick your [yellow]spells[/]?")
+		.PageSize(30)
+		//.AddChoiceGroup(spells.Where(x => x.SpellType == SpellType.Agressive))
+		.UseConverter(x => x.Name)
+		.MoreChoicesText("[grey](Move up and down to reveal more [yellow]spells[/])[/]")
+		.InstructionsText("[grey](Press [blue]<space>[/] to toggle a [yellow]spells[/], " + "[green]<enter>[/] to accept)[/]")
+		.AddChoices(spells/*.Where(x => x.ManaCost == 0))*/));
 		return Spellbook;
 	}
 	
 
-		
 
 	public Spell UserPicksSpell(Wizard wizard, List<Spell> spells)
 	{
@@ -116,16 +112,13 @@ public class SpectreConsoleUserInterface : IUserInterface
 			Console.WriteLine(" Dual over! Ran out of max turns of " + maxTurns);
 		}
 
-		AnsiConsole.MarkupLine($"\n [violet]***********************************************************[/]");
-		AnsiConsole.MarkupLine($"			[bold purple_2]{wizard1.Name}[/] [yellow]{wizard1.WinCount} - {wizard2.WinCount}[/] [bold purple_2]{wizard2.Name}[/]");
-		AnsiConsole.MarkupLine($" [violet]***********************************************************[/]  ");
-
-
-		/*
-		if (wizard1.WinCount > wizard2.WinCount) { AnsiConsole.MarkupLine($"[yellow]{wizard1.WinCount}[/] - [yellow]{wizard2.WinCount}[/] to [purple_2]{wizard1.Name}[/]"); }
-		else if (wizard1.WinCount < wizard2.WinCount) { AnsiConsole.MarkupLine($"[yellow]{wizard2.WinCount}[/] - [yellow]{wizard1.WinCount}[/] to [purple_2]{wizard2.Name}[/]"); }
-		else { AnsiConsole.MarkupLine($"[purple_2]{wizard1.Name}[/] and [purple_2]{wizard1.Name}[/] are tied: [yellow]{wizard1.WinCount}[/] - [yellow]{wizard2.WinCount}[/]"); }
-		*/
+		var rule0= new Rule("");
+		var rule = new Rule($"[bold purple_2]{wizard1.Name}[/] [yellow]{wizard1.WinCount} - {wizard2.WinCount}[/] [bold purple_2]{wizard2.Name}[/]");
+		rule.Style = Style.Parse("purple_2 bold");
+		rule0.Style = Style.Parse("purple_2 bold");
+		AnsiConsole.Write(rule0);
+		AnsiConsole.Write(rule);
+		AnsiConsole.Write(rule0);
 	}
 
 	public void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog) //X used y on x -> X used y on himself
@@ -261,7 +254,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 
 	public void DisplayTurnNumber(int turnNumber)
 	{
-		var line = new string('-', Console.BufferWidth);
-		AnsiConsole.MarkupLine($"\n[darkorange]{line}[/]\n\t[bold]Turn: {turnNumber}[/]\n[darkorange]{line}[/]");
+		var rule = new Rule($"[darkorange bold]Turn: { turnNumber}[/]");
+		AnsiConsole.Write(rule);
 	}
 }
