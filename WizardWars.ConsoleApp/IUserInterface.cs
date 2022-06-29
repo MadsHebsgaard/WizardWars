@@ -14,7 +14,7 @@ public interface IUserInterface
 	void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog);
 	void DisplayStatsGraph(Wizard wizard1, Wizard wizard2);
 	public void DisplayTurnNumber(int turnNumber);
-	public List<Spell> GetPromptedSpells(string Name, List<Spell> spells);
+	public List<Spell> GetSpells(List<Spell> spells, int numberOfSpells, string name);
 
 
 }

@@ -12,6 +12,8 @@ public static class Program
 
 	public static void Main()
 	{
+		int numberOfSpells = 12;
+
 		//UI and Spell setup
 		IUserInterface userInterface = new SpectreConsoleUserInterface();
 		var spellsFromJson = ReadFromJson<IEnumerable<Spell>>("spells.json").ToList();
@@ -26,8 +28,8 @@ public static class Program
 			ResetWizard(wizard1);
 			ResetWizard(wizard2);
 
-			var Spellbook1 = userInterface.GetPromptedSpells(wizard1.Name, spellsFromJson);
-			var Spellbook2 = userInterface.GetPromptedSpells(wizard2.Name, spellsFromJson);
+			var Spellbook1 = userInterface.GetSpells(spellsFromJson, numberOfSpells, wizard1.Name);
+			var Spellbook2 = userInterface.GetSpells(spellsFromJson, numberOfSpells, wizard2.Name);
 
 			//Duel setup
 			Console.WriteLine();

@@ -44,22 +44,51 @@ public class SpectreConsoleUserInterface : IUserInterface
 	} */
 
 
-	
-	public List<Spell> GetPromptedSpells(string Name, List<Spell> spells)
-	{
-		var Spellbook = AnsiConsole.Prompt(
-		new MultiSelectionPrompt<Spell>()
-		.Title($"[purple_2]{Name}[/], pick your [yellow]spells[/]?")
-		.PageSize(30)
-		//.AddChoiceGroup(spells.Where(x => x.SpellType == SpellType.Agressive))
-		.UseConverter(x => x.Name)
-		.MoreChoicesText("[grey](Move up and down to reveal more [yellow]spells[/])[/]")
-		.InstructionsText("[grey](Press [blue]<space>[/] to toggle a [yellow]spells[/], " + "[green]<enter>[/] to accept)[/]")
-		.AddChoices(spells/*.Where(x => x.ManaCost == 0))*/));
-		return Spellbook;
-	}
-	
 
+	public List<Spell> GetSpells(List<Spell> spells, int numberOfSpells, string name)
+	{
+		while (true)
+		{
+			var selectedSpells = AnsiConsole.Prompt(
+				new MultiSelectionPrompt<Spell>()
+					.Title($"\n [purple_2]{name}[/], pick up to {numberOfSpells} [yellow]spells[/] from the list.")
+					.Mode(SelectionMode.Leaf)
+					.Required()
+					.PageSize(30)
+					.UseConverter(x => x.Name)
+					.AddChoiceGroup(new Spell() { Name = "Damage" },
+						spells.Where(x => x.SpellType == SpellType.Damage))
+					.AddChoiceGroup(new Spell() { Name = "Support" },
+						spells.Where(x => x.SpellType == SpellType.Support))
+					.AddChoiceGroup(new Spell() { Name = "Utility" },
+						spells.Where(x => x.SpellType == SpellType.Utility))
+					.AddChoiceGroup(new Spell() { Name = "Other" },
+						spells.Where(x => x.SpellType == SpellType.Other)));
+
+			if (selectedSpells.Count == numberOfSpells)
+			{
+				return selectedSpells;
+			}
+			if (selectedSpells.Count < numberOfSpells)
+			{
+				string aws = AnsiConsole.Prompt(
+				new SelectionPrompt<string>()
+					.Title($" You picked less than {numberOfSpells} [yellow]spells[/]. Continue?")
+					.AddChoices("Yes")
+					.AddChoices("No")
+					);
+                if (aws == "Yes") { return selectedSpells;  }
+			}
+			if (selectedSpells.Count > numberOfSpells)
+			{
+				string aws = AnsiConsole.Prompt(
+				new SelectionPrompt<string>()
+					.Title($" You picked more than than {numberOfSpells} [yellow]spells[/]. Try again?")
+					.AddChoices("Yes")
+					);
+			}
+		}
+	}
 
 	public Spell UserPicksSpell(Wizard wizard, List<Spell> spells)
 	{

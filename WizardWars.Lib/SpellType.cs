@@ -2,8 +2,8 @@
 
 public enum SpellType
 {
-	Miscellaneous,
-	Agressive,
-	Defensive,
-	Resource_management
+	Other,
+	Damage,
+	Support,
+	Utility
 }
