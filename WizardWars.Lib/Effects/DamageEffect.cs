@@ -6,24 +6,25 @@ public class DamageEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
+		int BlockAmount = 0;
+		int DamageThrough = DamageAmount;
 		if (playerSpell.Target.Resistance > 0)
         {
-			int BlockAmount = Convert.ToInt32(DamageAmount * playerSpell.Target.Resistance);
+			BlockAmount = Convert.ToInt32(DamageAmount * playerSpell.Target.Resistance);
 			var enemySpellCast = playerSpell == turn.FirstPlayerSpell ? turn.SecondPlayerSpell : turn.FirstPlayerSpell;
 			turn.AddLogMessage(new ResistanceEventLogMessage(
-				playerSpell.Caster.Name,
 				enemySpellCast.Caster.Name,
-				enemySpellCast.Spell.Name,
+				playerSpell.Caster.Name,
+				playerSpell.Spell.Name,
 				BlockAmount));
-			DamageAmount -= BlockAmount;
 		}
-
-		playerSpell.Target.Health -= DamageAmount;
+		DamageThrough -= BlockAmount;
+		playerSpell.Target.Health -= DamageThrough;
 
 		turn.AddLogMessage(new DamageEventLogMessage(
 			playerSpell.Caster.Name,
 			playerSpell.Target.Name,
 			playerSpell.Spell.Name,
-			DamageAmount));
+			DamageThrough));
 	}
 }
