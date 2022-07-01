@@ -47,6 +47,13 @@ public class SpectreConsoleUserInterface : IUserInterface
 
 	public List<Spell> GetSpells(List<Spell> spells, int numberOfSpells, string name)
 	{
+		string AllSpells = AnsiConsole.Prompt(
+		new SelectionPrompt<string>()
+			.Title($"\n[purple]{name}[/], are you playing with all spells?")
+			.AddChoices("No")
+			.AddChoices("Yes"));
+		if (AllSpells == "Yes") { return spells; }
+
 		while (true)
 		{
 			var selectedSpells = AnsiConsole.Prompt(
@@ -54,7 +61,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 					.Title($"\n [purple_2]{name}[/], pick up to {numberOfSpells} [yellow]spells[/] from the list.")
 					.Mode(SelectionMode.Leaf)
 					.Required()
-					.PageSize(30)
+					.PageSize(50)
 					.UseConverter(x => x.Name)
 					.AddChoiceGroup(new Spell() { Name = "Damage" },
 						spells.Where(x => x.SpellType == SpellType.Damage))
@@ -75,8 +82,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 				new SelectionPrompt<string>()
 					.Title($" You picked less than {numberOfSpells} [yellow]spells[/]. Continue?")
 					.AddChoices("Yes")
-					.AddChoices("No")
-					);
+					.AddChoices("No"));
                 if (aws == "Yes") { return selectedSpells;  }
 			}
 			if (selectedSpells.Count > numberOfSpells)
@@ -84,8 +90,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 				string aws = AnsiConsole.Prompt(
 				new SelectionPrompt<string>()
 					.Title($" You picked more than than {numberOfSpells} [yellow]spells[/]. Try again?")
-					.AddChoices("Yes")
-					);
+					.AddChoices("Yes"));
 			}
 		}
 	}
@@ -98,7 +103,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 				.UseConverter(x => x.Name)
 				.AddChoices(spells)
 				.MoreChoicesText("[silver](Move up and down to reveal more [yellow]spells[/])[/]")
-				.PageSize(15)
+				.PageSize(50)
 			//.HighlightStyle(Style().Foreground(Color.Fuchsia))
 		);
 
@@ -162,7 +167,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 						$" [purple_2]{spellEvent.Source}[/] casts [yellow]{spellEvent.SpellName}[/] on [purple_2]{spellEvent.Target}[/] ");
 					if (spellEvent.HealthCost > 0 && spellEvent.ManaCost > 0)
 					{
-						AnsiConsole.Markup(
+						AnsiConsole.MarkupLine(
 							$"for [green]{spellEvent.HealthCost} health[/] and [blue]{spellEvent.ManaCost} mana[/].");
 					}
 					else if (spellEvent.ManaCost > 0)

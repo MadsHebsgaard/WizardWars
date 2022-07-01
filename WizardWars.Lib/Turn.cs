@@ -24,7 +24,7 @@ public class Turn
 		AddLogMessage(new SpellCastLogMessage(FirstPlayerSpell.Caster.Name, FirstPlayerSpell.Target.Name, FirstPlayerSpell.Spell.Name, FirstPlayerSpell.Spell.ManaCost, FirstPlayerSpell.Spell.HealthCost));
 		AddLogMessage(new SpellCastLogMessage(SecondPlayerSpell.Caster.Name, SecondPlayerSpell.Target.Name, SecondPlayerSpell.Spell.Name, SecondPlayerSpell.Spell.ManaCost, SecondPlayerSpell.Spell.HealthCost));
 
-		foreach (var phase in Enum.GetValues<SpellPhase>().Skip(1))
+		foreach (var phase in Enum.GetValues<SpellPhase>()/*.Skip(1)*/)
 		{
 			//CounterPlayerSpell(FirstPlayerSpell, SecondPlayerSpell); //TODO: This function
 			if (!SecondPlayerSpell.Continue)

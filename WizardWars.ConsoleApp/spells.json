@@ -18,7 +18,7 @@
     "TargetType": "EnemyOnly",
     "SpellType": "Damage",
 
-    "LVLRequired": 2,
+    "LVLRequired": 1,
     "ManaCost": 15,
     "TriggerPhase": 2,
     "Effects": [
@@ -26,6 +26,22 @@
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
         "DamageAmount": 20,
         "Phase": 2
+      }
+    ]
+  },
+  {
+    "Name": "Bodyslam",
+    "TargetType": "EnemyOnly",
+    "SpellType": "Damage",
+    "LVLRequired": 2,
+    "ManaCost": 50,
+    "HealthCost": 5,
+    "TriggerPhase": 5,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "DamageAmount": 40,
+        "Phase": 5
       }
     ]
   },
@@ -58,7 +74,7 @@
     "Name": "HeadBang",
     "TargetType": "EnemyOnly",
     "SpellType": "Damage",
-    "LVLRequired": 5,
+    "LVLRequired": 3,
     "HealthCost": 15,
     "ManaCost": 15,
     "TriggerPhase": 3,
@@ -153,11 +169,12 @@
     "Name": "Block",
     "SpellType": "Utility",
     "TargetType": "SelfOnly",
+    "TriggerPhase": 0,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.ResistanceEffect, WizardWars.Lib",
-        "ResistanceAmount": 0.5,
-        "Phase": 1
+        "ResistanceAmount": 0.6,
+        "Phase": 0
       }
     ]
   },
@@ -210,7 +227,7 @@
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.RedirectEffect, WizardWars.Lib",
-        "Phase": 1
+        "Phase": 0
       }
     ]
   },
@@ -219,7 +236,7 @@
     "SpellType": "Support",
     "TargetType": "SelfOnly",
     "LVLRequired": 3,
-    "ManaCost": 40,
+    "ManaCost": 35,
     "TriggerPhase": 2,
     "Effects": [
       {
@@ -233,7 +250,7 @@
     "Name": "Chain Heal",
     "SpellType": "Support",
     "TargetType": "SelfOnly",
-    "LVLRequired": 7,
+    "LVLRequired": 4,
     "ManaCost": 25,
     "TriggerPhase": 2,
     "Effects": [
@@ -337,6 +354,11 @@
         "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",
         "LVLRequired": 1,
         "LVLAmount": 1,
+        "Phase": 1
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
+        "HealAmount": 5,
         "Phase": 1
       }
     ]

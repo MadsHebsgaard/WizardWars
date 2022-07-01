@@ -43,7 +43,7 @@ public static class Program
 				var p2SpellList = Spellbook2.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
 
 				userInterface.DisplayTurnNumber(turnNumber);
-				userInterface.DisplayStatsGraph(wizard1, wizard2);  //Graph Form
+				userInterface.DisplayStatsGraph(wizard1, wizard2);
 				//userInterface.DisplayStats(wizard1, wizard2);		//TODO: Remove this
 				Console.WriteLine();
 
@@ -52,9 +52,11 @@ public static class Program
 				var p1Target = GetTarget(p1Spell, userInterface, wizard1, wizard2);
 				var p1 = new SpellTarget(wizard1, p1Spell, p1Target);
 
+				Console.Beep();
 				var p2Spell = userInterface.UserPicksSpell(wizard2, p2SpellList.Where(x => x.ManaCost <= wizard2.Mana).ToList());
 				var p2Target = GetTarget(p2Spell, userInterface, wizard2, wizard1);
 				var p2 = new SpellTarget(wizard2, p2Spell, p2Target);
+				Console.Beep();
 
 				//Create, execute and show turn
 				var turn = new Turn(p1, p2);
@@ -63,6 +65,7 @@ public static class Program
 				userInterface.DisplayEventLog(turn.EventLog);
 				UpdateStats(wizard1, wizard2, p1Spell.ManaCost, p2Spell.ManaCost, p1Spell.HealthCost, p2Spell.HealthCost);
 			}
+			userInterface.DisplayStatsGraph(wizard1, wizard2);
 			userInterface.DisplayWinText(wizard1, wizard2, turnNumber, maxTurns);
 		}
 	}
@@ -82,14 +85,14 @@ public static class Program
 
 		wizard1.Mana = wizard1.Mana < 0 ? 0 : wizard1.Mana;
 		wizard2.Mana = wizard2.Mana < 0 ? 0 : wizard2.Mana;
-		wizard1.LVLRegen = wizard1.LVL < 10 ? 1 / Math.Floor(wizard1.LVL + 1) + 0.1 : 0; //TODO: LVL 3.99
-		wizard2.LVLRegen = wizard2.LVL < 10 ? 1 / Math.Floor(wizard2.LVL + 1) + 0.1 : 0;
+		wizard1.LVLRegen = wizard1.LVL < 10 ? 1 / Math.Floor(wizard1.LVL + 1) + 0.1 : 0; // LVL up -> Heal 5 hp
+		wizard2.LVLRegen = wizard2.LVL < 10 ? 1 / Math.Floor(wizard2.LVL + 1) + 0.1 : 0; // LVL up -> Heal 5 hp
 		wizard1.LVL = wizard1.LVL + wizard1.LVLRegen > 10 ? 10 : Math.Round(wizard1.LVL + wizard1.LVLRegen, 2);
 		wizard2.LVL = wizard2.LVL + wizard2.LVLRegen > 10 ? 10 : Math.Round(wizard2.LVL + wizard2.LVLRegen, 2);
 
 		//Never very unlucky with levels
 		wizard1.LVL = wizard1.LVL % 1 > 0.95 ? Math.Ceiling(wizard1.LVL) : wizard1.LVL;
-		wizard2.LVL = wizard2.LVL % 1 < 0.05 ? Math.Ceiling(wizard2.LVL) : wizard2.LVL;
+		wizard2.LVL = wizard2.LVL % 1 > 0.95 ? Math.Ceiling(wizard2.LVL) : wizard2.LVL;
 	}
 
 	private static T ReadFromJson<T>(string filename)
