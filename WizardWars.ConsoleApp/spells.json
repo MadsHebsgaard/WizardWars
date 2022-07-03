@@ -1,8 +1,8 @@
 ﻿[
   {
     "Name": "Punch",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 1,
     "ManaCost": 0,
     "Effects": [
@@ -15,9 +15,8 @@
   },
   {
     "Name": "Kick",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
-
+    "TargetType": "EnemyOnly",
     "LVLRequired": 1,
     "ManaCost": 15,
     "TriggerPhase": 2,
@@ -31,8 +30,8 @@
   },
   {
     "Name": "Bodyslam",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 2,
     "ManaCost": 50,
     "HealthCost": 5,
@@ -47,8 +46,8 @@
   },
   {
     "Name": "Bite",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
     "ManaCost": 30,
     "LVLRequired": 2,
     "TriggerPhase": 4,
@@ -72,8 +71,8 @@
   },
   {
     "Name": "HeadBang",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 3,
     "HealthCost": 15,
     "ManaCost": 15,
@@ -88,8 +87,8 @@
   },
   {
     "Name": "Fireblast",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 4,
     "ManaCost": 40,
     "TriggerPhase": 3,
@@ -103,8 +102,8 @@
   },
   {
     "Name": "Healthblast",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 5,
     "HealthCost": 45,
     "TriggerPhase": 3,
@@ -118,8 +117,8 @@
   },
   {
     "Name": "Fireball",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 6,
     "ManaCost": 50,
     "TriggerPhase": 4,
@@ -133,8 +132,8 @@
   },
   {
     "Name": "Pyroblast",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 10,
     "ManaCost": 65,
     "TriggerPhase": 5,
@@ -148,8 +147,8 @@
   },
   {
     "Name": "Fury Bomb",
-    "TargetType": "EnemyOnly",
     "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 7,
     "TriggerPhase": 2,
     "Effects": [
@@ -169,7 +168,7 @@
     "Name": "Block",
     "SpellType": "Utility",
     "TargetType": "SelfOnly",
-    "TriggerPhase": 0,
+    "TriggerPhase": 1,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.ResistanceEffect, WizardWars.Lib",
@@ -180,8 +179,8 @@
   },
   {
     "Name": "Counterspell",
-    "TargetType": "EnemyOnly",
     "SpellType": "Utility",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 3,
     "ManaCost": 35,
     "Effects": [
@@ -193,8 +192,8 @@
   },
   {
     "Name": "Sacrificial Counterspell",
-    "TargetType": "EnemyOnly",
     "SpellType": "Utility",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 5,
     "HealthCost": 35,
     "Effects": [
@@ -206,8 +205,8 @@
   },
   {
     "Name": "Disallow",
-    "TargetType": "EnemyOnly",
     "SpellType": "Utility",
+    "TargetType": "EnemyOnly",
     "LVLRequired": 5,
     "ManaCost": 35,
     "Effects": [
@@ -279,19 +278,13 @@
   {
     "Name": "Lifedrain",
     "TargetType": "EnemyOnly",
-    "SpellType": "Support",
     "ManaCost": 40,
     "LVLRequired": 5,
     "TriggerPhase": 3,
     "Effects": [
       {
-        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
-        "DamageAmount": 20,
-        "Phase": 3
-      },
-      {
-        "$type": "WizardWars.Lib.Effects.SelfHealEffect, WizardWars.Lib",
-        "HealAmount": 20,
+        "$type": "WizardWars.Lib.Effects.LifeStealEffect, WizardWars.Lib",
+        "LifeStealAmount": 20,
         "Phase": 3
       }
     ]
@@ -299,19 +292,18 @@
   {
     "Name": "Steal Mana",
     "TargetType": "EnemyOnly",
-    "SpellType": "Other",
     "LVLRequired": 5,
-    "ManaCost": 50,
+    "ManaCost": 45,
     "TriggerPhase": 5,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.RemoveManaEffect, WizardWars.Lib",
-        "RemoveManaAmount": 40,
+        "RemoveManaAmount": 45,
         "Phase": 5
       },
       {
         "$type": "WizardWars.Lib.Effects.SelfRestoreManaEffect, WizardWars.Lib",
-        "RestoreManaAmount": 40,
+        "RestoreManaAmount": 45,
         "Phase": 5
       }
     ]
@@ -319,7 +311,6 @@
   {
     "Name": "Mages Sacrifice",
     "TargetType": "SelfOnly",
-    "SpellType": "Other",
     "LVLRequired": 6,
     "HealthCost": 20,
     "TriggerPhase": 5,
@@ -331,11 +322,26 @@
       }
     ]
   },
-
+  {
+    "Name": "Mana Rain",
+    "SpellType": "Other",
+    "TargetType": "SelfOnly",
+    "LVLRequired": 5,
+    "ManaCost": 20,
+    "TriggerPhase": 5,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.AreaRestoreManaEffect, WizardWars.Lib",
+        "RestoreManaAmount": 100,
+        "Phase": 5
+      }
+    ]
+  },
   {
     "Name": "Meditate",
-    "TargetType": "SelfOnly",
     "SpellType": "Other",
+    "TargetType": "SelfOnly",
+    "LVLRequired": 1,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.SelfRestoreManaEffect, WizardWars.Lib",
@@ -347,18 +353,14 @@
   },
   {
     "Name": "LVL up",
-    "TargetType": "SelfOnly",
     "SpellType": "Other",
+    "TargetType": "SelfOnly",
+    "LVLRequired": 1,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",
         "LVLRequired": 1,
         "LVLAmount": 1,
-        "Phase": 1
-      },
-      {
-        "$type": "WizardWars.Lib.Effects.HealEffect, WizardWars.Lib",
-        "HealAmount": 5,
         "Phase": 1
       }
     ]

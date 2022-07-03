@@ -155,7 +155,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 		AnsiConsole.Write(rule0);
 	}
 
-	public void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog) //X used y on x -> X used y on himself
+	public void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog)
 	{
 		foreach (var message in turnEventLog)
 		{
@@ -218,11 +218,11 @@ public class SpectreConsoleUserInterface : IUserInterface
 					break;
 				case LifeStealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [green]{spellEvent.Amount} health[/] from [purple_2]{spellEvent.Target}[/].");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to [purple_2]{spellEvent.Target}[/] and heals [green]{spellEvent.Amount} health[/] to [purple_2]{spellEvent.Source}[/]");
 					break;
 				case ManaStealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] steals [blue]{spellEvent.Amount} mana[/] from [purple_2]{spellEvent.Target}[/].");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] removes [blue]{spellEvent.Amount} mana[/] from [purple_2]{spellEvent.Target}[/] and replenishes [blue]{spellEvent.Amount} mana[/] to [purple_2]{spellEvent.Source}[/]");
 					break;
 				case SelfDamageEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
@@ -231,6 +231,10 @@ public class SpectreConsoleUserInterface : IUserInterface
 				case SelfHealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to himself.");
+					break;
+				case AreaRestoreManaEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine(
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] restores [blue]{spellEvent.Amount} mana[/] to everyone.");
 					break;
 				case AreaHealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
@@ -250,7 +254,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 					break;
 				case SelfLVLEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] gives [purple_2]{spellEvent.Amount} LVL[/] to himself");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants [purple_2]{spellEvent.Amount} LVL[/] to himself");
 					break;
 			}
 		}
@@ -290,5 +294,9 @@ public class SpectreConsoleUserInterface : IUserInterface
 	{
 		var rule = new Rule($"[darkorange bold]Turn: { turnNumber}[/]");
 		AnsiConsole.Write(rule);
+	}
+	public void DisplayLvlUp(string name, int lvl, int heal)
+    {
+		AnsiConsole.MarkupLine($" [purple_2]{name}[/] LVL's up to LVL {lvl}, and heals [green]{heal} health[/].");
 	}
 }
