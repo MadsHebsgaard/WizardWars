@@ -6,12 +6,18 @@ public class AreaHealEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		turn.SecondPlayerSpell.Caster.Health += HealAmount;
-		turn.FirstPlayerSpell.Caster.Health += HealAmount;
+		var enemySpellCast = playerSpell == turn.FirstPlayerSpell ? turn.SecondPlayerSpell : turn.FirstPlayerSpell;
+
+		int HealthHealed1 = Math.Min(HealAmount, playerSpell.Caster.MaxHealth - playerSpell.Caster.Health);
+		int HealthHealed2 = Math.Min(HealAmount, enemySpellCast.Caster.MaxHealth - enemySpellCast.Caster.Health);
+		playerSpell.Caster.Health += HealthHealed1;
+		enemySpellCast.Caster.Health += HealthHealed2;
 
 		turn.AddLogMessage(new AreaHealEventLogMessage(
 			playerSpell.Caster.Name,
+			enemySpellCast.Caster.Name,
 			playerSpell.Spell.Name,
-			HealAmount));
+			HealthHealed1,
+			HealthHealed2));
 	}
 }

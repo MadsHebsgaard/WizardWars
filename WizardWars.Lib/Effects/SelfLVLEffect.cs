@@ -6,12 +6,15 @@ public class SelfLVLEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		playerSpell.Caster.LVL += LVLAmount;
-		
+		double LvlGained = Math.Min(LVLAmount, Wizard.MaxLVL - playerSpell.Caster.LVL);
+		int LvlUp = Convert.ToInt32(Math.Floor((playerSpell.Caster.LVL % 1) + LvlGained));
+
+		playerSpell.Caster.LVL += LvlGained;
+		playerSpell.Caster.Health += LvlUp * Wizard.LVLHeal;
+
 		turn.AddLogMessage(new SelfLVLEventLogMessage(
 			playerSpell.Caster.Name,
 			playerSpell.Spell.Name,
-			LVLAmount));
+			LvlGained));
 	}
-
 }

@@ -6,11 +6,12 @@ public class SelfHealEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		playerSpell.Caster.Health += HealAmount;
+		int HealthHealed = Math.Min(HealAmount, playerSpell.Target.MaxHealth - playerSpell.Target.Health);
+		playerSpell.Caster.Health += HealthHealed;
 
 		turn.AddLogMessage(new SelfHealEventLogMessage(
 			playerSpell.Caster.Name,
 			playerSpell.Spell.Name,
-			HealAmount));
+			HealthHealed));
 	}
 }

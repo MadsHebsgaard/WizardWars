@@ -38,13 +38,6 @@ public class SpectreConsoleUserInterface : IUserInterface
 		AnsiConsole.Write(table);
 	}
 
-	/*public static List UserPicksSpellbook(IUserInterface userInterface)
-	{
-		return new List(Spellbook);
-	} */
-
-
-
 	public List<Spell> GetSpells(List<Spell> spells, int numberOfSpells, string name)
 	{
 		string AllSpells = AnsiConsole.Prompt(
@@ -118,8 +111,17 @@ public class SpectreConsoleUserInterface : IUserInterface
 			.AddChoices(Enum.GetValues<Target>()));
 	}
 
-	public void DisplayWinText(Wizard wizard1, Wizard wizard2, int turnNumber, int maxTurns)
+	public void DisplayWinText(Wizard wizard1, Wizard wizard2, int turnNumber, int maxTurns, int wz1)
 	{
+		Console.WriteLine();
+		var DualOver = new Rule($" Dual over ");
+		AnsiConsole.Write(DualOver);
+
+
+		if (wz1 == 1) { DisplayStatsGraph(wizard1, wizard2); }
+		else if (wz1 == 2) { DisplayStatsGraph(wizard2, wizard1); }
+
+
 		if (turnNumber != maxTurns)
 		{
 			Console.WriteLine();
@@ -146,13 +148,11 @@ public class SpectreConsoleUserInterface : IUserInterface
 			Console.WriteLine(" Dual over! Ran out of max turns of " + maxTurns);
 		}
 
-		var rule0= new Rule("");
-		var rule = new Rule($"[bold purple_2]{wizard1.Name}[/] [yellow]{wizard1.WinCount} - {wizard2.WinCount}[/] [bold purple_2]{wizard2.Name}[/]");
-		rule.Style = Style.Parse("purple_2 bold");
-		rule0.Style = Style.Parse("purple_2 bold");
-		AnsiConsole.Write(rule0);
+		var rule = new Rule($"[bold purple_2]{wizard1.Name}[/] {wizard1.WinCount} - {wizard2.WinCount} [bold purple_2]{wizard2.Name}[/]");
+		var line = new Rule("");
+		AnsiConsole.Write(line);
 		AnsiConsole.Write(rule);
-		AnsiConsole.Write(rule0);
+		AnsiConsole.Write(line);
 	}
 
 	public void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog)
@@ -208,53 +208,57 @@ public class SpectreConsoleUserInterface : IUserInterface
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/] fails to redirect [purple_2]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
 					break;
-				case ResistanceEventLogMessage spellEvent:
+				case BlockEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/] blocks [red]{spellEvent.Amount} damage[/] from [purple_2]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
 					break;
 				case ManaGainEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to [purple_2]{spellEvent.Target}[/]");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to [purple_2]{spellEvent.Target}[/].");
 					break;
 				case LifeStealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to [purple_2]{spellEvent.Target}[/] and heals [green]{spellEvent.Amount} health[/] to [purple_2]{spellEvent.Source}[/]");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.DamageDealt} damage[/] to [purple_2]{spellEvent.Target}[/] and heals [green]{spellEvent.HealthHealed} health[/] to [purple_2]{spellEvent.Source}[/].");
 					break;
 				case ManaStealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] removes [blue]{spellEvent.Amount} mana[/] from [purple_2]{spellEvent.Target}[/] and replenishes [blue]{spellEvent.Amount} mana[/] to [purple_2]{spellEvent.Source}[/]");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] removes [blue]{spellEvent.Amount} mana[/] from [purple_2]{spellEvent.Target}[/] and replenishes [blue]{spellEvent.Amount} mana[/] to [purple_2]{spellEvent.Source}[/].");
 					break;
 				case SelfDamageEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to himself.");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to him.");
 					break;
 				case SelfHealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to himself.");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals him [green]{spellEvent.Amount} health[/].");
 					break;
 				case AreaRestoreManaEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] restores [blue]{spellEvent.Amount} mana[/] to everyone.");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] replenishes [purple_2]{spellEvent.Source}[/] and [purple_2]{spellEvent.Player2}[/] for [blue]{spellEvent.Amount1}[/] and [blue]{spellEvent.Amount2} mana[/].");
 					break;
 				case AreaHealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [green]{spellEvent.Amount} health[/] to everyone.");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [purple_2]{spellEvent.Source}[/] and [purple_2]{spellEvent.Player2}[/] for [green]{spellEvent.Amount1}[/] and [green]{spellEvent.Amount2} health[/].");
 					break;
 				case RemoveManaEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [purple_2]{spellEvent.SpellName}[/] removes [blue]{spellEvent.Amount} mana[/] from [purple_2]{spellEvent.Target}[/]");
+						$" [purple_2]{spellEvent.Source}[/]'s [purple_2]{spellEvent.SpellName}[/] removes [blue]{spellEvent.Amount} mana[/] from [purple_2]{spellEvent.Target}[/].");
 					break;
 				case SelfRestoreManaEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [purple_2]{spellEvent.SpellName}[/] replenishes [blue]{spellEvent.Amount} mana[/] to himself");
+						$" [purple_2]{spellEvent.Source}[/]'s [purple_2]{spellEvent.SpellName}[/] replenishes him [blue]{spellEvent.Amount} mana[/].");
 					break;
 				case LVLEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] gives [purple_2]{spellEvent.Amount} LVL[/] to [purple_2]{spellEvent.Target}[/]");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants [purple_2]{spellEvent.Target}[/] [purple_2]{spellEvent.Amount} LVL[/].");
 					break;
 				case SelfLVLEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants [purple_2]{spellEvent.Amount} LVL[/] to himself");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants him [purple_2]{spellEvent.Amount} LVL[/].");
+					break;
+				case SelfResistanceEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine(
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants him [darkgreen]{spellEvent.Amount*100}% resistance[/].");
 					break;
 			}
 		}
@@ -262,41 +266,38 @@ public class SpectreConsoleUserInterface : IUserInterface
 
 	public void DisplayStatsGraph(Wizard wizard1, Wizard wizard2)
 	{
-		int x = Math.Max(wizard1.Name.Length, wizard2.Name.Length);
+		int MaxString = Math.Max(wizard1.Name.Length, wizard2.Name.Length);
+		int MaxWith = Math.Max(Math.Max(wizard1.MaxHealth, wizard1.MaxMana), Math.Max(wizard2.MaxHealth, wizard2.MaxMana));
 
 		AnsiConsole.Write(new BarChart()
 			.Width(60)
-			.WithMaxValue(100)
+			.WithMaxValue(MaxWith)
 			.CenterLabel()
-			.Label($"[green bold underline]Wizard Stats[/]\n")
-			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(x)}[/] [green]Health[/]", wizard1.Health, Color.Green)
-			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(x)}[/]   [blue]Mana[/]", wizard1.Mana, Color.Blue));
+			.Label($"[green bold underline]Wizard Stats[/]")
+			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(MaxString)}[/] [green]Health[/]", wizard1.Health, Color.Green)
+			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(MaxString)}[/]   [blue]Mana[/]", wizard1.Mana, Color.Blue));
 
 		AnsiConsole.Write(new BarChart()
 			.Width(59)
-			.WithMaxValue(10)
-			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(x)}[/]    [purple_2]LVL[/]", wizard1.LVL, Color.Purple));
+			.WithMaxValue(Wizard.MaxLVL)
+			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(MaxString)}[/]    [purple_2]LVL[/]", wizard1.LVL, Color.Purple));
 
 		Console.WriteLine();
 		AnsiConsole.Write(new BarChart()
 			.Width(60)
-			.WithMaxValue(100)
-			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(x)}[/] [green]Health[/]", wizard2.Health, Color.Green)
-			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(x)}[/]   [blue]Mana[/]", wizard2.Mana, Color.Blue));
+			.WithMaxValue(MaxWith)
+			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(MaxString)}[/] [green]Health[/]", wizard2.Health, Color.Green)
+			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(MaxString)}[/]   [blue]Mana[/]", wizard2.Mana, Color.Blue));
 
 		AnsiConsole.Write(new BarChart()
 			.Width(59)
-			.WithMaxValue(10)
-			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(x)}[/]    [purple_2]LVL[/]", wizard2.LVL, Color.Purple));
+			.WithMaxValue(Wizard.MaxLVL)
+			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(MaxString)}[/]    [purple_2]LVL[/]", wizard2.LVL, Color.Purple));
 	}
 
 	public void DisplayTurnNumber(int turnNumber)
 	{
 		var rule = new Rule($"[darkorange bold]Turn: { turnNumber}[/]");
 		AnsiConsole.Write(rule);
-	}
-	public void DisplayLvlUp(string name, int lvl, int heal)
-    {
-		AnsiConsole.MarkupLine($" [purple_2]{name}[/] LVL's up to LVL {lvl}, and heals [green]{heal} health[/].");
 	}
 }

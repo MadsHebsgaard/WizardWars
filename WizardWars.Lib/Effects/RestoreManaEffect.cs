@@ -6,12 +6,13 @@ public class ManaGaiqnEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		playerSpell.Target.Mana += RestoreManaAmount;
+		int TrueRestoreManaAmount = Math.Min(RestoreManaAmount, playerSpell.Target.MaxMana - playerSpell.Target.Mana);
+		playerSpell.Target.Mana += TrueRestoreManaAmount;
 
 		turn.AddLogMessage(new ManaGainEventLogMessage(
 			playerSpell.Caster.Name,
 			playerSpell.Target.Name,
 			playerSpell.Spell.Name,
-			RestoreManaAmount));
+			TrueRestoreManaAmount));
 	}
 }

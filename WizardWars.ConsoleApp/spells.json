@@ -168,10 +168,10 @@
     "Name": "Block",
     "SpellType": "Utility",
     "TargetType": "SelfOnly",
-    "TriggerPhase": 1,
+    "TriggerPhase": 0,
     "Effects": [
       {
-        "$type": "WizardWars.Lib.Effects.ResistanceEffect, WizardWars.Lib",
+        "$type": "WizardWars.Lib.Effects.SelfResistanceEffect, WizardWars.Lib",
         "ResistanceAmount": 0.6,
         "Phase": 0
       }
@@ -284,7 +284,7 @@
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.LifeStealEffect, WizardWars.Lib",
-        "LifeStealAmount": 20,
+        "DamageAmount": 20,
         "Phase": 3
       }
     ]

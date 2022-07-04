@@ -6,11 +6,12 @@ public class SelfRestoreManaEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		playerSpell.Caster.Mana += RestoreManaAmount;
+		int TrueRestoreManaAmount = Math.Min(RestoreManaAmount, playerSpell.Target.MaxMana - playerSpell.Target.Mana);
+		playerSpell.Caster.Mana += TrueRestoreManaAmount;
 
 		turn.AddLogMessage(new SelfRestoreManaEventLogMessage(
 			playerSpell.Caster.Name,
 			playerSpell.Spell.Name,
-			RestoreManaAmount));
+			TrueRestoreManaAmount));
 	}
 }

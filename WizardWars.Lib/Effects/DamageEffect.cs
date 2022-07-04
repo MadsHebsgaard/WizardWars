@@ -3,28 +3,29 @@
 public class DamageEffect : Effect
 {
 	public int DamageAmount { get; set; }
+	public int TrueDamageAmount { get; set; }
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
 		int BlockAmount = 0;
-		int DamageThrough = DamageAmount;
-		if (playerSpell.Target.Resistance > 0)
+		if (playerSpell.Target.Resistance != 0)
         {
 			BlockAmount = Convert.ToInt32(DamageAmount * playerSpell.Target.Resistance);
-			var enemySpellCast = playerSpell == turn.FirstPlayerSpell ? turn.SecondPlayerSpell : turn.FirstPlayerSpell;
-			turn.AddLogMessage(new ResistanceEventLogMessage(
-				enemySpellCast.Caster.Name,
+			turn.AddLogMessage(new BlockEventLogMessage(
+				playerSpell.Target.Name,
 				playerSpell.Caster.Name,
 				playerSpell.Spell.Name,
 				BlockAmount));
 		}
-		DamageThrough -= BlockAmount;
-		playerSpell.Target.Health -= DamageThrough;
+		int DamageTaken = TrueDamageAmount + DamageAmount - BlockAmount;    
+		DamageTaken = Math.Min(DamageTaken, playerSpell.Target.Health);
+
+		playerSpell.Target.Health -= DamageTaken;
 
 		turn.AddLogMessage(new DamageEventLogMessage(
 			playerSpell.Caster.Name,
 			playerSpell.Target.Name,
 			playerSpell.Spell.Name,
-			DamageThrough));
+			DamageTaken));
 	}
 }

@@ -6,12 +6,16 @@ public class LVLEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		playerSpell.Target.LVL += LVLAmount;
-		
+		double LvlGained = Math.Min(LVLAmount, Wizard.MaxLVL - playerSpell.Target.LVL);
+
+		int LvlUp = Convert.ToInt32(Math.Floor((playerSpell.Target.LVL % 1) + LvlGained));
+		playerSpell.Target.Health += LvlUp * Wizard.LVLHeal;
+		playerSpell.Target.LVL += LvlGained;
+
 		turn.AddLogMessage(new LVLEventLogMessage(
 			playerSpell.Caster.Name,
 			playerSpell.Target.Name,
 			playerSpell.Spell.Name,
-			LVLAmount));
+			LvlGained));
 	}
 }
