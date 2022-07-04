@@ -15,4 +15,6 @@ public interface IUserInterface
 	void DisplayStatsGraph(Wizard wizard1, Wizard wizard2);
 	public void DisplayTurnNumber(int turnNumber);
 	public List<Spell> GetSpells(List<Spell> spells, int numberOfSpells, string name);
+	public void DisplayStatsGraph1(Wizard wizard);
+
 }

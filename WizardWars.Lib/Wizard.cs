@@ -16,6 +16,8 @@ public class Wizard
 	public int MaxMana { get; set; } = 100;
 	public static int MaxLVL { get; } = 10;
 
+	public List<Spell> Spellbook { get; set; }
+
 	public Wizard(string name)
 	{
 		Name = name;

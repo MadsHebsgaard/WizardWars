@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using WizardWars.Lib;
+using System.Collections.Generic;
+
 
 namespace WizardWars.ConsoleApp;
 
@@ -12,17 +14,31 @@ public static class Program
 
 	public static void Main()
 	{
-		int numberOfSpells = 12;
-		int wz1 = 1;
-		int wzMax = 2;
-
 		//UI and Spell setup
 		IUserInterface userInterface = new SpectreConsoleUserInterface();
 		var spellsFromJson = ReadFromJson<IEnumerable<Spell>>("spells.json").ToList();
 		userInterface.DisplayWizardWars();
+		int wzMax=2;
 
 
-		Wizard wizard1 = GetWizard("First Player ", userInterface);
+		
+		List<Wizard> WizardList = new List<Wizard>(); //TODO: make all this a function
+		while (true)
+		{
+			Console.Write("How many wizards are dualing? ");
+			string value = Console.ReadLine();
+			bool success = int.TryParse(value, out wzMax);
+			if(success) { break; }
+            else { Console.WriteLine("\nWrite an integer..."); }
+		}
+		for (int wz = 0; wz < wzMax; wz++) 
+        {
+			WizardList.Add(GetWizard($"{wz+1}. Player", userInterface));
+		}
+
+		int numberOfSpells = 12;
+		int wz1 = 1;
+		Wizard wizard1 = GetWizard("First Player", userInterface);
 		Wizard wizard2 = GetWizard("Second Player", userInterface);
 
 		while (true)
@@ -30,21 +46,30 @@ public static class Program
 			ResetWizard(wizard1);
 			ResetWizard(wizard2);
 
-			var Spellbook1 = userInterface.GetSpells(spellsFromJson, numberOfSpells, wizard1.Name);
-			var Spellbook2 = userInterface.GetSpells(spellsFromJson, numberOfSpells, wizard2.Name);
-
 			//Duel setup
 			Console.WriteLine();
 			int turnNumber = 1, maxTurns = 100;
 
+
+			foreach (var Wizard in WizardList)
+			{
+				ResetWizard(Wizard);
+				Wizard.Spellbook = userInterface.GetSpells(spellsFromJson, numberOfSpells, Wizard.Name);
+			}
+
 			while (wizard1.Health > 0 && wizard2.Health > 0 && turnNumber < maxTurns)
 			{	
-
 				//Known spells
-				var p1SpellList = Spellbook1.Where(x => x.LVLRequired <= wizard1.LVL).ToList();
-				var p2SpellList = Spellbook2.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
+				var p1SpellList = wizard1.Spellbook.Where(x => x.LVLRequired <= wizard1.LVL).ToList();
+				var p2SpellList = wizard2.Spellbook.Where(x => x.LVLRequired <= wizard2.LVL).ToList();
 
 				userInterface.DisplayTurnNumber(turnNumber);
+
+				foreach (var Wizard in WizardList)
+                {
+					userInterface.DisplayStatsGraph1(Wizard);
+				}
+
 
 				if (wz1 == 1) { userInterface.DisplayStatsGraph(wizard1, wizard2); }
 				else if (wz1 == 2) { userInterface.DisplayStatsGraph(wizard2, wizard1); }

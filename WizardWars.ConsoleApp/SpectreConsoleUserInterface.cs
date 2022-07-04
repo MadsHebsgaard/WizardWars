@@ -263,7 +263,23 @@ public class SpectreConsoleUserInterface : IUserInterface
 			}
 		}
 	}
+	public void DisplayStatsGraph1(Wizard wizard)
+	{
+		int MaxWith = Math.Max(wizard.MaxHealth, wizard.MaxMana);
 
+		AnsiConsole.Write(new BarChart()
+			.Width(60)
+			.WithMaxValue(MaxWith)
+			.CenterLabel()
+			.Label($"[bold underline][purple_2]{wizard.Name}[/] Stats[/]")
+			.AddItem($" [green]Health[/]", wizard.Health, Color.Green)
+			.AddItem($"    [blue]Mana[/]", wizard.Mana, Color.Blue));
+
+		AnsiConsole.Write(new BarChart()
+			.Width(59)
+			.WithMaxValue(Wizard.MaxLVL)
+			.AddItem($"    [purple_2]LVL[/]", wizard.LVL, Color.Purple));
+	}
 	public void DisplayStatsGraph(Wizard wizard1, Wizard wizard2)
 	{
 		int MaxString = Math.Max(wizard1.Name.Length, wizard2.Name.Length);
