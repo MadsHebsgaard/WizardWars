@@ -181,6 +181,7 @@
     "Name": "Counterspell",
     "SpellType": "Utility",
     "TargetType": "EnemyOnly",
+    "TriggerPhase": 1,
     "LVLRequired": 3,
     "ManaCost": 35,
     "Effects": [
@@ -196,6 +197,7 @@
     "TargetType": "EnemyOnly",
     "LVLRequired": 5,
     "HealthCost": 35,
+    "TriggerPhase": 0,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.CounterEffect, WizardWars.Lib",
@@ -223,6 +225,7 @@
     "SpellType": "Utility",
     "LVLRequired": 6,
     "ManaCost": 40,
+    "TriggerPhase": 0,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.RedirectEffect, WizardWars.Lib",
