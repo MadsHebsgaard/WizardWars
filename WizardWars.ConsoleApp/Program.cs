@@ -18,75 +18,81 @@ public static class Program
 		IUserInterface userInterface = new SpectreConsoleUserInterface();
 		var spellsFromJson = ReadFromJson<IEnumerable<Spell>>("spells.json").ToList();
 		userInterface.DisplayWizardWars();
-		int wzMax=2;
+		int MaxWizards;
 
 
 		
-		List<Wizard> WizardList = new List<Wizard>(); //TODO: make all this a function
+		List<Wizard> wizards = new List<Wizard>(); //TODO: make all this a function
 		while (true)
 		{
 			Console.Write("How many wizards are dualing? ");
 			string value = Console.ReadLine();
-			bool success = int.TryParse(value, out wzMax);
+			bool success = int.TryParse(value, out MaxWizards);
 			if(success) { break; }
             else { Console.WriteLine("\nWrite an integer..."); }
 		}
-		for (int wz = 0; wz < wzMax; wz++) 
+		for (int wz = 0; wz < MaxWizards; wz++) 
         {
-			WizardList.Add(GetWizard($"{wz+1}. Player", userInterface));
+			wizards.Add(GetWizard($"{wz+1}. Player", userInterface));
 		}
 
 		int numberOfSpells = 12;
 
 		while (true)
         {
+			int AliveCount = MaxWizards;
+			int wz1 = 0;
+
 			//Duel setup
 			Console.WriteLine();
 			int turnNumber = 0, maxTurns = 100;
 
-
-			foreach (var Wizard in WizardList)
+			foreach (var Wizard in wizards)
 			{
 				ResetWizard(Wizard);
 				Wizard.Spellbook = userInterface.GetSpells(spellsFromJson, numberOfSpells, Wizard.Name);
 			}
-			int wz1 = 0;
 
-			//while (WizardListOrdered[0].Health > 0 && wizard2.Health > 0 && turnNumber < maxTurns)
-			while (true)
+			List<Wizard> livingWizards = wizards;
+
+			while (AliveCount>=2)
 			{
 				userInterface.DisplayTurnNumber(turnNumber);
 
-				foreach (var Wizard in WizardList)
+				foreach (var Wizard in livingWizards)
 				{
 					userInterface.DisplayStatsGraph(Wizard);
 				}
 				Console.WriteLine();
 
-				List <Spell> SpellTurn = new List<Spell> (new Spell[wzMax]);
-				List <Wizard> TargetTurn = new List<Wizard>(new Wizard[wzMax]);
-				List <SpellTarget> SpellTargetTurn = new List<SpellTarget>(new SpellTarget[wzMax]);
+				List <Spell> SpellTurn = new List<Spell> (new Spell[AliveCount]);
+				List <Wizard> TargetTurn = new List<Wizard>(new Wizard[AliveCount]);
+				List <SpellTarget> SpellTargetTurn = new List<SpellTarget>(new SpellTarget[AliveCount]);
+				List<Wizard> WizardListOrdered = livingWizards.Skip(wz1).Concat(livingWizards.Take(wz1)).ToList();
+				
 				int i = 0;
-
-				List<Wizard> WizardListOrdered = WizardList.Skip(wz1).Concat(WizardList.Take(wz1)).ToList();
 				foreach (var Wizard in WizardListOrdered)
                 {
                     SpellTurn[i] = userInterface.UserPicksSpell(Wizard, Wizard.Spellbook.Where(x => x.ManaCost < Wizard.Mana && x.HealthCost < Wizard.Health && x.LVLRequired <= Wizard.LVL).ToList());
-                    TargetTurn[i] = GetTarget(userInterface, WizardList);
+                    TargetTurn[i] = GetTarget(userInterface, livingWizards);
                     SpellTargetTurn[i] = new SpellTarget(Wizard, SpellTurn[i], TargetTurn[i]);
 					i++;
 				}
+
 				var turn = new Turn(SpellTargetTurn);
 				turn.Execute();
 				userInterface.DisplayEventLog(turn.EventLog);
 				turnNumber++;
 
-				
+				livingWizards = livingWizards.Where(x => x.Alive).ToList();
+				AliveCount = livingWizards.Count;
+
+
 				UpdateStats(WizardListOrdered);
 
-				wz1 = wz1 < wzMax-1 ? wz1 + 1 : 0;
+				wz1 = wz1 < AliveCount-1 ? wz1 + 1 : 0;
 			}
-			//userInterface.DisplayWinText(WizardListOrdered[0], WizardListOrdered[1], turnNumber, maxTurns, wz1); //TODO: Fix this for n-player
+			userInterface.DisplayWinText(wizards, turnNumber, maxTurns); //TODO: Fix this for n-player
 		}
 	}
 
@@ -132,6 +138,7 @@ public static class Program
     {
 		wizard.Health = wizard.MaxHealth;
 		wizard.Mana = wizard.MaxMana;
+		wizard.Alive = true;
 		TestEnviroment(wizard);
 	}
 

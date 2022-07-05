@@ -15,8 +15,7 @@ public class Wizard
 	public int MaxHealth { get; set; } = 100;
 	public int MaxMana { get; set; } = 100;
 	public static int MaxLVL { get; } = 10;
-	//public Spell SpellTurn { get; set; }
-
+	public bool Alive { get; set; } = true;
 	public List<Spell> Spellbook { get; set; }
 
 	public Wizard(string name)

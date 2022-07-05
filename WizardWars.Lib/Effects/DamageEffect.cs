@@ -7,25 +7,47 @@ public class DamageEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		int BlockAmount = 0;
-		if (playerSpell.Target.Resistance != 0)
+		if(playerSpell.Target.Alive)
         {
-			BlockAmount = Convert.ToInt32(DamageAmount * playerSpell.Target.Resistance);
-			turn.AddLogMessage(new BlockEventLogMessage(
-				playerSpell.Target.Name,
+
+			int BlockAmount = 0;
+			if (playerSpell.Target.Resistance != 0)
+			{
+				BlockAmount = Convert.ToInt32(DamageAmount * playerSpell.Target.Resistance);
+				turn.AddLogMessage(new BlockEventLogMessage(
+					playerSpell.Target.Name,
+					playerSpell.Caster.Name,
+					playerSpell.Spell.Name,
+					BlockAmount));
+			}
+			int DamageTaken = TrueDamageAmount + DamageAmount - BlockAmount;
+
+			playerSpell.Target.Health -= DamageTaken;
+
+			turn.AddLogMessage(new DamageEventLogMessage(
 				playerSpell.Caster.Name,
+				playerSpell.Target.Name,
 				playerSpell.Spell.Name,
-				BlockAmount));
+				DamageTaken));
+
+			if (playerSpell.Target.Health <= 0) //Dead wizard check
+			{
+				playerSpell.Target.Health = 0;
+				playerSpell.Target.Alive = false;
+				turn.AliveCount--;
+
+				turn.AddLogMessage(new DeathEventLogMessage(
+					playerSpell.Caster.Name,
+					playerSpell.Target.Name,
+					playerSpell.Spell.Name));
+			}
 		}
-		int DamageTaken = TrueDamageAmount + DamageAmount - BlockAmount;    
-		DamageTaken = Math.Min(DamageTaken, playerSpell.Target.Health);
-
-		playerSpell.Target.Health -= DamageTaken;
-
-		turn.AddLogMessage(new DamageEventLogMessage(
-			playerSpell.Caster.Name,
-			playerSpell.Target.Name,
-			playerSpell.Spell.Name,
-			DamageTaken));
+        else
+        {
+			turn.AddLogMessage(new TargetAlreadyDeadEventLogMessage(
+				playerSpell.Caster.Name,
+				playerSpell.Target.Name,
+				playerSpell.Spell.Name));
+		}
 	}
 }

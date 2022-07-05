@@ -111,48 +111,44 @@ public class SpectreConsoleUserInterface : IUserInterface
 			.AddChoices(WizardList));
 	}
 
-	public void DisplayWinText(Wizard wizard1, Wizard wizard2, int turnNumber, int maxTurns, int wz1)
+	public void DisplayWinText(List <Wizard> wizards, int turnNumber, int maxTurns)
 	{
+
+		if (wizards.Where(x => x.Alive).ToList().Count == 1)
+		{
+			wizards.Single(x => x.Alive).WinCount++;
+		}
+		
 		Console.WriteLine();
 		var DualOver = new Rule($" Dual over ");
-		AnsiConsole.Write(DualOver);
-
-
-		//if (wz1 == 1) { DisplayStatsGraph(wizard1, wizard2); }
-		//else if (wz1 == 2) { DisplayStatsGraph(wizard2, wizard1); }
-
-
-		if (turnNumber != maxTurns)
-		{
-			Console.WriteLine();
-			if (wizard1.Health > 0)
-			{
-				AnsiConsole.MarkupLine(
-					$" [bold purple_2]{wizard1.Name}[/] killed [bold purple_2]{wizard2.Name}[/] and won the Duel!");
-				wizard1.WinCount++;
-			}
-			else if (wizard2.Health > 0)
-			{
-				AnsiConsole.MarkupLine(
-					$" [bold purple_2]{wizard2.Name}[/] murdered [bold purple_2]{wizard1.Name}[/] and won the Duel!");
-				wizard2.WinCount++;
-			}
-			else
-			{
-				AnsiConsole.MarkupLine(
-					$" [bold purple_2]{wizard1.Name}[/] and [bold purple_2]{wizard2.Name}[/] killed each other and the Duel is lost for both but their honors remain intact!");
-			}
-		}
-		else
-		{
-			Console.WriteLine(" Dual over! Ran out of max turns of " + maxTurns);
-		}
-
-		var rule = new Rule($"[bold purple_2]{wizard1.Name}[/] {wizard1.WinCount} - {wizard2.WinCount} [bold purple_2]{wizard2.Name}[/]");
 		var line = new Rule("");
+
+		var StandingsString = new System.Text.StringBuilder();
+		foreach (var Wizard in wizards)	{ StandingsString.Append($"/ [purple_2]{Wizard.Name}[/] - [yellow]{Wizard.WinCount}[/] /".ToString()); }
+		var Standings = new Rule($"{StandingsString.ToString()}");
+
+		AnsiConsole.Write(DualOver);
 		AnsiConsole.Write(line);
-		AnsiConsole.Write(rule);
+		AnsiConsole.Write(Standings);
 		AnsiConsole.Write(line);
+
+		if (wizards.Where(x => x.Alive).ToList().Count == 1)
+		{
+			var Winnerline = new Rule($"Winner: [purple_2]{wizards.Single(x => x.Alive).Name}[/]");
+			AnsiConsole.Write(Winnerline);
+		}
+		else if (turnNumber== maxTurns)
+		{
+			Console.WriteLine("Cowards, fools, Cicken and Trash, ALL of you!\n In a WizardWar nobody but one stands!\n You ran out of magic! (No more turns)");
+		}
+		else if (wizards.Where(x => x.Alive).ToList().Count > 1)
+        {
+			Console.WriteLine("ERROR: More than one winner?!\nERROR: More than one winner?!\nERROR: More than one winner?!");
+        }
+		else if (wizards.Where(x => x.Alive).ToList().Count < 1)
+		{
+			Console.WriteLine("ERROR: Less than one winner?!\nERROR: Less than one winner?!\nERROR: Less than one winner?!");
+		}
 	}
 
 	public void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog)
@@ -184,9 +180,20 @@ public class SpectreConsoleUserInterface : IUserInterface
 					}
 				}
 					break;
+				case SpaceLogMessage spellEvent:
+					Console.WriteLine();
+					break;
 				case DamageEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to [purple_2]{spellEvent.Target}[/].");
+					break;
+				case DeathEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine(
+						$" [purple_2]{spellEvent.Killer}[/] kills [purple_2]{spellEvent.Victim}[/] with [yellow]{spellEvent.SpellName}[/].");
+					break;
+				case TargetAlreadyDeadEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine(
+						$" [purple_2]{spellEvent.Killer}[/]'s target [purple_2]{spellEvent.Victim}[/] was dead before hit by [yellow]{spellEvent.SpellName}[/].");
 					break;
 				case HealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(

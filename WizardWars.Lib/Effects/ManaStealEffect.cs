@@ -6,7 +6,10 @@ public class ManaStealEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		playerSpell.Caster.Mana += ManaStealAmount;
+
+		if (playerSpell.Target.Alive)
+		{
+			playerSpell.Caster.Mana += ManaStealAmount;
 		playerSpell.Target.Mana -= ManaStealAmount;
 
 		turn.AddLogMessage(new ManaStealEventLogMessage(
@@ -14,5 +17,13 @@ public class ManaStealEffect : Effect
 			playerSpell.Target.Name,
 			playerSpell.Spell.Name,
 			ManaStealAmount));
+		}
+		else
+		{
+			turn.AddLogMessage(new TargetAlreadyDeadEventLogMessage(
+				playerSpell.Caster.Name,
+				playerSpell.Target.Name,
+				playerSpell.Spell.Name));
+		}
 	}
 }

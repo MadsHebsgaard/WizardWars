@@ -10,7 +10,7 @@ public interface IUserInterface
 	void DisplayStats(Wizard wizard1, Wizard wizard2);
 	Spell UserPicksSpell(Wizard wizard, List<Spell> spells);
 	Wizard UserPicksTarget(List<Wizard> WizardList);
-	void DisplayWinText(Wizard wizard1, Wizard wizard2, int turnNumber, int maxTurns, int wz1);
+	void DisplayWinText(List<Wizard> wizardList, int turnNumber, int maxTurns);
 	void DisplayEventLog(IReadOnlyList<IEventLogMessage> turnEventLog);
 	public void DisplayTurnNumber(int turnNumber);
 	public List<Spell> GetSpells(List<Spell> spells, int numberOfSpells, string name);

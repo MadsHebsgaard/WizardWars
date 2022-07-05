@@ -7,8 +7,9 @@ public class LifeStealEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-
-		int BlockAmount = 0;
+		if (playerSpell.Target.Alive)
+		{
+			int BlockAmount = 0;
 		if (playerSpell.Target.Resistance != 0)
 		{
 			BlockAmount = Convert.ToInt32(DamageAmount * playerSpell.Target.Resistance);
@@ -32,36 +33,13 @@ public class LifeStealEffect : Effect
 			playerSpell.Spell.Name,
 			DamageTaken,
 			HealthHealed));
-
-
-
-
-
-
-
-
-		/*
-		int BlockAmount = 0;
-		int TrueLifeStealAmount = LifeStealAmount;
-		if (playerSpell.Target.Resistance > 0)
-		{
-			BlockAmount = Convert.ToInt32(LifeStealAmount * playerSpell.Target.Resistance);
-			var enemySpellCast = playerSpell == turn.FirstPlayerSpell ? turn.SecondPlayerSpell : turn.FirstPlayerSpell;
-			turn.AddLogMessage(new BlockEventLogMessage(
-				enemySpellCast.Caster.Name,
-				playerSpell.Caster.Name,
-				playerSpell.Spell.Name,
-				BlockAmount));
 		}
-		TrueLifeStealAmount -= BlockAmount;
-		playerSpell.Target.Health -= TrueLifeStealAmount;
-		playerSpell.Caster.Health += TrueLifeStealAmount;
-
-		turn.AddLogMessage(new LifeStealEventLogMessage(
-			playerSpell.Caster.Name,
-			playerSpell.Target.Name,
-			playerSpell.Spell.Name,
-			TrueLifeStealAmount));
-		*/
+		else
+		{
+			turn.AddLogMessage(new TargetAlreadyDeadEventLogMessage(
+				playerSpell.Caster.Name,
+				playerSpell.Target.Name,
+				playerSpell.Spell.Name));
+		}
 	}
 }

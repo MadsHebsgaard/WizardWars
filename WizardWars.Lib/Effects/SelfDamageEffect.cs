@@ -25,5 +25,17 @@ public class SelfDamageEffect : Effect
 			playerSpell.Caster.Name,
 			playerSpell.Spell.Name,
 			DamageTaken));
+
+		if (playerSpell.Caster.Health <= 0) //Dead wizard check
+		{
+			playerSpell.Caster.Health = 0;
+			playerSpell.Caster.Alive = false;
+			turn.AliveCount--;
+
+			turn.AddLogMessage(new DeathEventLogMessage(
+				playerSpell.Caster.Name,
+				playerSpell.Caster.Name,
+				playerSpell.Spell.Name));
+		}
 	}
 }

@@ -4,9 +4,15 @@ public interface IEventLogMessage
 {
 }
 
+public record SpaceLogMessage() : IEventLogMessage;
+
 public record SpellCastLogMessage (string Source, string Target, string SpellName, int ManaCost, int HealthCost) : IEventLogMessage;
 
 public record DamageEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
+
+public record DeathEventLogMessage(string Killer, string Victim, string SpellName) : IEventLogMessage;
+
+public record TargetAlreadyDeadEventLogMessage(string Killer, string Victim, string SpellName) : IEventLogMessage;
 
 public record HealEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
 

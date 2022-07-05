@@ -1,12 +1,16 @@
 ﻿namespace WizardWars.Lib.Effects;
 
-public class ManaGaiqnEffect : Effect
+public class RestoreManaEffect : Effect //TODO
 {
 	public int RestoreManaAmount { get; set; }
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		int TrueRestoreManaAmount = Math.Min(RestoreManaAmount, playerSpell.Target.MaxMana - playerSpell.Target.Mana);
+
+		if (playerSpell.Target.Alive)
+		{
+
+			int TrueRestoreManaAmount = Math.Min(RestoreManaAmount, playerSpell.Target.MaxMana - playerSpell.Target.Mana);
 		playerSpell.Target.Mana += TrueRestoreManaAmount;
 
 		turn.AddLogMessage(new ManaGainEventLogMessage(
@@ -14,5 +18,13 @@ public class ManaGaiqnEffect : Effect
 			playerSpell.Target.Name,
 			playerSpell.Spell.Name,
 			TrueRestoreManaAmount));
+		}
+		else
+		{
+			turn.AddLogMessage(new TargetAlreadyDeadEventLogMessage(
+				playerSpell.Caster.Name,
+				playerSpell.Target.Name,
+				playerSpell.Spell.Name));
+		}
 	}
 }

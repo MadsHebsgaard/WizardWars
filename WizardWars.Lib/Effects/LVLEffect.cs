@@ -6,7 +6,10 @@ public class LVLEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		double LvlGained = Math.Min(LVLAmount, Wizard.MaxLVL - playerSpell.Target.LVL);
+
+		if (playerSpell.Target.Alive)
+		{
+			double LvlGained = Math.Min(LVLAmount, Wizard.MaxLVL - playerSpell.Target.LVL);
 
 		int LvlUp = Convert.ToInt32(Math.Floor((playerSpell.Target.LVL % 1) + LvlGained));
 		playerSpell.Target.Health += LvlUp * Wizard.LVLHeal;
@@ -17,5 +20,13 @@ public class LVLEffect : Effect
 			playerSpell.Target.Name,
 			playerSpell.Spell.Name,
 			LvlGained));
+		}
+		else
+		{
+			turn.AddLogMessage(new TargetAlreadyDeadEventLogMessage(
+				playerSpell.Caster.Name,
+				playerSpell.Target.Name,
+				playerSpell.Spell.Name));
+		}
 	}
 }
