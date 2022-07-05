@@ -10,7 +10,7 @@ public class CounterEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-
+		/*
 
 
 		// TODO: rework trickery
@@ -49,5 +49,6 @@ public class CounterEffect : Effect
 				playerSpell.Target.Name,
 				enemySpellCast.Spell.Name));
 		}
+		*/
 	}
 }

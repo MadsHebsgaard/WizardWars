@@ -6,7 +6,9 @@ public class RedirectEffect : Effect
 
     public override void Apply(SpellTarget playerSpell, Turn turn)
     {
+        /*
         // TODO: rework trickery
+
         var enemySpellCast = playerSpell == turn.FirstPlayerSpell ? turn.SecondPlayerSpell : turn.FirstPlayerSpell;
 
         if (enemySpellCast.Spell.TriggerPhase <= playerSpell.Spell.TriggerPhase || enemySpellCast.Spell.TriggerPhase > playerSpell.Spell.StopPhase)
@@ -33,5 +35,6 @@ public class RedirectEffect : Effect
                 enemySpellCast.Caster.Name,
                 enemySpellCast.Spell.Name));
         }
+        */
     }
 }

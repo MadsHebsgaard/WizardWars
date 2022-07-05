@@ -28,9 +28,9 @@ public record ManaStealEventLogMessage(string Source, string Target, string Spel
 
 public record SelfDamageEventLogMessage(string Source, string SpellName, int Amount) : IEventLogMessage;
 
-public record AreaRestoreManaEventLogMessage(string Source, string Player2, string SpellName, int Amount1, int Amount2) : IEventLogMessage;
+public record AreaRestoreManaEventLogMessage(string Source, string SpellName, int Amount) : IEventLogMessage;
 
-public record AreaHealEventLogMessage(string Source, string Player2, string SpellName, int Amount1, int Amount2) : IEventLogMessage;
+public record AreaHealEventLogMessage(string Source, string SpellName, int Amount) : IEventLogMessage;
 
 public record SelfHealEventLogMessage(string Source, string SpellName, int Amount) : IEventLogMessage;
 

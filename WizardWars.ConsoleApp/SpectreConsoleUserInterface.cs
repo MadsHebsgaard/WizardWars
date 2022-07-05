@@ -103,12 +103,12 @@ public class SpectreConsoleUserInterface : IUserInterface
 		return spell;
 	}
 
-	public Target UserPicksTarget()
+	public Wizard UserPicksTarget(List<Wizard> WizardList)
 	{
-		return AnsiConsole.Prompt(new SelectionPrompt<Target>()
+		return AnsiConsole.Prompt(new SelectionPrompt<Wizard>()
 			.Title("Who do you want to target?")
-			.UseConverter(x => x.ToString())
-			.AddChoices(Enum.GetValues<Target>()));
+			.UseConverter(x => x.Name)
+			.AddChoices(WizardList));
 	}
 
 	public void DisplayWinText(Wizard wizard1, Wizard wizard2, int turnNumber, int maxTurns, int wz1)
@@ -118,8 +118,8 @@ public class SpectreConsoleUserInterface : IUserInterface
 		AnsiConsole.Write(DualOver);
 
 
-		if (wz1 == 1) { DisplayStatsGraph(wizard1, wizard2); }
-		else if (wz1 == 2) { DisplayStatsGraph(wizard2, wizard1); }
+		//if (wz1 == 1) { DisplayStatsGraph(wizard1, wizard2); }
+		//else if (wz1 == 2) { DisplayStatsGraph(wizard2, wizard1); }
 
 
 		if (turnNumber != maxTurns)
@@ -234,11 +234,11 @@ public class SpectreConsoleUserInterface : IUserInterface
 					break;
 				case AreaRestoreManaEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] replenishes [purple_2]{spellEvent.Source}[/] and [purple_2]{spellEvent.Player2}[/] for [blue]{spellEvent.Amount1}[/] and [blue]{spellEvent.Amount2} mana[/].");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] replenishes [purple_2]every wizard[/] for [blue]{spellEvent.Amount} mana[/].");
 					break;
 				case AreaHealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [purple_2]{spellEvent.Source}[/] and [purple_2]{spellEvent.Player2}[/] for [green]{spellEvent.Amount1}[/] and [green]{spellEvent.Amount2} health[/].");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [purple_2]every wizard[/] for [green]{spellEvent.Amount} health[/].");
 					break;
 				case RemoveManaEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
@@ -263,7 +263,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 			}
 		}
 	}
-	public void DisplayStatsGraph1(Wizard wizard)
+	public void DisplayStatsGraph(Wizard wizard)
 	{
 		int MaxWith = Math.Max(wizard.MaxHealth, wizard.MaxMana);
 
@@ -271,46 +271,16 @@ public class SpectreConsoleUserInterface : IUserInterface
 			.Width(60)
 			.WithMaxValue(MaxWith)
 			.CenterLabel()
-			.Label($"[bold underline][purple_2]{wizard.Name}[/] Stats[/]")
+			.Label($"[bold][purple_2]{wizard.Name}[/] Stats[/]")
 			.AddItem($" [green]Health[/]", wizard.Health, Color.Green)
 			.AddItem($"    [blue]Mana[/]", wizard.Mana, Color.Blue));
 
 		AnsiConsole.Write(new BarChart()
 			.Width(59)
 			.WithMaxValue(Wizard.MaxLVL)
-			.AddItem($"    [purple_2]LVL[/]", wizard.LVL, Color.Purple));
+			.AddItem($"     [purple_2]LVL[/]", wizard.LVL, Color.Purple));
 	}
-	public void DisplayStatsGraph(Wizard wizard1, Wizard wizard2)
-	{
-		int MaxString = Math.Max(wizard1.Name.Length, wizard2.Name.Length);
-		int MaxWith = Math.Max(Math.Max(wizard1.MaxHealth, wizard1.MaxMana), Math.Max(wizard2.MaxHealth, wizard2.MaxMana));
-
-		AnsiConsole.Write(new BarChart()
-			.Width(60)
-			.WithMaxValue(MaxWith)
-			.CenterLabel()
-			.Label($"[green bold underline]Wizard Stats[/]")
-			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(MaxString)}[/] [green]Health[/]", wizard1.Health, Color.Green)
-			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(MaxString)}[/]   [blue]Mana[/]", wizard1.Mana, Color.Blue));
-
-		AnsiConsole.Write(new BarChart()
-			.Width(59)
-			.WithMaxValue(Wizard.MaxLVL)
-			.AddItem($" [bold purple_2]{wizard1.Name.PadRight(MaxString)}[/]    [purple_2]LVL[/]", wizard1.LVL, Color.Purple));
-
-		Console.WriteLine();
-		AnsiConsole.Write(new BarChart()
-			.Width(60)
-			.WithMaxValue(MaxWith)
-			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(MaxString)}[/] [green]Health[/]", wizard2.Health, Color.Green)
-			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(MaxString)}[/]   [blue]Mana[/]", wizard2.Mana, Color.Blue));
-
-		AnsiConsole.Write(new BarChart()
-			.Width(59)
-			.WithMaxValue(Wizard.MaxLVL)
-			.AddItem($" [bold purple_2]{wizard2.Name.PadRight(MaxString)}[/]    [purple_2]LVL[/]", wizard2.LVL, Color.Purple));
-	}
-
+	
 	public void DisplayTurnNumber(int turnNumber)
 	{
 		var rule = new Rule($"[darkorange bold]Turn: { turnNumber}[/]");

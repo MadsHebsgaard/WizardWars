@@ -6,18 +6,13 @@ public class AreaRestoreManaEffect : Effect
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
-		var enemySpellCast = playerSpell == turn.FirstPlayerSpell ? turn.SecondPlayerSpell : turn.FirstPlayerSpell;
-
-		int ManaRestored1 = Math.Min(RestoreManaAmount, playerSpell.Caster.MaxMana - playerSpell.Caster.Mana);
-		int ManaRestored2 = Math.Min(RestoreManaAmount, enemySpellCast.Caster.MaxMana - enemySpellCast.Caster.Mana);
-		playerSpell.Caster.Mana += ManaRestored1;
-		enemySpellCast.Caster.Mana += ManaRestored2;
-
+		foreach (var PlayerSpell in turn.PlayerSpellList)
+		{
+			PlayerSpell.Caster.Mana += RestoreManaAmount;
+		}
 		turn.AddLogMessage(new AreaRestoreManaEventLogMessage(
 			playerSpell.Caster.Name,
-			enemySpellCast.Caster.Name,
 			playerSpell.Spell.Name,
-			ManaRestored1,
-			ManaRestored2));
+			RestoreManaAmount));
 	}
 }
