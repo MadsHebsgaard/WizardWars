@@ -35,7 +35,10 @@ public class Turn
             {
 				if(AliveCount >= 2)
                 {
-					if (SpellTarget.Caster.Alive) { SpellTarget.Spell.ApplyEffects(phase, SpellTarget, this); }
+					if(SpellTarget.Continue)
+                    {
+						if (SpellTarget.Caster.Alive) { SpellTarget.Spell.ApplyEffects(phase, SpellTarget, this); }
+					}
 				}
                 else
                 {

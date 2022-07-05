@@ -22,7 +22,7 @@ public record FailCounterEventLogMessage(string Source, string Target, string Sp
 
 public record RedirectEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
 
-public record FailRedirectEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
+public record FailRedirectEventLogMessage(string Source, string Target) : IEventLogMessage;
 
 public record BlockEventLogMessage(string Source, string Target, string SpellName, double Amount) : IEventLogMessage;
 

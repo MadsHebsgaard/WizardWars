@@ -213,7 +213,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 					break;
 				case FailRedirectEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/] fails to redirect [purple_2]{spellEvent.Target}[/]'s [yellow]{spellEvent.SpellName}[/]!");
+						$" [purple_2]{spellEvent.Source}[/] fails to redirect any spell from [purple_2]{spellEvent.Target}[/]!");
 					break;
 				case BlockEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
