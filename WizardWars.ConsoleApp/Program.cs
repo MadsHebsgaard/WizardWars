@@ -73,7 +73,7 @@ public static class Program
 				int i = 0;
 				foreach (var Wizard in WizardListOrdered)
                 {
-                    SpellTurn[i] = userInterface.UserPicksSpell(Wizard, Wizard.Spellbook.Where(x => x.ManaCost < Wizard.Mana && x.HealthCost < Wizard.Health && x.LVLRequired <= Wizard.LVL).ToList());
+                    SpellTurn[i] = userInterface.UserPicksSpell(Wizard, Wizard.Spellbook.Where(x => x.ManaCost <= Wizard.Mana && x.HealthCost < Wizard.Health && x.LVLRequired <= Wizard.LVL).ToList());
                     TargetTurn[i] = GetTarget(userInterface, livingWizards, Wizard, SpellTurn[i].TargetType);
                     SpellTargetTurn[i] = new SpellTarget(Wizard, SpellTurn[i], TargetTurn[i]);
 					i++;
