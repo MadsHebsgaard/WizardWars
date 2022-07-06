@@ -251,7 +251,7 @@
   {
     "Name": "Chain Heal",
     "SpellType": "Support",
-    "TargetType": "SelfOnly",
+    "TargetType": "AOE",
     "LVLRequired": 4,
     "ManaCost": 25,
     "TriggerPhase": 2,
@@ -266,7 +266,7 @@
   {
     "Name": "Circle of Healing",
     "SpellType": "Support",
-    "TargetType": "SelfOnly",
+    "TargetType": "AOE",
     "LVLRequired": 7,
     "ManaCost": 50,
     "TriggerPhase": 5,
@@ -328,7 +328,7 @@
   {
     "Name": "Mana Rain",
     "SpellType": "Other",
-    "TargetType": "SelfOnly",
+    "TargetType": "AOE",
     "LVLRequired": 5,
     "ManaCost": 20,
     "TriggerPhase": 5,
