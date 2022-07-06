@@ -64,7 +64,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 			}
 			if (selectedSpells.Count > numberOfSpells)
 			{
-				string aws = AnsiConsole.Prompt(
+				AnsiConsole.Prompt(
 				new SelectionPrompt<string>()
 					.Title($" You picked more than than {numberOfSpells} [yellow]spells[/]. Try again?")
 					.AddChoices("Yes"));
@@ -108,7 +108,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 		var line = new Rule("");
 		var StandingsString = new System.Text.StringBuilder();
 		foreach (var Wizard in wizards)	{ StandingsString.Append($"/ [purple_2]{Wizard.Name}[/] - [yellow]{Wizard.WinCount}[/] /".ToString()); }
-		var Standings = new Rule($"{StandingsString.ToString()}");
+		var Standings = new Rule($"{StandingsString}");
 
 		AnsiConsole.Write(DualOver);
 		AnsiConsole.Write(line);

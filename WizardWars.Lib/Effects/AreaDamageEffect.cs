@@ -2,9 +2,9 @@
 
 public class AreaDamageEffect : Effect
 {
-	public int DamageAmount { get; set; }
-	public int TrueDamageAmount { get; set; }
-	public bool WithSelf { get; set; } = true;
+	private int DamageAmount { get; } = 0;
+	private int TrueDamageAmount { get; } = 0;
+	private bool WithSelf { get; } = true;
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
