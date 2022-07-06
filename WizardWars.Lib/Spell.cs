@@ -1,5 +1,4 @@
 ﻿using WizardWars.Lib.Effects;
-
 namespace WizardWars.Lib;
 
 public class Spell

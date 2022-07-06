@@ -1,6 +1,5 @@
 ﻿using WizardWars.Lib;
 using Spectre.Console;
-
 namespace WizardWars.ConsoleApp;
 
 public class SpectreConsoleUserInterface : IUserInterface
@@ -21,21 +20,6 @@ public class SpectreConsoleUserInterface : IUserInterface
 	public string GetPromptedText(string prompt)
 	{
 		return AnsiConsole.Ask<string>(prompt);
-	}
-
-	public void DisplayStats(Wizard wizard1, Wizard wizard2)
-	{
-		var table = new Table();
-
-		table.AddColumn("Name");
-		table.AddColumn("Health");
-		table.AddColumn("Mana");
-		table.AddColumn("LVL");
-
-		table.AddRow(wizard1.Name, $"[red]{wizard1.Health}[/]", $"[blue]{wizard1.Mana}[/]", $"[green]{wizard1.LVL}[/]");
-		table.AddRow(wizard2.Name, $"[red]{wizard2.Health}[/]", $"[blue]{wizard2.Mana}[/]", $"[green]{wizard2.LVL}[/]");
-
-		AnsiConsole.Write(table);
 	}
 
 	public List<Spell> GetSpells(List<Spell> spells, int numberOfSpells, string name)
@@ -122,7 +106,6 @@ public class SpectreConsoleUserInterface : IUserInterface
 		Console.WriteLine();
 		var DualOver = new Rule($" Dual over ");
 		var line = new Rule("");
-
 		var StandingsString = new System.Text.StringBuilder();
 		foreach (var Wizard in wizards)	{ StandingsString.Append($"/ [purple_2]{Wizard.Name}[/] - [yellow]{Wizard.WinCount}[/] /".ToString()); }
 		var Standings = new Rule($"{StandingsString.ToString()}");

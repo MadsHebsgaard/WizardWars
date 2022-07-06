@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using WizardWars.Lib;
 using System.Collections.Generic;
-
-
 namespace WizardWars.ConsoleApp;
 
 public static class Program
@@ -20,8 +18,6 @@ public static class Program
 		userInterface.DisplayWizardWars();
 		int MaxWizards;
 
-
-		
 		List<Wizard> wizards = new List<Wizard>(); //TODO: make all this a function
 		while (true)
 		{
@@ -35,7 +31,6 @@ public static class Program
         {
 			wizards.Add(GetWizard($"{wz+1}. Player", userInterface));
 		}
-
 		int numberOfSpells = 12;
 
 		while (true)
@@ -86,16 +81,12 @@ public static class Program
 
 				livingWizards = livingWizards.Where(x => x.Alive).ToList();
 				AliveCount = livingWizards.Count;
-
-
 				UpdateStats(WizardListOrdered);
-
 				wz1 = wz1 < AliveCount-1 ? wz1 + 1 : 0;
 			}
 			userInterface.DisplayWinText(wizards, turnNumber, maxTurns); //TODO: Fix this for n-player
 		}
 	}
-
 	private static void UpdateStats(List <Wizard> WizardList)
     {
 		double lvlBefore;
@@ -118,17 +109,14 @@ public static class Program
 			Wizard.Mana = Wizard.Mana < 0 ? 0 : Wizard.Mana;
 		}
 	}
-
 	private static T ReadFromJson<T>(string filename)
 	{
 		return JsonConvert.DeserializeObject<T>(File.ReadAllText(filename), _jsonSerializerSettings); //"Possible null reference return"
 	}
-
 	private static void TestEnviroment(Wizard wizard)
 	{
 		wizard.LVL = wizard.Name == "t1"|| wizard.Name == "t2" || wizard.Name == "t3" || wizard.Name == "t4" ? Wizard.MaxLVL : 1;
 	}
-
 	public static Wizard GetTarget(IUserInterface userInterface, List <Wizard> wizardList, Wizard self, TargetType targetType)
 	{
 			return targetType switch
@@ -138,11 +126,8 @@ public static class Program
 				TargetType.SelfOnly => self,
 				TargetType.AOE => self
 			};
-		
-
 		//return userInterface.UserPicksTarget(WizardList);
 	}
-
 	public static void ResetWizard(Wizard wizard)
     {
 		wizard.Health = wizard.MaxHealth;
@@ -150,7 +135,6 @@ public static class Program
 		wizard.Alive = true;
 		TestEnviroment(wizard);
 	}
-
 	public static Wizard GetWizard(string PlayerNumber, IUserInterface userInterface)
     {
 		userInterface.EnterPlayer(PlayerNumber);

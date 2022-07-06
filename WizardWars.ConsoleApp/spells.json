@@ -130,22 +130,6 @@
       }
     ]
   },
-  /*{
-    "Name": "Volcano",
-    "SpellType": "Damage",
-    "TargetType": "AOE",
-    "LVLRequired": 6,
-    "ManaCost": 50,
-    "TriggerPhase": 4,
-    "Effects": [
-      {
-        "$type": "WizardWars.Lib.Effects.RandomApplyEffect, WizardWars.Lib",
-        "SpellName": "Punch",
-        "DamageAmount": 50,
-        "Phase": 4
-      }
-    ]
-  },*/
   {
     "Name": "Power Nova",
     "SpellType": "Damage",
