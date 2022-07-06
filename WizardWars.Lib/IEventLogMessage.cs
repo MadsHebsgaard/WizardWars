@@ -6,7 +6,7 @@ public interface IEventLogMessage
 
 public record SpaceLogMessage() : IEventLogMessage;
 
-public record SpellCastLogMessage (string Source, string Target, string SpellName, int ManaCost, int HealthCost) : IEventLogMessage;
+public record SpellCastLogMessage (string Source, string Target, TargetType TargetType, string SpellName, int ManaCost, int HealthCost) : IEventLogMessage;
 
 public record DamageEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
 
@@ -37,6 +37,8 @@ public record SelfDamageEventLogMessage(string Source, string SpellName, int Amo
 public record AreaRestoreManaEventLogMessage(string Source, string SpellName, int Amount) : IEventLogMessage;
 
 public record AreaHealEventLogMessage(string Source, string SpellName, int Amount) : IEventLogMessage;
+
+public record AreaDamageEventLogMessage(string Source, string SpellName, bool WithSelf, int Amount) : IEventLogMessage;
 
 public record SelfHealEventLogMessage(string Source, string SpellName, int Amount) : IEventLogMessage;
 

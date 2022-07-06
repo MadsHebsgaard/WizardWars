@@ -11,7 +11,7 @@ public class DamageEffect : Effect
         {
 
 			int BlockAmount = 0;
-			if (playerSpell.Target.Resistance != 0)
+			if (playerSpell.Target.Resistance != 0 && DamageAmount > 0)
 			{
 				BlockAmount = Convert.ToInt32(DamageAmount * playerSpell.Target.Resistance);
 				turn.AddLogMessage(new BlockEventLogMessage(

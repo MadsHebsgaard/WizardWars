@@ -159,9 +159,10 @@ public class SpectreConsoleUserInterface : IUserInterface
 			{
 				case SpellCastLogMessage spellEvent:
 				{
-					AnsiConsole.Markup(
-						$" [purple_2]{spellEvent.Source}[/] casts [yellow]{spellEvent.SpellName}[/] on [purple_2]{spellEvent.Target}[/] ");
-					if (spellEvent.HealthCost > 0 && spellEvent.ManaCost > 0)
+						AnsiConsole.Markup($" [purple_2]{spellEvent.Source}[/] casts [yellow]{spellEvent.SpellName}[/] ");
+						if (spellEvent.TargetType != TargetType.AOE) { AnsiConsole.Markup($"on [purple_2]{spellEvent.Target}[/] "); }
+							
+						if (spellEvent.HealthCost > 0 && spellEvent.ManaCost > 0)
 					{
 						AnsiConsole.MarkupLine(
 							$"for [green]{spellEvent.HealthCost} health[/] and [blue]{spellEvent.ManaCost} mana[/].");
@@ -245,7 +246,12 @@ public class SpectreConsoleUserInterface : IUserInterface
 					break;
 				case AreaHealEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [purple_2]every wizard[/] for [green]{spellEvent.Amount} health[/].");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] heals [purple_2]every wizard[/] for up to [green]{spellEvent.Amount} health[/].");
+					break;
+				case AreaDamageEventLogMessage spellEvent:
+					AnsiConsole.Markup($" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [purple_2]every [/]");
+					if(!spellEvent.WithSelf) { AnsiConsole.Markup($"[purple_2]other [/]"); }
+					AnsiConsole.MarkupLine($"[purple_2]wizard[/] up to [red]{spellEvent.Amount} damage[/].");
 					break;
 				case RemoveManaEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(

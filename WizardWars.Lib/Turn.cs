@@ -23,7 +23,7 @@ public class Turn
 		AliveCount = 0;
 		foreach(var SpellTarget in PlayerSpellList)
         {
-			AddLogMessage(new SpellCastLogMessage(SpellTarget.Caster.Name, SpellTarget.Target.Name, SpellTarget.Spell.Name, SpellTarget.Spell.ManaCost, SpellTarget.Spell.HealthCost));
+			AddLogMessage(new SpellCastLogMessage(SpellTarget.Caster.Name, SpellTarget.Target.Name, SpellTarget.Spell.TargetType, SpellTarget.Spell.Name, SpellTarget.Spell.ManaCost, SpellTarget.Spell.HealthCost));
 			SpellTarget.Caster.Mana -= SpellTarget.Spell.ManaCost;
 			SpellTarget.Caster.Health -= SpellTarget.Spell.HealthCost;
 			AliveCount++;
