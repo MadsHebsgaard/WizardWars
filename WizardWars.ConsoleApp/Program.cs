@@ -84,7 +84,7 @@ public static class Program
 				UpdateStats(WizardListOrdered);
 				wz1 = wz1 < AliveCount-1 ? wz1 + 1 : 0;
 			}
-			userInterface.DisplayWinText(wizards, turnNumber, maxTurns); //TODO: Fix this for n-player
+			userInterface.DisplayWinText(wizards, turnNumber, maxTurns);
 		}
 	}
 	private static void UpdateStats(List <Wizard> WizardList)
