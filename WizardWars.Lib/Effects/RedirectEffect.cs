@@ -15,15 +15,16 @@ public class RedirectEffect : Effect
                 if (SpellTarget.Spell.TriggerPhase > playerSpell.Spell.TriggerPhase && SpellTarget.Spell.TriggerPhase <= playerSpell.Spell.StopPhase
                 || SpellTarget.Spell.TriggerPhase == playerSpell.Spell.TriggerPhase && turn.PlayerSpellList.IndexOf(playerSpell) < turn.PlayerSpellList.IndexOf(SpellTarget))
                 {
-                    //if (SpellTarget.Spell.TargetType!=AOE)
+                   if (SpellTarget.Spell.TargetType!=TargetType.AOE)
+                   {
+                        redirect = true;
+                        SpellTarget.Target = SpellTarget.Caster;
 
-                    redirect = true;
-                    SpellTarget.Target = SpellTarget.Caster;
-
-                    turn.AddLogMessage(new RedirectEventLogMessage(
-                        playerSpell.Caster.Name,
-                        SpellTarget.Caster.Name,
-                        SpellTarget.Spell.Name));
+                        turn.AddLogMessage(new RedirectEventLogMessage(
+                            playerSpell.Caster.Name,
+                            SpellTarget.Caster.Name,
+                            SpellTarget.Spell.Name));
+                   }
                 }
             }
         }

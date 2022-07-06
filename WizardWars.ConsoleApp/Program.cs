@@ -74,7 +74,7 @@ public static class Program
 				foreach (var Wizard in WizardListOrdered)
                 {
                     SpellTurn[i] = userInterface.UserPicksSpell(Wizard, Wizard.Spellbook.Where(x => x.ManaCost < Wizard.Mana && x.HealthCost < Wizard.Health && x.LVLRequired <= Wizard.LVL).ToList());
-                    TargetTurn[i] = GetTarget(userInterface, livingWizards);
+                    TargetTurn[i] = GetTarget(userInterface, livingWizards, Wizard, SpellTurn[i].TargetType);
                     SpellTargetTurn[i] = new SpellTarget(Wizard, SpellTurn[i], TargetTurn[i]);
 					i++;
 				}
@@ -129,9 +129,18 @@ public static class Program
 		wizard.LVL = wizard.Name == "t1"|| wizard.Name == "t2" || wizard.Name == "t3" || wizard.Name == "t4" ? Wizard.MaxLVL : 1;
 	}
 
-	public static Wizard GetTarget(IUserInterface userInterface, List <Wizard> WizardList)
+	public static Wizard GetTarget(IUserInterface userInterface, List <Wizard> wizardList, Wizard self, TargetType targetType)
 	{
-		return userInterface.UserPicksTarget(WizardList);
+			return targetType switch
+			{
+				TargetType.Select => userInterface.UserPicksTarget(wizardList),
+				TargetType.EnemyOnly => userInterface.UserPicksTarget(wizardList.Where(x => x != self).ToList()),
+				TargetType.SelfOnly => self,
+				TargetType.AOE => self
+			};
+		
+
+		//return userInterface.UserPicksTarget(WizardList);
 	}
 
 	public static void ResetWizard(Wizard wizard)
