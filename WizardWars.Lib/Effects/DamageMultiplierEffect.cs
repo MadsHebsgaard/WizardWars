@@ -10,7 +10,7 @@ public class DamageMultiplierEffect : Effect
 		turn.AddLogMessage(new DamageMultiplierEventLogMessage(
 			playerSpell.Caster.Name,
 			playerSpell.Spell.Name,
-			DamageMultiplierAmount,
-			playerSpell.Caster.DamageMultiplier));
+			playerSpell.Caster.DamageMultiplier-playerSpell.Caster.DamageMultiplier/DamageMultiplierAmount,
+			playerSpell.Caster.DamageMultiplier-1));
 	}
 }

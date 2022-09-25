@@ -262,7 +262,7 @@ public class SpectreConsoleUserInterface : IUserInterface
 					break;
 				case DamageMultiplierEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants him [darkred]{Math.Round((spellEvent.TotalAmount-1)*100,2)}% bonus damage[/] up to a total of [darkred]{Math.Round((spellEvent.TotalAmount-1)*100,2)}% bonus damage[/].");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants him [darkred]{Math.Round((spellEvent.Amount)*100,2)}% bonus base damage[/] up to a total of [darkred]{Math.Round((spellEvent.TotalAmount)*100,2)}% bonus base damage[/].");
 					break;
 			}
 		}
