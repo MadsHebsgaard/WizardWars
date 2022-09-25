@@ -171,6 +171,10 @@ public class SpectreConsoleUserInterface : IUserInterface
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] deals [red]{spellEvent.Amount} damage[/] to [purple_2]{spellEvent.Target}[/].");
 					break;
+				case ExecuteEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine(
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] [bold]executes[/] [purple_2]{spellEvent.Target}[/]!");
+					break;
 				case DeathEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Killer}[/] kills [purple_2]{spellEvent.Victim}[/] with [yellow]{spellEvent.SpellName}[/].");
@@ -252,9 +256,13 @@ public class SpectreConsoleUserInterface : IUserInterface
 					AnsiConsole.MarkupLine(
 						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants him [purple_2]{spellEvent.Amount} LVL[/].");
 					break;
-				case SelfResistanceEventLogMessage spellEvent:
+				case ResistanceEventLogMessage spellEvent:
 					AnsiConsole.MarkupLine(
-						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants him [darkgreen]{spellEvent.Amount*100}% resistance[/].");
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants [darkgreen]{spellEvent.Amount*100}% resistance[/] to [purple_2]{spellEvent.Target}[/].");
+					break;
+				case DamageMultiplierEventLogMessage spellEvent:
+					AnsiConsole.MarkupLine(
+						$" [purple_2]{spellEvent.Source}[/]'s [yellow]{spellEvent.SpellName}[/] grants him [darkred]{Math.Round((spellEvent.TotalAmount-1)*100,2)}% bonus damage[/] up to a total of [darkred]{Math.Round((spellEvent.TotalAmount-1)*100,2)}% bonus damage[/].");
 					break;
 			}
 		}

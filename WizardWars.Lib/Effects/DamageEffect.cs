@@ -21,7 +21,8 @@ public class DamageEffect : Effect
 					BlockAmount));
 			}
 			int DamageTaken = TrueDamageAmount + DamageAmount - BlockAmount;
-
+	        DamageTaken = Convert.ToInt32(DamageTaken * playerSpell.Caster.DamageMultiplier);
+			DamageTaken = Math.Min(DamageTaken, playerSpell.Target.Health);
 			playerSpell.Target.Health -= DamageTaken;
 
 			turn.AddLogMessage(new DamageEventLogMessage(

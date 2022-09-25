@@ -28,18 +28,23 @@
       }
     ]
   },
+  
   {
     "Name": "Bodyslam",
     "SpellType": "Damage",
     "TargetType": "EnemyOnly",
     "LVLRequired": 2,
     "ManaCost": 50,
-    "HealthCost": 5,
     "TriggerPhase": 5,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
         "DamageAmount": 40,
+        "Phase": 5
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.SelfDamageEffect, WizardWars.Lib",
+        "DamageAmount": 5,
         "Phase": 5
       }
     ]
@@ -131,16 +136,75 @@
     ]
   },
   {
+    "Name": "Fury Bomb",
+    "SpellType": "Damage",
+    "TargetType": "EnemyOnly",
+    "LVLRequired": 7,
+    "TriggerPhase": 2,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
+        "DamageAmount": 50,
+        "Phase": 2
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.SelfDamageEffect, WizardWars.Lib",
+        "DamageAmount": 50,
+        "Phase": 5
+      }
+    ]
+  },
+  {
     "Name": "Power Nova",
     "SpellType": "Damage",
     "TargetType": "AOE",
-    "LVLRequired": 8,
-    "ManaCost": 75,
-    "TriggerPhase": 5,
+    "LVLRequired": 7,
+    "ManaCost": 40,
+    "TriggerPhase": 2,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.AreaDamageEffect, WizardWars.Lib",
         "DamageAmount": 75,
+        "Phase": 2
+      }
+    ]
+  },
+  {
+    "Name": "Thunderstorm",
+    "SpellType": "Damage",
+    "TargetType": "AOE",
+    "LVLRequired": 8,
+    "ManaCost": 50,
+    "TriggerPhase": 2,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.AreaExecuteEffect, WizardWars.Lib",
+        "ExecuteAmount": 20,
+        "ManaBack": true,
+        "Phase": 1
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.AreaExecuteEffect, WizardWars.Lib",
+        "ExecuteAmount": 20,
+        "ManaBack": true,
+        "Phase": 2
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.AreaExecuteEffect, WizardWars.Lib",
+        "ExecuteAmount": 20,
+        "ManaBack": true,
+        "Phase": 3
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.AreaExecuteEffect, WizardWars.Lib",
+        "ExecuteAmount": 20,
+        "ManaBack": true,
+        "Phase": 4
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.AreaExecuteEffect, WizardWars.Lib",
+        "ExecuteAmount": 20,
+        "ManaBack": true,
         "Phase": 5
       }
     ]
@@ -177,34 +241,80 @@
     ]
   },
   {
-    "Name": "Fury Bomb",
-    "SpellType": "Damage",
-    "TargetType": "EnemyOnly",
-    "LVLRequired": 7,
-    "TriggerPhase": 2,
-    "Effects": [
-      {
-        "$type": "WizardWars.Lib.Effects.DamageEffect, WizardWars.Lib",
-        "DamageAmount": 50,
-        "Phase": 2
-      },
-      {
-        "$type": "WizardWars.Lib.Effects.SelfDamageEffect, WizardWars.Lib",
-        "DamageAmount": 50,
-        "Phase": 5
-      }
-    ]
-  },
-  {
     "Name": "Block",
     "SpellType": "Utility",
     "TargetType": "SelfOnly",
     "TriggerPhase": 0,
     "Effects": [
       {
-        "$type": "WizardWars.Lib.Effects.SelfResistanceEffect, WizardWars.Lib",
+        "$type": "WizardWars.Lib.Effects.ResistanceEffect, WizardWars.Lib",
         "ResistanceAmount": 0.6,
         "Phase": 0
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",
+        "LVLAmount": 0.2,
+        "Phase": 0
+      }
+    ]
+  },
+  {
+    "Name": "Stoneform",
+    "SpellType": "Utility",
+    "TargetType": "SelfOnly",
+    "LVLRequired": 3,
+    "ManaCost": 15,
+    "TriggerPhase": 0,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.ResistanceEffect, WizardWars.Lib",
+        "ResistanceAmount": 0.7,
+        "Phase": 0
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",
+        "LVLAmount": 0.3,
+        "Phase": 0
+      }
+    ]
+  },
+  {
+    "Name": "Ironform",
+    "SpellType": "Utility",
+    "TargetType": "SelfOnly",
+    "LVLRequired": 6,
+    "ManaCost": 15,
+    "TriggerPhase": 0,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.ResistanceEffect, WizardWars.Lib",
+        "ResistanceAmount": 0.8,
+        "Phase": 0
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.LVLEffect, WizardWars.Lib",
+        "LVLAmount": 0.4,
+        "Phase": 0
+      }
+    ]
+  },
+  {
+    "Name": "Diamondform",
+    "SpellType": "Utility",
+    "TargetType": "SelfOnly",
+    "LVLRequired": 9,
+    "ManaCost": 25,
+    "TriggerPhase": 0,
+    "Effects": [
+      {
+        "$type": "WizardWars.Lib.Effects.ResistanceEffect, WizardWars.Lib",
+        "ResistanceAmount": 0.90,
+        "Phase": 0
+      },
+      {
+        "$type": "WizardWars.Lib.Effects.DamageMultiplierEffect, WizardWars.Lib",
+        "Phase": 0,
+        "DamageMultiplierAmount": 1.07
       }
     ]
   },
@@ -232,7 +342,7 @@
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.CounterEffect, WizardWars.Lib",
-        "Phase": 1
+        "Phase": 0
       }
     ]
   },
@@ -242,6 +352,7 @@
     "TargetType": "EnemyOnly",
     "LVLRequired": 5,
     "ManaCost": 35,
+    "TriggerPhase": 3,
     "Effects": [
       {
         "$type": "WizardWars.Lib.Effects.CounterEffect, WizardWars.Lib",

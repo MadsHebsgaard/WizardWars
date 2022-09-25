@@ -19,7 +19,7 @@ public class LifeStealEffect : Effect
 				playerSpell.Spell.Name,
 				BlockAmount));
 		}
-		int DamageTaken = TrueDamageAmount + DamageAmount - BlockAmount;
+		int DamageTaken = Convert.ToInt32((TrueDamageAmount + DamageAmount - BlockAmount) * playerSpell.Caster.DamageMultiplier);
 		
 			DamageTaken = Math.Min(DamageTaken, playerSpell.Target.Health);
 		int HealthHealed = Math.Min(DamageTaken, playerSpell.Caster.MaxHealth-playerSpell.Caster.Health);

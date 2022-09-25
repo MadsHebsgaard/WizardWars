@@ -18,6 +18,8 @@ public class Wizard
 	public bool Alive { get; set; } = true;
 	public List<Spell> Spellbook { get; set; }
 
+	public double DamageMultiplier { get; set; } = 1;
+
 	public Wizard(string name)
 	{
 		Name = name;

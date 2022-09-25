@@ -2,9 +2,9 @@
 
 public class AreaDamageEffect : Effect
 {
-	private int DamageAmount { get; } = 0;
-	private int TrueDamageAmount { get; } = 0;
-	private bool WithSelf { get; } = true;
+	public int DamageAmount { get; set; }
+	public int TrueDamageAmount { get; set; }
+	public bool WithSelf { get; set;} = true;
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{
@@ -28,9 +28,8 @@ public class AreaDamageEffect : Effect
 						playerSpell.Spell.Name,
 						BlockAmount));
 				}
-				int DamageTaken = TrueDamageAmount + DamageAmount - BlockAmount;
+				int DamageTaken = Convert.ToInt32((TrueDamageAmount + DamageAmount - BlockAmount) * PlayerSpell.Caster.DamageMultiplier);
 				PlayerSpell.Caster.Health -= DamageTaken;
-
 				if (PlayerSpell.Caster.Health <= 0) //Dead wizard check
 				{
 					PlayerSpell.Caster.Health = 0;

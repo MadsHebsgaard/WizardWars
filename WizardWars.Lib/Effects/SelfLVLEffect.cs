@@ -2,7 +2,7 @@
 
 public class SelfLVLEffect : Effect
 {
-	public int LVLAmount { get; set; }
+	public double LVLAmount { get; set; }
 
 	public override void Apply(SpellTarget playerSpell, Turn turn)
 	{

@@ -10,6 +10,8 @@ public record SpellCastLogMessage (string Source, string Target, TargetType Targ
 
 public record DamageEventLogMessage(string Source, string Target, string SpellName, int Amount) : IEventLogMessage;
 
+public record ExecuteEventLogMessage(string Source, string Target, string SpellName) : IEventLogMessage;
+
 public record DeathEventLogMessage(string Killer, string Victim, string SpellName) : IEventLogMessage;
 
 public record TargetAlreadyDeadEventLogMessage(string Killer, string Victim, string SpellName) : IEventLogMessage;
@@ -50,7 +52,8 @@ public record LVLEventLogMessage(string Source, string Target, string SpellName,
 
 public record SelfLVLEventLogMessage(string Source, string SpellName, double Amount) : IEventLogMessage;
 
-public record SelfResistanceEventLogMessage(string Source, string SpellName, double Amount) : IEventLogMessage;
+public record ResistanceEventLogMessage(string Source, string Target, string SpellName, double Amount) : IEventLogMessage;
 
+public record DamageMultiplierEventLogMessage(string Source, string SpellName, double Amount, double TotalAmount) : IEventLogMessage;
 
 
